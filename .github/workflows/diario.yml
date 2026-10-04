@@ -1,0 +1,71 @@
+name: Noticias diarias
+
+on:
+  schedule:
+    - cron: "30 11 * * *"     # 11:30 UTC = 6:30 a. m. hora de Colombia
+  workflow_dispatch:           # botón "Run workflow" para ejecutarlo a mano
+
+permissions:
+  contents: write              # guardar historial (data/) y archivo (sitio/)
+  pages: write                 # publicar en GitHub Pages
+  id-token: write
+
+concurrency:
+  group: noticias-diarias      # nunca dos ejecuciones a la vez
+  cancel-in-progress: false
+
+jobs:
+  generar-y-publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.publicar.outputs.page_url }}
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+
+      - name: Preparar Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Generar la página
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GMAIL_USUARIO: ${{ secrets.GMAIL_USUARIO }}
+          GMAIL_CLAVE_APP: ${{ secrets.GMAIL_CLAVE_APP }}
+          CORREO_DESTINO: ${{ secrets.CORREO_DESTINO }}
+        run: python generar.py
+
+      - name: Guardar historial, logs y archivo (commit diario)
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data sitio
+          if git diff --cached --quiet; then
+            echo "Sin cambios que guardar"
+          else
+            git commit -m "Edición del $(TZ=America/Bogota date +%F)"
+            git pull --rebase --autostash || (git rebase --abort; exit 1)
+            git push
+          fi
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Subir la página
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: sitio
+
+      - name: Publicar
+        id: publicar
+        uses: actions/deploy-pages@v5

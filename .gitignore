@@ -1,0 +1,15 @@
+# Claves y entornos locales (NUNCA subir claves)
+.env
+*.env
+secrets*
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Sistema
+.DS_Store
+Thumbs.db
+# Editor
+.vscode/
+.idea/

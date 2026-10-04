@@ -1,0 +1,464 @@
+# =====================================================================
+#  NOTICIAS DIARIAS - archivo de configuración
+#  ATENCIÓN: el repositorio es PÚBLICO. Todo lo que escribas aquí
+#  lo puede ver cualquier persona. No pongas datos personales ni claves.
+#  Para apagar algo cambia "activo: true" por "activo: false".
+# =====================================================================
+
+pagina:
+  titulo: "Noticias diarias"
+  zona_horaria: "America/Bogota"
+  dias_archivo: 7            # páginas anteriores que se conservan en /archivo
+  # Dirección pública de la página (se usa en Telegram y correo). Ej:
+  # https://TU-USUARIO.github.io/noticias-diarias/
+  url_publica: ""
+
+portada_imagen:
+  activo: true               # usa assets/portada.jpg si existe
+  archivo: "assets/portada.jpg"
+  color_respaldo: "#17203A"
+
+# ---------------------------------------------------------------------
+#  MODELO DE IA GRATUITO (Gemini, Google AI Studio)
+#  La clave va como secreto GEMINI_API_KEY en GitHub, NUNCA aquí.
+# ---------------------------------------------------------------------
+gemini:
+  activo: true
+  modelo: "gemini-2.5-flash"   # si falla, se busca el Flash más reciente disponible
+  max_candidatos: 160          # titulares enviados en el lote 1
+  reintentos: 3
+  pausa_segundos: 30           # espera ante límite de cuota
+
+# ---------------------------------------------------------------------
+#  SELECCIÓN: solo lo importante (puntaje de 1 a 10)
+#  Los máximos NO son metas: si pocas noticias superan el mínimo,
+#  la página trae menos.
+# ---------------------------------------------------------------------
+seleccion:
+  minimo_serias: 6
+  minimo_ocio: 5
+  minimo_local: 5
+  max_serias: 10
+  max_ocio: 7
+  max_local: 8
+  cupo_por_tema: 3           # máximo de noticias de un mismo tema
+  horas_maximas: 36          # ignora noticias más viejas que esto
+  similitud_duplicados: 0.55 # 0 a 1; más alto = solo elimina títulos casi idénticos
+  # Palabras de impacto (suben "consecuencias" en el modo de respaldo)
+  palabras_impacto: [ley, decreto, decisión, sentencia, fallo, tutela, reforma, sismo, terremoto, huracán, tsunami, erupción, inundación, emergencia, ataque, guerra, bombardeo, cese al fuego, elecciones, renuncia, captura, condena, imputación, masacre, tasa de interés, inflación, desempleo, aranceles, sanciones, acuerdo, crisis, apagón, racionamiento, alerta roja, vulnerabilidad, hackeo, filtración de datos, epidemia, brote, vacuna]
+  # Titulares con estas palabras nunca entran (loterías, horóscopos, etc.)
+  palabras_descartar: [lotería, resultados del chance, horóscopo, horoscopo, "signo zodiacal", "receta de", "cómo ver en vivo", "dónde ver", "en vivo y en directo", "minuto a minuto", "a qué hora juega", "pronóstico de apuestas", "cuotas de apuestas", "ofertas del día"]
+
+# ---------------------------------------------------------------------
+#  FILTRO ANTI-SENSACIONALISMO (solo mira el titular, sin IA)
+#  Cada señal resta puntos; si la suma llega al límite, no entra.
+#  Fuentes con "filtro: flexible" solo descartan los ganchos claros.
+# ---------------------------------------------------------------------
+filtro_sensacionalismo:
+  activo: true
+  limite: 3
+  frases_gancho: ["no vas a creer", "no creerás", "lo que nadie te cuenta", "esto es lo que debes saber", "se filtró", "te sorprenderá", "no lo vas a creer", "quedó en shock", "dejó a todos", "nadie esperaba", "lo que pasó después", "así reaccionó", "explota en redes", "se volvió viral", "video viral", "la razón te sorprenderá", "mira lo que", "atención:", "urgente:", "última hora:"]
+  superlativos: [histórico, histórica, brutal, escandaloso, escandalosa, impactante, increíble, insólito, insólita, épico, épica, demoledor, demoledora, aterrador, aterradora, bochornoso, polémico]
+  inicios_sin_sujeto: ["así fue", "así es", "así quedó", "esto es", "este es", "esta es", "estos son", "lo que", "mira ", "conoce ", "descubre ", "entérate", "ojo con"]
+  siglas_permitidas: [NBA, WNBA, FMS, ONU, OTAN, EE.UU., EEUU, UE, FMI, DIAN, ELN, JEP, CNE, IA, AI, USGS, IDEAM, UNGRD, TRM, PIB, IPC, EPM, ESPN, FIFA, UEFA, CIA, FBI, OMS, OPS, OPEP, SGC, BCE, FED]
+  penalizaciones:
+    frase_gancho: 3
+    pregunta_retorica: 2
+    mayusculas_sostenidas: 2
+    exceso_exclamaciones: 2
+    superlativo: 1
+    sin_sujeto: 2
+
+# ---------------------------------------------------------------------
+#  FILTRO ANTI-PUBLICIDAD (siempre estricto, va antes de clasificar)
+#  Se revisa en título, etiquetas y dirección (URL).
+# ---------------------------------------------------------------------
+filtro_publicidad:
+  activo: true
+  frases: ["contenido patrocinado", "publirreportaje", "publicidad", "brand content", "sponsored", "advertorial", "con el apoyo de", "alianza comercial", "contenido-patrocinado", "brand-content", "patrocinado", "contenido de marca", "especial comercial"]
+  # Si aparece alguna de estas, la noticia entra con la etiqueta "Posible patrocinio"
+  frases_duda: ["en alianza con", "presentado por", "de la mano de", "promoción", "descuento", "cupón", "black friday", "compra ya", "oferta especial", "lanzamiento de la marca"]
+
+# ---------------------------------------------------------------------
+#  TEMAS. Cada uno: activo, peso (1.0 normal, más alto = más importante),
+#  color, palabras clave (modo de respaldo) y descripción (para la IA).
+#  "requiere": al menos una de esas palabras debe aparecer.
+#  "excluir": si aparece alguna, no es de ese tema.
+# ---------------------------------------------------------------------
+temas:
+  # ======================= NOTICIAS SERIAS =========================
+  seguridad:
+    nombre: "Seguridad"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#C62828"
+    descripcion: "crimen organizado, homicidios, grupos armados, terrorismo, Fuerza Pública"
+    palabras: [homicidio, asesinato, asesinado, masacre, secuestro, extorsión, narcotráfico, cartel, "clan del golfo", eln, disidencias, "grupo armado", sicario, atentado, terrorismo, policía, ejército, "fuerza pública", fiscalía, capturado, capturados, "fuerzas militares", explosivo, dron, minas antipersonal]
+  orden_publico:
+    nombre: "Orden público"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#E65100"
+    descripcion: "marchas, bloqueos, paros, disturbios, protestas, operativos"
+    palabras: [marcha, marchas, bloqueo, bloqueos, paro, "paro armado", "paro camionero", disturbios, protesta, protestas, manifestación, manifestantes, asonada, "toque de queda", operativo, "orden público", esmad, undmo, "consejo de seguridad", "ley seca"]
+  economia:
+    nombre: "Economía"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#2E7D32"
+    descripcion: "economía colombiana y mundial: inflación, empleo, PIB, impuestos, presupuesto"
+    palabras: [economía, económico, inflación, desempleo, pib, impuestos, "reforma tributaria", dian, presupuesto, "salario mínimo", exportaciones, importaciones, aranceles, recesión, crecimiento, "banco de la república", minhacienda, "regla fiscal", déficit, deuda, empleo, pensiones]
+  inteligencia_artificial:
+    nombre: "Inteligencia artificial"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#6A1B9A"
+    descripcion: "inteligencia artificial: modelos, regulación, empresas de IA, impacto laboral"
+    palabras: ["inteligencia artificial", " ia ", "ia generativa", chatgpt, openai, gemini, anthropic, claude, "modelo de lenguaje", llm, deepmind, "machine learning", "aprendizaje automático", "artificial intelligence", " ai ", nvidia, copilot, "agentes de ia", deepseek, mistral, grok]
+  fenomenos_naturales:
+    nombre: "Fenómenos naturales"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#00838F"
+    descripcion: "sismos, volcanes, lluvias, inundaciones, huracanes, sequías, alertas del IDEAM/UNGRD/SGC"
+    palabras: [sismo, temblor, terremoto, volcán, erupción, huracán, tormenta, ciclón, tsunami, inundación, inundaciones, deslizamiento, avalancha, "ola invernal", lluvias, sequía, "fenómeno de el niño", "la niña", ideam, ungrd, "servicio geológico", "gestión del riesgo", magnitud, earthquake, incendio forestal, "alerta roja"]
+  geopolitica:
+    nombre: "Geopolítica"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#1565C0"
+    descripcion: "relaciones internacionales, diplomacia, elecciones en otros países, cumbres, sanciones"
+    palabras: [diplomacia, diplomático, cancillería, canciller, embajada, embajador, sanciones, onu, otan, "unión europea", cumbre, "casa blanca", trump, putin, "xi jinping", kremlin, elecciones, "relaciones bilaterales", migración, migrantes, frontera, venezuela, maduro, "consejo de seguridad"]
+  guerras:
+    nombre: "Guerras"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#4E342E"
+    descripcion: "conflictos armados internacionales: Ucrania, Oriente Medio, otros frentes"
+    palabras: [guerra, ucrania, rusia, gaza, israel, hamás, hezbolá, irán, bombardeo, misil, misiles, ofensiva, "alto el fuego", "cese al fuego", invasión, tropas, frente, ataque aéreo, drones, kiev, "franja de gaza"]
+  justicia:
+    nombre: "Justicia"
+    grupo: serias
+    activo: true
+    peso: 1.3                  # peso extra
+    color: "#AD1457"
+    descripcion: "jurisprudencia y justicia: Corte Constitucional, Corte Suprema, Consejo de Estado, JEP, sentencias, cambios de normas, leyes y decretos"
+    palabras: ["corte constitucional", "corte suprema", "consejo de estado", jep, sentencia, fallo, tutela, jurisprudencia, magistrado, magistrada, decreto, "proyecto de ley", "ley ", juez, jueza, "tribunal", demanda, inexequible, exequible, condena, condenado, imputación, "fiscal general", "nueva norma", resolución, "código", "acción popular", "comisión de acusaciones"]
+  mercados:
+    nombre: "Mercados"
+    grupo: serias
+    activo: true
+    peso: 1.1
+    color: "#00695C"
+    descripcion: "mercados e inversión: bolsa, dólar, tasas de interés, petróleo, acciones, bonos, criptomonedas"
+    palabras: [bolsa, acciones, dólar, "tasa de cambio", trm, "tasas de interés", "tasa de interés", petróleo, brent, wti, opep, "wall street", "s&p 500", nasdaq, colcap, "msci colcap", bonos, tes, inversión, inversionistas, "reserva federal", fed, ecopetrol, bitcoin, oro, "renta fija", dividendos, mercados]
+  politica:
+    nombre: "Política nacional"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#283593"
+    descripcion: "política colombiana: Gobierno, Congreso, partidos, elecciones en Colombia"
+    palabras: [congreso, senado, cámara, "presidente", gobierno, ministro, ministra, petro, "de la espriella", elecciones, campaña, partido, registraduría, cne, gabinete, "consulta popular", "casa de nariño", "plan de desarrollo", oposición, gobernador, alcalde, "reforma"]
+    solo_colombia: true        # noticias de otros países van a Geopolítica
+  ciberseguridad:
+    nombre: "Ciberseguridad"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#37474F"
+    descripcion: "ciberataques, vulnerabilidades, filtraciones de datos, ransomware, fraudes digitales"
+    palabras: [ciberataque, hackeo, hacker, hackers, ransomware, malware, vulnerabilidad, "filtración de datos", phishing, ciberseguridad, "fuga de datos", exploit, "día cero", "zero-day", breach, cve, botnet, "robo de datos", ciberdelincuentes, cybersecurity, "data breach"]
+  energia:
+    nombre: "Energía"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#F9A825"
+    descripcion: "energía: electricidad, gas, tarifas, renovables, minería e hidrocarburos"
+    palabras: [energía, eléctrica, electricidad, gas, tarifas, "energías renovables", solar, eólica, hidroeléctrica, embalses, apagón, racionamiento, creg, afinia, air-e, enel, isagen, "transición energética", hidrocarburos, fracking, gasolina, acpm, oil, "natural gas", lng]
+  salud:
+    nombre: "Salud pública"
+    grupo: serias
+    activo: true
+    peso: 1.0
+    color: "#D81B60"
+    descripcion: "salud pública: EPS, sistema de salud, epidemias, vacunación, medicamentos"
+    palabras: [salud, eps, "nueva eps", supersalud, minsalud, epidemia, pandemia, brote, vacuna, vacunación, dengue, hospital, hospitales, medicamentos, "reforma a la salud", oms, ops, "virus", "sarampión", who]
+  tecnologia:
+    nombre: "Tecnología"
+    grupo: serias
+    activo: true
+    peso: 0.9
+    color: "#0277BD"
+    descripcion: "tecnología (solo lo que NO sea inteligencia artificial ni ciberseguridad): móviles, internet, empresas tecnológicas, espacio"
+    palabras: [tecnología, apple, google, microsoft, samsung, android, iphone, smartphone, internet, "redes sociales", meta, tiktok, chips, semiconductores, satélite, nasa, spacex, software, 5g, telecomunicaciones]
+  contratacion:
+    nombre: "Contratación pública y control"
+    grupo: serias
+    activo: false              # apagado: cambia a true para reencenderlo
+    peso: 1.0
+    color: "#5D4037"
+    descripcion: "contratación pública y entes de control: Procuraduría, Contraloría, Colombia Compra Eficiente, licitaciones"
+    palabras: [procuraduría, contraloría, "colombia compra eficiente", secop, licitación, contrato, contratación, "hallazgo fiscal", "detrimento patrimonial", sanción disciplinaria, "veeduría"]
+
+  # ============================== OCIO ==============================
+  anime:
+    nombre: "Anime"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#EC407A"
+    descripcion: "anime: estrenos, nuevas temporadas, anuncios de la industria, estudios"
+    palabras: [anime, manga, temporada, "season", crunchyroll, "estudio", tráiler, estreno, "one piece", "attack on titan", "demon slayer", "kimetsu", "jujutsu", "chainsaw man", "dragon ball", "my hero academia", "light novel", otaku, "toei", "mappa", "ufotable"]
+    palabras_impacto: [estreno, "nueva temporada", "segunda temporada", "tercera temporada", anuncia, anuncio, película, adaptación, "fecha de estreno", tráiler, "season", announced, "anime adaptation", premiere]
+  futbol:
+    nombre: "Fútbol"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#43A047"
+    descripcion: "fútbol: SOLO Liga BetPlay (Colombia), Selección Colombia y Champions League"
+    palabras: ["liga betplay", "selección colombia", "champions league", "liga de campeones", "tricolor", "néstor lorenzo", "james rodríguez", "luis díaz", nacional, millonarios, "américa de cali", "junior", "santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares", "uefa", "dimayor"]
+    requiere: ["liga betplay", "betplay", "selección colombia", "selección de colombia", "champions", "liga de campeones", "tricolor", "lorenzo", "dimayor", "atlético nacional", millonarios, "américa de cali", "junior de barranquilla", "independiente santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares de córdoba", "uefa"]
+    excluir: ["femenino sub", "fútbol sala", "futsal"]
+    palabras_impacto: [final, clasificación, clasificó, campeón, eliminado, convocatoria, convocados, lesión, fichaje, derrota, victoria, semifinal, cuartos de final, "líder", goleada, "director técnico", destituido]
+  baloncesto:
+    nombre: "Básquet"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#FB8C00"
+    descripcion: "baloncesto: SOLO NBA y WNBA (masculino y femenino)"
+    palabras: [nba, wnba, lakers, celtics, warriors, knicks, "liberty", "aces", "valkyries", "lebron", "curry", "wembanyama", "jokic", "playoffs", draft, "caitlin clark", "a'ja wilson", "fever"]
+    requiere: [nba, wnba]
+    excluir: [euroliga, euroleague, acb, ncaa, "liga endesa", fiba, "baloncesto colombiano"]
+    palabras_impacto: [final, finals, playoffs, campeón, champion, trade, traspaso, lesión, injury, récord, record, semifinal, semifinals, mvp, "game 1", "game 2", "game 3", "game 4", "game 5", contrato, firma, signs]
+  freestyle:
+    nombre: "Freestyle"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#8E24AA"
+    descripcion: "freestyle rap: FMS, Red Bull Batalla y la escena de batallas de gallos"
+    palabras: [freestyle, fms, "red bull batalla", "batalla de gallos", gallos, rap, "urban roosters", "freestyle master series", "god level", chuty, aczino, gazir, "skone", "mecha", "bnet", "mnak"]
+    requiere: [freestyle, fms, "red bull batalla", "batalla de gallos", gallos, "urban roosters", "batalla"]
+    palabras_impacto: [final, semifinal, campeón, campeona, "red bull batalla", fms, internacional, nacional, "world cup", mundial, jornada, "world series"]
+  historia_antigua:
+    nombre: "Historia antigua"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#8D6E63"
+    descripcion: "historia antigua: Roma, Egipto, Grecia, Mesopotamia, Persia, Cartago, mayas, aztecas, incas; hallazgos arqueológicos, excavaciones, estudios, museos. Excluir pseudociencia."
+    palabras: [arqueología, arqueológico, arqueólogos, excavación, hallazgo, yacimiento, roma, romano, romana, egipto, egipcio, faraón, grecia, griego, mesopotamia, babilonia, persia, persa, cartago, maya, mayas, azteca, aztecas, mexica, inca, incas, momia, tumba, necrópolis, "edad de bronce", museo, ancient, archaeolog, roman, egypt, greek, tomb, excavation, pharaoh, etrusco, etruscan]
+    excluir: [alien, aliens, extraterrestre, extraterrestres, ovni, ovnis, anunnaki, atlántida, atlantis, "civilización perdida", gigantes, "antiguos astronautas", nibiru, "ancient aliens"]
+    palabras_impacto: [hallazgo, descubren, descubrimiento, descubierto, excavación, revela, tumba, estudio, adn, inscripción, papiro, mosaico, discovered, discovery, reveals, unearthed, study, dna]
+
+# ---------------------------------------------------------------------
+#  FUENTES (nacionales e internacionales). Las locales están en "local".
+#  alcance: nacional | internacional
+#  filtro: estricto (por defecto) | flexible
+#  oficial: true si es entidad oficial (suma confirmación)
+#  temas: pista opcional de temas de esa fuente
+#  tipo: rss (por defecto) | sitemap (sitemap de noticias de Google)
+#  Todas verificadas el 2026-10-03.
+# ---------------------------------------------------------------------
+fuentes:
+  # ---------- Internacionales ----------
+  - {nombre: "BBC Mundo", url: "https://feeds.bbci.co.uk/mundo/rss.xml", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "DW Español", url: "https://rss.dw.com/rdf/rss-sp-all", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "France 24", url: "https://www.france24.com/es/rss", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "El País Internacional", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "El País América", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/america/portada", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "El País Economía", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/economia/portada", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "Europa Press", url: "https://www.europapress.es/rss/rss.aspx?ch=00069", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "Noticias ONU", url: "https://news.un.org/feed/subscribe/es/news/all/rss.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true}
+  - {nombre: "USGS Sismos", url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.atom", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [fenomenos_naturales]}
+  - {nombre: "GDACS Alertas", url: "https://www.gdacs.org/xml/rss.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [fenomenos_naturales], solo_alertas: true}
+  - {nombre: "NOAA Huracanes", url: "https://www.nhc.noaa.gov/index-at.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [fenomenos_naturales]}
+  - {nombre: "OPS/PAHO", url: "https://www.paho.org/es/rss.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [salud]}
+  - {nombre: "Investing.com", url: "https://es.investing.com/rss/news.rss", alcance: internacional, filtro: estricto, activo: true, temas: [mercados]}
+  - {nombre: "Expansión Mercados", url: "https://e00-expansion.uecdn.es/rss/mercados.xml", alcance: internacional, filtro: estricto, activo: true, temas: [mercados]}
+  - {nombre: "Bloomberg Línea", url: "https://www.bloomberglinea.com/arc/outboundfeeds/rss/?outputType=xml", alcance: internacional, filtro: estricto, activo: true, temas: [economia, mercados]}
+  - {nombre: "OilPrice", url: "https://oilprice.com/rss/main", alcance: internacional, filtro: estricto, activo: true, temas: [energia]}
+  - {nombre: "EIA Today in Energy", url: "https://www.eia.gov/rss/todayinenergy.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [energia]}
+  - {nombre: "pv magazine Latam", url: "https://www.pv-magazine-latam.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [energia]}
+  - {nombre: "Xataka", url: "https://feeds.weblogssl.com/xataka2", alcance: internacional, filtro: estricto, activo: true, temas: [tecnologia, inteligencia_artificial]}
+  - {nombre: "El País Tecnología", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada", alcance: internacional, filtro: estricto, activo: true, temas: [tecnologia]}
+  - {nombre: "MIT Technology Review", url: "https://www.technologyreview.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [inteligencia_artificial, tecnologia]}
+  - {nombre: "The Verge IA", url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", alcance: internacional, filtro: estricto, activo: true, temas: [inteligencia_artificial]}
+  - {nombre: "Una al Día (Hispasec)", url: "https://unaaldia.hispasec.com/feed", alcance: internacional, filtro: estricto, activo: true, temas: [ciberseguridad]}
+  - {nombre: "WeLiveSecurity", url: "https://www.welivesecurity.com/es/rss/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [ciberseguridad]}
+  - {nombre: "BleepingComputer", url: "https://www.bleepingcomputer.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [ciberseguridad]}
+  - {nombre: "The Hacker News", url: "https://feeds.feedburner.com/TheHackersNews", alcance: internacional, filtro: estricto, activo: true, temas: [ciberseguridad]}
+  # ---------- Nacionales (Colombia) ----------
+  - {nombre: "El Tiempo", url: "https://www.eltiempo.com/rss/colombia.xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "El Tiempo Justicia", url: "https://www.eltiempo.com/rss/justicia.xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "El Tiempo Política", url: "https://www.eltiempo.com/rss/politica.xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "El Tiempo Economía", url: "https://www.eltiempo.com/rss/economia.xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "El Tiempo Mundo", url: "https://www.eltiempo.com/rss/mundo.xml", alcance: internacional, filtro: estricto, activo: true}
+  - {nombre: "El Tiempo Deportes", url: "https://www.eltiempo.com/rss/deportes.xml", alcance: nacional, filtro: estricto, activo: true, temas: [futbol]}
+  - {nombre: "El Espectador", url: "https://www.elespectador.com/arc/outboundfeeds/discover/", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "Semana", url: "https://www.semana.com/arc/outboundfeeds/rss/?outputType=xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "Infobae Colombia", url: "https://www.infobae.com/arc/outboundfeeds/rss/category/colombia/?outputType=xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "La Silla Vacía", url: "https://www.lasillavacia.com/feed/", alcance: nacional, filtro: estricto, activo: true, temas: [politica]}
+  - {nombre: "Caracol Radio", url: "https://caracol.com.co/arc/outboundfeeds/rss/?outputType=xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "La República", url: "https://www.larepublica.co/rss/", alcance: nacional, filtro: estricto, activo: true, temas: [economia, mercados]}
+  - {nombre: "Portafolio", url: "https://www.portafolio.co/rss/economia.xml", alcance: nacional, filtro: estricto, activo: true, temas: [economia]}
+  - {nombre: "Valora Analitik", url: "https://www.valoraanalitik.com/feed/", alcance: nacional, filtro: estricto, activo: true, temas: [mercados, economia]}
+  - {nombre: "Asuntos Legales", url: "https://www.asuntoslegales.com.co/rss", alcance: nacional, filtro: estricto, activo: true, temas: [justicia]}
+  - {nombre: "El Colombiano", url: "https://www.elcolombiano.com/rss/colombia.xml", alcance: nacional, filtro: estricto, activo: true}
+  - {nombre: "El Colombiano Negocios", url: "https://www.elcolombiano.com/rss/negocios.xml", alcance: nacional, filtro: estricto, activo: true, temas: [economia]}
+  # Entidades oficiales sin RSS propio -> búsqueda en Google News
+  - {nombre: "Corte Constitucional (Google News)", url: "https://news.google.com/rss/search?q=%22Corte+Constitucional%22+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [justicia]}
+  - {nombre: "Consejo de Estado (Google News)", url: "https://news.google.com/rss/search?q=%22Consejo+de+Estado%22+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [justicia]}
+  - {nombre: "IDEAM / UNGRD / SGC (Google News)", url: "https://news.google.com/rss/search?q=IDEAM+OR+UNGRD+OR+%22Servicio+Geol%C3%B3gico+Colombiano%22+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [fenomenos_naturales]}
+  # Contratación pública y control (el tema está apagado; los feeds se conservan)
+  - {nombre: "Procuraduría / Contraloría (Google News)", url: "https://news.google.com/rss/search?q=Procuradur%C3%ADa+OR+Contralor%C3%ADa+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [contratacion]}
+  - {nombre: "Colombia Compra Eficiente (Google News)", url: "https://news.google.com/rss/search?q=%22Colombia+Compra+Eficiente%22+when:7d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [contratacion]}
+  # ---------- Ocio ----------
+  - {nombre: "Anime News Network", url: "https://www.animenewsnetwork.com/all/rss.xml?ann-edition=w", alcance: internacional, filtro: estricto, activo: true, temas: [anime]}
+  - {nombre: "Crunchyroll Noticias", url: "https://cr-news-api-service.prd.crunchyrollsvc.com/v1/es-ES/rss", alcance: internacional, filtro: estricto, activo: true, temas: [anime]}
+  - {nombre: "SomosKudasai", url: "https://somoskudasai.com/noticias/anime/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [anime]}
+  - {nombre: "Ramen Para Dos", url: "https://ramenparados.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [anime]}
+  - {nombre: "Liga BetPlay (Google News)", url: "https://news.google.com/rss/search?q=%22Liga+BetPlay%22+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [futbol]}
+  - {nombre: "Selección Colombia (Google News)", url: "https://news.google.com/rss/search?q=%22Selecci%C3%B3n+Colombia%22+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: nacional, filtro: estricto, activo: true, temas: [futbol]}
+  - {nombre: "Marca Champions", url: "https://e00-marca.uecdn.es/rss/futbol/champions-league.xml", alcance: internacional, filtro: estricto, activo: true, temas: [futbol]}
+  - {nombre: "ESPN NBA", url: "https://www.espn.com/espn/rss/nba/news", alcance: internacional, filtro: estricto, activo: true, temas: [baloncesto]}
+  - {nombre: "ESPN WNBA", url: "https://www.espn.com/espn/rss/wnba/news", alcance: internacional, filtro: estricto, activo: true, temas: [baloncesto]}
+  - {nombre: "Marca NBA", url: "https://e00-marca.uecdn.es/rss/baloncesto/nba.xml", alcance: internacional, filtro: estricto, activo: true, temas: [baloncesto]}
+  - {nombre: "Red Bull Batalla (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCRRtRg9N0R0WHZcyPZGiLKg", alcance: internacional, filtro: estricto, activo: true, temas: [freestyle]}
+  - {nombre: "Urban Roosters / FMS (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCvbTYgbzLcCginSC03fhmwg", alcance: internacional, filtro: estricto, activo: true, temas: [freestyle]}
+  - {nombre: "Freestyle (Google News)", url: "https://news.google.com/rss/search?q=%22Red+Bull+Batalla%22+OR+FMS+freestyle+when:3d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: internacional, filtro: estricto, activo: true, temas: [freestyle]}
+  - {nombre: "Archaeology Magazine", url: "https://www.archaeology.org/feed", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
+  - {nombre: "ScienceDaily Civilizaciones antiguas", url: "https://www.sciencedaily.com/rss/fossils_ruins/ancient_civilizations.xml", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
+  - {nombre: "Phys.org Arqueología", url: "https://phys.org/rss-feed/science-news/archaeology/", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
+  - {nombre: "La Brújula Verde", url: "https://www.labrujulaverde.com/feed", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
+  - {nombre: "The History Blog", url: "https://www.thehistoryblog.com/feed", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
+
+# ---------------------------------------------------------------------
+#  NOTICIAS LOCALES
+#  modo: "ciudad" | "zonas" | "personalizado"
+#  Los datos de los tres modos se guardan a la vez; solo se usa el elegido.
+# ---------------------------------------------------------------------
+local:
+  activo: true
+  modo: "zonas"
+  # --- modo "ciudad" ---
+  ciudad:
+    nombre: "Montería"          # EJEMPLO: reemplázalo por tu ciudad
+    departamento: "Córdoba"
+    busqueda_departamento: "Córdoba Colombia"
+  # --- modo "zonas" (en orden de prioridad) ---
+  zonas:
+    - nombre: "Córdoba"          # EJEMPLO: reemplázalo por tu zona
+      lugares: ["Montería", "Lorica"]
+      busqueda_departamento: "Córdoba Colombia"
+    - nombre: "Medellín"         # EJEMPLO: reemplázalo por tu zona
+      lugares: ["Medellín"]
+      busqueda_departamento: "Antioquia"
+  # --- modo "personalizado" ---
+  personalizado:
+    palabras_clave: ["Montería", "Lorica", "Alcaldía de Montería", "Gobernación de Córdoba", "Sinú"]   # EJEMPLO
+    feeds: []                  # ej: - {nombre: "Mi medio", url: "https://..."}
+  # Fuentes locales (se usan en todos los modos). Todas con filtro flexible.
+  fuentes:
+    - {nombre: "El Meridiano Córdoba", url: "https://elmeridiano.co/cordoba/sitemap-news.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true, excluir_rutas: ["/opinion/"]}
+    - {nombre: "El Meridiano Sucre", url: "https://elmeridiano.co/sucre/sitemap-news.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true, excluir_rutas: ["/opinion/"]}
+    - {nombre: "El Meridiano (Google News)", url: "https://news.google.com/rss/search?q=site:elmeridiano.co+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: local, filtro: flexible, activo: false}
+    - {nombre: "El Meridiano (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC8H6nfVV_plO1xuR6xLpyOw", alcance: local, filtro: flexible, activo: true}
+    - {nombre: "Q'hubo Medellín", url: "https://qhubomedellin.com/sitemapforgoogle.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true}
+    - {nombre: "La Razón (Córdoba)", url: "https://larazon.co/feed/", alcance: local, filtro: flexible, activo: true}
+    - {nombre: "El Colombiano Medellín", url: "https://www.elcolombiano.com/rss/medellin.xml", alcance: local, filtro: flexible, activo: true}
+    - {nombre: "El Colombiano Antioquia", url: "https://www.elcolombiano.com/rss/antioquia.xml", alcance: local, filtro: flexible, activo: true}
+    - {nombre: "Minuto30", url: "https://www.minuto30.com/feed/", alcance: local, filtro: flexible, activo: true}
+  buscar_en_google_news: true  # busca también noticias de los lugares de la zona/ciudad
+  # Categorías del bloque Local
+  categorias:
+    seguridad:
+      nombre: "Seguridad"
+      color: "#C62828"
+      peso: 1.2
+      palabras: [homicidio, asesinado, asesinato, sicario, sicarios, robo, hurto, capturado, capturados, policía, extorsión, balacera, ataque, muerto, muertos, cadáver, cuerpo, crimen, riña, herido, heridos, judicial, fiscalía, cárcel, condenado, secuestro, desaparecido, "a bala", disparos, "arma blanca", violencia, feminicidio]
+    orden_publico:
+      nombre: "Orden público"
+      color: "#E65100"
+      peso: 1.2
+      palabras: [marcha, bloqueo, bloqueos, paro, protesta, protestas, disturbios, asonada, manifestación, operativo, "toque de queda", "consejo de seguridad", "ley seca", desalojo, invasión]
+    movilidad_servicios:
+      nombre: "Movilidad y servicios"
+      color: "#1565C0"
+      peso: 1.0
+      palabras: [tránsito, movilidad, vía, vías, accidente, "pico y placa", trancón, transporte, metro, bus, buses, puente, aeropuerto, agua, acueducto, "corte de agua", energía, "corte de luz", luz, gas, afinia, epm, "servicios públicos", alcantarillado, basuras, aseo, racionamiento, tarifas, vuelo, ruta]
+    otros:
+      nombre: "Otros"
+      color: "#546E7A"
+      peso: 1.0
+      palabras: []
+  # Botones a perfiles de Instagram (el programa NO lee Instagram)
+  instagram:
+    - "https://www.instagram.com/elmeridiano.co"
+
+# ---------------------------------------------------------------------
+#  MEJORAS
+# ---------------------------------------------------------------------
+mejoras:
+  resumen:
+    activo: true             # resumen de 2 líneas con hechos
+  por_que_importa:
+    activo: true
+    perfil_lector: "un lector en Colombia interesado en justicia, economía e inversión"
+  palabras_vigiladas:
+    activo: false            # si se enciende, suben de importancia y llevan ⭐
+    bono: 2
+    lista: []
+  seguimiento:
+    activo: true             # "Seguimiento · día N"
+    dias_memoria: 14
+    similitud: 0.45
+  mercados:
+    activo: true
+    dolar: {activo: true, nombre: "Dólar (TRM)"}
+    brent: {activo: true, nombre: "Petróleo Brent", simbolo: "BZ=F"}
+    colcap: {activo: false, nombre: "MSCI Colcap (ETF iColcap)", simbolo: "ICOLCAP.CL"}
+    sp500: {activo: false, nombre: "S&P 500", simbolo: "^GSPC"}
+  agenda:
+    activo: true
+    liga_betplay: true
+    seleccion_colombia: true
+    champions: true
+    nba: true
+    wnba: true
+    anime: {activo: true, popularidad_minima: 20000, maximo: 6}
+    # Fechas de FMS, Red Bull Batalla u otros eventos sin fuente automática.
+    # Formato:  - {fecha: "2026-11-29", nombre: "Final Internacional Red Bull Batalla", categoria: "Freestyle", enlace: "https://..."}
+    eventos_manuales: []
+  contador_descartes:
+    activo: true
+
+# ---------------------------------------------------------------------
+#  VIDEOS E IMÁGENES
+# ---------------------------------------------------------------------
+medios:
+  videos: {activo: true}
+  miniaturas: {activo: true}
+  limite_segundos: 5         # tiempo máximo para leer cada página
+  descartar_imagenes_con: [logo, banner, placeholder, "/default.", "default-image", avatar, icon, sprite, pixel, img_share, "1x1", blank, spacer, "no-image", noimage, ".svg", ".gif"]
+  ancho_minimo: 200
+
+# ---------------------------------------------------------------------
+#  CANALES OPCIONALES (apagados). Necesitan secretos en GitHub.
+# ---------------------------------------------------------------------
+canales:
+  telegram:
+    activo: false            # secretos: TELEGRAM_BOT_TOKEN y TELEGRAM_CHAT_ID
+  correo:
+    activo: false            # secretos: GMAIL_USUARIO, GMAIL_CLAVE_APP y CORREO_DESTINO

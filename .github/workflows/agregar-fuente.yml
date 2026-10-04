@@ -1,0 +1,60 @@
+name: Agregar fuente
+
+on:
+  workflow_dispatch:
+    inputs:
+      link:
+        description: "Link del medio (página web, feed RSS, canal de YouTube o perfil de Instagram)"
+        required: true
+        type: string
+      alcance:
+        description: "Alcance"
+        required: true
+        type: choice
+        options: [nacional, internacional, local]
+        default: nacional
+      filtro:
+        description: "Filtro de sensacionalismo (flexible se recomienda para medios locales)"
+        required: true
+        type: choice
+        options: [estricto, flexible]
+        default: estricto
+
+permissions:
+  contents: write
+
+concurrency:
+  group: noticias-diarias
+  cancel-in-progress: false
+
+jobs:
+  agregar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Revisar y agregar la fuente
+        env:
+          LINK: ${{ inputs.link }}
+          ALCANCE: ${{ inputs.alcance }}
+          FILTRO: ${{ inputs.filtro }}
+        run: python agregar_fuente.py "$LINK" --alcance "$ALCANCE" --filtro "$FILTRO"
+      - name: Guardar el cambio en config.yaml
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config.yaml
+          if git diff --cached --quiet; then
+            echo "config.yaml no cambió"
+          else
+            git commit -m "Agregar fuente: $LINK"
+            git pull --rebase --autostash
+            git push
+          fi
+        env:
+          LINK: ${{ inputs.link }}
