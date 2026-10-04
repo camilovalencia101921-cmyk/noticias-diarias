@@ -1,27 +1,15 @@
 # Registro 2026-10-03
 
-Inicio 2026-10-03 23:35 (America/Bogota)
+Inicio 2026-10-03 23:52 (America/Bogota)
 Fuentes: 76 · con errores: 7 · titulares: 2611
-Recientes: 1586 (más viejas de 36 h: 1025)
-Candidatas tras filtros: 1114
-Gemini gemini-2.5-flash: modelo no disponible (HTTP 404)
-Modelos Flash disponibles: gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-2.5-flash, gemini-omni-1.1-flash
-Gemini lote 1 OK (modelo gemini-3.8-flash)
-Gemini gemini-3.8-flash: sin respuesta útil tras 4 intentos (HTTP 503: {
-  "error": {
-    "code": 503,
-    "message": "Th)
-Modelos Flash disponibles: gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-2.5-flash, gemini-omni-1.1-flash
-Gemini gemini-3.7-flash: sin respuesta útil tras 4 intentos (HTTP 503: {
-  "error": {
-    "code": 503,
-    "message": "Th)
-Gemini gemini-3.6-flash: sin respuesta útil tras 4 intentos (HTTP 503: {
-  "error": {
-    "code": 503,
-    "message": "Th)
-Lote 2 de Gemini falló (ningún modelo Flash respondió (gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash)); resúmenes por reglas
-Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
+Recientes: 1579 (más viejas de 36 h: 1032)
+Candidatas tras filtros: 1106
+Gemini gemini-3.8-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
+Modelos Flash disponibles: gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-2.5-flash, gemini-omni-1.1-flash, gemini-3-flash-preview, gemini-omni-flash-preview
+Gemini gemini-3.7-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
+Gemini gemini-3.6-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
+Gemini lote 1 OK (modelo gemini-3.5-flash)
+Página: 74 KB · 25 noticias · modo IA · llamadas a Gemini: 8
 
 ## Fuentes con problemas
 - ESPN NBA: HTTP 202
@@ -33,7 +21,7 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Urban Roosters / FMS (YouTube): HTTP 404
 
 ## Descartadas (nacional, internacional y ocio)
-### baja_importancia (803)
+### baja_importancia (748)
 - Semana | Autoridades de Emiratos Árabes aseguran que el copiloto del vuelo rumbo a Israel planeaba un “acto terrorista” | prefiltro 5/10
 - France 24 | Cheques de 5.000 dólares y un número personal filtrado: ¿un impulso electoral desesperado de Trump? | prefiltro 5/10
 - France 24 | ¿A quién apoya la "clase C" en Brasil? Los cambios en la intención de voto de la clase media | prefiltro 5/10
@@ -57,7 +45,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Xataka | Te duelen los dientes y cada vez tenemos más claro uno de los culpables: la contaminación del aire se infiltra | prefiltro 5/10
 - Xataka | En 1974, Francia necesitaba evitar que París volviera a inundarse. La solución fue tan sencilla como radical:  | prefiltro 5/10
 - Xataka | Nunca antes hemos tenido más herramientas IA para ser más productivos: lo difícil es encontrar la suite perfec | prefiltro 5/10
-- The Verge IA | Capcom is preparing for a ‘future where we create games together with AI’ | prefiltro 5/10
 - El Tiempo Justicia | Los duros testimonios de víctimas por los que la JEP llamó al último secretariado de las Farc a responder por  | prefiltro 5/10
 - El Tiempo Política | Lo que hay detrás de las fuertes peleas en la izquierda y la derecha a un año de las elecciones regionales | prefiltro 5/10
 - El Tiempo Política | María Fernanda Cabal oficializó ingreso al Partido Republicano, antes Liga de Gobernantes Anticorrupción, fund | prefiltro 5/10
@@ -93,17 +80,17 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - El Quindiano | Juego de tutela | prefiltro 5/10
 - Hoy Diario del Magdalena | Consejo de Estado niega demandas contra elección de la gobernadora Guerra | prefiltro 5/10
 - t.co | Consejo de Estado suspende de forma provisional el Decreto 234 de 2026 por exceso de potestad reglamentaria y  | prefiltro 5/10
-- entrevue.fr | Auchan: Se confirman casi 2.400 despidos tras la decisión del Consejo de Estado – Entrevista | prefiltro 5/10
 - cartagena.alerta.com.co | ¡Se cansaron de los apagones! Procuraduría le pone el ojo a los cortes de luz en el sur de Bolívar | prefiltro 5/10
 - larazon.co | Zuleta pide respetar decisión de la Procuraduría sobre Hospital San Nicolás de Planeta Rica | prefiltro 5/10
 - Anime News Network | Uncanny Counter Season 2 Live-Action Series Review | prefiltro 5/10
 - Anime News Network | The Elusive Samurai Season 2 ‒ Episode 12 | prefiltro 5/10
+- SomosKudasai | El isekai Dorei kara no Kitai to Hyoka no Sei de Sakushu Dekinai confirma su anime | prefiltro 5/10
 - Win Sports | América dejó por fuera de convocatoria ante Llaneros a una figura | prefiltro 5/10
 - ESPN Colombia | América Cali 1-0 Atl. Nacional (9 de Ago., 2026) Resultado Final - ESPN (CO) | prefiltro 5/10
 - deportesrcn.com | Cúcuta tomó contundente decisión con Jaime Peralta: ¿Qué pasÓ' | prefiltro 5/10
 - ESPN Deportes | Tolima 0-0 Chicó FC (3 de Oct., 2026) Estadísticas del equipo | prefiltro 5/10
-- Futbolred | Águilas Doradas Despliega sus Alas en el Cincuentenario: Victoria Agónica 2-0 ante Jaguares | prefiltro 5/10
 - deportesrcn.com | Barranquilla vs Millonarios definieron todo en penales; así fue la clasificación atlanticense en Copa BetPlay | prefiltro 5/10
+- Futbolred | Águilas Doradas Despliega sus Alas en el Cincuentenario: Victoria Agónica 2-0 ante Jaguares | prefiltro 5/10
 - Pulzo | Millonarios sumó un nuevo papelón: quedó eliminado de Copa BetPlay con el último de la B | prefiltro 5/10
 - Noticias Caracol | Internacional de Bogotá y la radical decisión: expulsó a dos jugadores del plantel | prefiltro 5/10
 - ESPN Colombia | Atl. Nacional 2-0 Águilas Doradas (13 de Sep., 2026) Resultado Final - ESPN (CO) | prefiltro 5/10
@@ -112,7 +99,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Federación Colombiana de Futbol | Convocatoria Selección Colombia Femenina de Mayores: fecha FIFA octubre 2026 | prefiltro 5/10
 - ESPN Colombia | Colombia vs. Paraguay: Conclusiones tras la derrota y una duda a resolver | prefiltro 5/10
 - Infobae | Carlos Antonio Vélez volvió a cargar contra Néstor Lorenzo por derrota de Colombia ante Paraguay: "Yo no defie | prefiltro 5/10
-- bolavip.com | Néstor Lorenzo fue duro contra este jugador tras perder ante Paraguay: “No tomó la mejor decisión…” | prefiltro 5/10
 - bolavip.com | Brighton va por el fichaje de este jugador colombiano para llevarlo a la Premier League | prefiltro 5/10
 - urbanstreet.com.pe | Torneo Clasificatorio de la Freestyle World Cup de Cuba | prefiltro 5/10
 - urbanstreet.com.pe | Cacha reaparece tras Red Bull: Batalla con Facu HDR | prefiltro 5/10
@@ -122,13 +108,12 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Phys.org Arqueología | Motivation matters more than working memory for improving student math skills, study finds | prefiltro 5/10
 - La Brújula Verde | Brillan sin tener una sola estrella: la Vía Láctea se formó a partir de un enjambre de miles de galaxias | prefiltro 5/10
 - La Brújula Verde | Los primeros humanos entraron en América en lo más crudo de la última Edad de Hielo | prefiltro 5/10
-- The History Blog | Norway’s largest hoard passes the 5,000 mark | prefiltro 5/10
 - BBC Mundo | Christa Pike está inconsciente y conectada a un respirador tras su fallida ejecución, según sus abogados | prefiltro 4/10
 - BBC Mundo | "He presenciado casi 500 ejecuciones, pero ninguna como la de Christa Pike" | prefiltro 4/10
+- DW Español | Filipinas arresta a más de 200 extranjeros en operativo contra estafas en internet | prefiltro 4/10
 - DW Español | Kim Jong-un supervisa lanzamiento de un misil estratégico que utiliza IA | prefiltro 4/10
 - DW Español | Estados Unidos busca avión ambulancia que se perdió frente a su costa Este | prefiltro 4/10
 - DW Español | Etiopía: tropas federales recuperan el aeropuerto de Mekele | prefiltro 4/10
-- DW Español | Rusia insta a diplomáticos a abandonar la capital de Ucrania | prefiltro 4/10
 - El País Internacional | Emiratos Árabes constata que el piloto del vuelo a Tel Aviv pretendía cometer una “acción terrorista” | prefiltro 4/10
 - El País Internacional | Brasil elige presidente bajo la sombra de Trump y su ofensiva para impulsar gobiernos conservadores | prefiltro 4/10
 - El País Internacional | Elecciones de medio mandato en Estados Unidos: siete batallas que definirán el futuro post-Trump | prefiltro 4/10
@@ -168,7 +153,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Xataka | Los suizos han puesto casi 5.000 paneles solares en una presa a 2.500 metros. Tienen una razón: el invierno | prefiltro 4/10
 - Xataka | Australia quiere celebrar el remo olímpico en un río con 100 cocodrilos. El verdadero miedo está bajo del agua | prefiltro 4/10
 - Xataka | Cómo la mayor cadena de bufés de EEUU ha descifrado las matemáticas del “todo lo que puedas comer”. El secreto | prefiltro 4/10
-- Xataka | Amazon llena Aragón de centros de datos, pero paga sus impuestos en Madrid: El Burgo de Ebro y Villanueva de G | prefiltro 4/10
 - Xataka | Andrés Bécares, responsable de un concesionario Ebro: "La gente ya no se hipoteca por un BMW, prefiere una com | prefiltro 4/10
 - Xataka | 17,3 billones de filas y usar "admin"como usuario: el agujero de Microsoft que descubrió un chaval de 16 años | prefiltro 4/10
 - Xataka | Si estás pensando dejarlo todo para irte a vivir a Japón, tenemos una mala noticia: ahora te va a salir mucho  | prefiltro 4/10
@@ -177,6 +161,7 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Xataka | Los castillos de España, en un llamativo mapa 3D con 132 fortalezas y sus maquetas | prefiltro 4/10
 - Xataka | Un streamer búlgaro de ajedrez se enfrentó por casualidad a Magnus Carlsen en una partida online. Acto seguido | prefiltro 4/10
 - Xataka | Inventó la cápsula Nespresso y Nestlé hizo miles de millones con ella. Su creador no cobró royalties ni se hiz | prefiltro 4/10
+- The Verge IA | Capcom is preparing for a ‘future where we create games together with AI’ | prefiltro 4/10
 - The Verge IA | Splice CEO Kakul Srivastava thinks AI emails are killing conversations | prefiltro 4/10
 - The Verge IA | An OpenAI safety employee has quit and is sounding the alarm | prefiltro 4/10
 - BleepingComputer | Google Gemini could soon get full access to your Mac’s files, apps and the web | prefiltro 4/10
@@ -184,68 +169,124 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - The Hacker News | MI5 Says China’s MSS Funded Research Involving 100+ U.K.-Linked Academics | prefiltro 4/10
 - The Hacker News | Warlock Exploits SharePoint Flaws to Disable Security Tools and Deploy Ransomware | prefiltro 4/10
 - The Hacker News | The State of Cybersecurity in 2026: Key Segments, Insights, and Innovations | prefiltro 4/10
-- … y 653 más
-### cupo_seccion (49)
-- El Tiempo Justicia | En la última década, sicarios dejaron al menos 75.000 víctimas en el país | 8/10
+- El Tiempo | En las entrañas del ARC Simón Bolívar, el buque que le sigue la pista al fenómeno de El Niño | prefiltro 4/10
+- El Tiempo | Casa por cárcel para mujer procesada por presunta trata de 4 jóvenes en Meta: les ofreció empleo y terminaron  | prefiltro 4/10
+- El Tiempo | Barranquilla entra en operación receso: 1.000 policías reforzarán la seguridad durante una semana de alta movi | prefiltro 4/10
+- … y 598 más
+### cupo_seccion (92)
+- El País Internacional | El asalto de Trump al Supremo de Estados Unidos entra en un año decisivo | 9/10
+- El País Internacional | Luis Har, exrehén israelí: “Si hubiese sido solo por nuestro Gobierno, aún habría secuestrados en Gaza” | 9/10
+- Infobae Colombia | Revés para el Gobierno de De la Espriella: aspersión con glufosinato de amonio no tiene visto bueno del Instit | 9/10
+- El Colombiano | Temblor de magnitud 5,3 cerca de Venezuela se sintió en Colombia: ¿dónde fue el epicentro? | 9/10
+- France 24 | Rusia insta a extranjeros y diplomáticos a abandonar Kiev en el tercer día de ataques contra puentes | 9/10
+- El País Internacional | Al menos cinco muertos por un ataque israelí en Ciudad de Gaza | 9/10
+- El Tiempo Justicia | Abelardo De La Espriella reportó la captura de dos integrantes del 'clan del Golfo' en un operativo del Ejérci | 9/10
+- El País América | Europa vuelve a perder la carrera bursátil contra EE UU, lastrada por la guerra y el retraso tecnológico | 9/10
+- El Tiempo Economía | Los debates que abrió la renuncia de Bruce Mac Master a la presidencia de la Andi | 9/10
+- France 24 | EAU concluye que el copiloto del vuelo de Flydubai intentó "un ataque terrorista" | 9/10
+- El País Internacional | Rusia ataca un barco de carga en Odesa tras el “no” de Putin a una tregua en el mar Negro | 9/10
+- El País América | Un ‘súper El Niño’ amenaza con redibujar el mapa mundial del hambre | 9/10
+- El Tiempo Justicia | En la última década, sicarios dejaron al menos 75.000 víctimas en el país | 9/10
+- El Colombiano | Destapan 147 terabytes de información y presuntas irregularidades en la DNI durante el gobierno Petro | 9/10
+- El Colombiano Negocios | Gobierno De la Espriella alarga el plazo de deuda por $19,8 billones: pagos irían hasta 2062 | 9/10
+- NOAA Huracanes | Atlantic Tropical Weather Outlook | 9/10
+- DW Español | Israel lanza ataque contra líder de Hamás en Gaza y causa cinco muertos | 9/10
+- El País Internacional | Francia acepta revelar a Italia lo que sabe del derribo de un avión en 1980, uno de los misterios de la Guerra | 8/10
+- El País Internacional | Ni Bolsonaro, ni Lula: Trump se reserva (de momento) su apoyo en las elecciones de Brasil | 8/10
+- El País Internacional | Flávio Bolsonaro pone a prueba la fidelidad del voto evangélico | 8/10
+- El País Internacional | Dividida entre el miedo y la expectativa, Sajonia-Anhalt espera al primer Gobierno de extrema derecha de Alema | 8/10
+- El País Internacional | A más de 100 pies de distancia y sin silbatos: activistas contra las redadas del ICE entrenan para afrontar su | 8/10
+- El País América | Thomas Piketty: “El futuro que nos están preparando los multimillonarios es distópico” | 8/10
+- El País América | Viaje a Ningde, la ciudad china convertida en capital mundial de las baterías para coches eléctricos | 8/10
+- El Colombiano | Identifican al soldado que murió tras ataque con drones explosivos en Neiva; otro uniformado quedó herido | 8/10
+- France 24 | Cierre de campañas de Lula y Bolsonaro de cara a las elecciones generales | 8/10
+- France 24 | Letonia: el partido pro-Ucrania del primer ministro Kulbergs se perfila ganador de las elecciones | 8/10
+- Investing.com | Australia: Chalmers culpa a la guerra EE.UU.-Irán por la mayor inflación | 8/10
+- El Tiempo Justicia | Golpe al Frente 44 de ‘Iván Mordisco’: cinco capturas por homicidios y ataques contra la Fuerza Pública | 8/10
+- El Tiempo Economía | Cuentas Claras / El empujón del Gobierno a la tasa de desempleo | 8/10
+- Infobae Colombia | Denuncian ataque con drones explosivos en Tibú, Norte de Santander: cuatro personas habrían resultado heridas, | 8/10
+- Infobae Colombia | Tras renunciar al Centro Democrático, María Fernanda Cabal ya tendría definido cuál sería su nuevo partido: ha | 8/10
+- El Colombiano | Río Caunapí se desbordó en Tumaco: “Ya la mayoría de las casas están inundadas” | 8/10
+- El Colombiano | Así rescataron a dos personas entre los escombros de casa afectada por el terremoto que colapsó en Pereira | 8/10
+- France 24 | Brasil llega a las urnas tras el cierre de las campañas de Lula y Bolsonaro | 8/10
+- France 24 | Trump insiste en dar 5.000 dólares a cada adulto si los republicanos ganan las 'midterms' | 8/10
+- France 24 | La Policía de París declara las protestas estudiantiles "fuera de control" | 8/10
+- France 24 | Yemen: se escuchan fuertes explosiones en la capital, Saná, controlada por los hutíes | 8/10
+- El País América | Elecciones en Brasil 2026 en vivo | La última encuesta da una victoria a Lula (45%) frente a Bolsonaro (42%) e | 8/10
+- Europa Press | La última encuesta da a Lula una ligera ventaja sobre Bolsonaro en víspera de las elecciones brasileñas | 8/10
+- Europa Press | La coalición del primer ministro letón se perfila como vencedora de las elecciones, según pie de urna | 8/10
+- Xataka | La guerra de drones de Ucrania acaba de superar una barrera insólita: drones persiguiendo a drones a velocidad | 8/10
+- El Tiempo Mundo | Benjamín Netanyahu habló con el piloto de FlyDubai que enfrentó el ataque terrorista y se revelaron nuevos det | 8/10
 - El Espectador | Gobierno llevará al Congreso COP 1,2 billones para contener la crisis financiera de Air-e | 8/10
+- El Espectador | Del ELN al Tren de Aragua: quiénes están en el Top 10 de los más buscados por el FBI | 8/10
+- Semana | Alerta en La Espriella, Nariño, por violenta inundación: “La situación va agravándose” | 8/10
 - Infobae Colombia | Capturan a sujetos que planeaban atentar contra la alcaldesa de Herveo, Tolima, y su familia: dos menores de e | 8/10
-- El Colombiano | Destapan 147 terabytes de información y presuntas irregularidades en la DNI durante el gobierno Petro | 8/10
-- elnorte.com.co | Fuertes lluvias llegarán al Caribe este fin de semana: estas son las zonas bajo alerta del Ideam | 7/10
-- France 24 | Rusia insta a diplomáticos y extranjeros a abandonar Ucrania en medio de ataques masivos | 7/10
-- El País Internacional | Brasil decide su futuro entre Lula y Bolsonaro, un estadista desgastado y el hijo de un ultra | 7/10
-- Infobae Colombia | Revés para el Gobierno de De la Espriella: aspersión con glufosinato de amonio no tiene visto bueno del Instit | 7/10
-- France 24 | Cierre de campañas de Lula y Bolsonaro de cara a las elecciones generales | 7/10
-- El Colombiano | Masacre en Cartagena: detalles del asesinato de cuatro jóvenes en una camioneta; investigan disputa entre band | 7/10
-- France 24 | Brasil llega a las urnas tras el cierre de las campañas de Lula y Bolsonaro | 7/10
-- El País América | Elecciones en Brasil 2026 en vivo | La última encuesta da una victoria a Lula (45%) frente a Bolsonaro (42%) e | 7/10
-- Europa Press | La última encuesta da a Lula una ligera ventaja sobre Bolsonaro en víspera de las elecciones brasileñas | 7/10
+- Infobae Colombia | Fondo Milagro anunciado por De la Espriella aún no arranca: crecen interrogantes sobre la millonada destinada  | 8/10
+- El Colombiano | “Nace un nuevo camino”: Cabal lanza el Partido Republicano que evoca al de EE. UU. hacia 2027 y 2030 | 8/10
+- DW Español | Ejército de Yemen ejecuta bombardeos contra hutíes en Saná | 8/10
+- USGS Sismos | M 4.2 - 6 km WNW of Wauna, Washington | 8/10
+- La República | “Estimamos que la reconstrucción de Caldas tras el terremoto costaría $4 billones” | 8/10
+- USGS Sismos | M 4.7 - 5 km NNE of Korumburra, Australia | 8/10
+- La República | Acción de First Quantum se resintió tras recomendarse cierre de mina en Panamá | 8/10
+- La República | Ventaja de Lula sobre Bolsonaro se reduce de cara a las elecciones de mañana en Brasil | 8/10
+- Infobae Colombia | María José Pizarro pidió que el sombrero de su padre sea declarado como patrimonio con una ley en el Congreso: | 7/10
+- El País Internacional | Svetlana Tijanóvskaya: “Si dejamos que Ucrania pierda la guerra, la pregunta será quién es el siguiente” | 7/10
+- El País Internacional | Brasil: entre lo peor y la catástrofe | 7/10
+- El País América | El apocalipsis laboral de la IA se pospone (por ahora) | 7/10
+- El País América | Aliko Dangote, el hombre más rico de África quiere una refinería para todos | 7/10
+- El Colombiano Negocios | ¿Va a viajar al exterior? Conozca las comisiones de su tarjeta de crédito antes de usarla | 7/10
+- Diario Correo | Arequipa: Contraloría desplegará 80 auditores para vigilar los locales de votación en las elecciones | 7/10
+- France 24 | Los hutíes afirman que atacaron una sede de Aramco tras culpar a Arabia Saudita de bombardeos en Saná | 7/10
+- France 24 | Miles se manifiestan en Madrid por la crisis de vivienda tras bloqueo a decretos del Gobierno | 7/10
+- El País Economía | La singularidad del ciclo de inflación y deuda | 7/10
+- BBC Mundo | En fotos: las multitudinarias protestas en España contra la crisis de la vivienda | 7/10
+- France 24 | Los hutíes afirman haber atacado las instalaciones de Aramco en Riad con misiles y drones | 7/10
+- Xataka | Mientras anuncia márgenes récord y más fábricas, el CEO de Micron avisa de la crisis de RAM: "Escaseará más en | 7/10
+- El Tiempo | Temblor en Colombia | Reportan sismo de magnitud 4,1 en Istmina, Chocó, en la noche del 3 de octubre: epicentr | 7/10
+- El Tiempo Justicia | El poder, los negocios y las amenazas alrededor de ‘Jhon Calzones’: las actividades que desarrollaba antes del | 7/10
+- El Tiempo Economía | Acudir al FMI no significa una economía en crisis: Colombia, Venezuela y Argentina llegan al Fondo por razones | 7/10
+- Infobae Colombia | Capturados tres hombres sorprendidos desmantelando un vehículo hurtado: vecinos se percataron y llamaron a la  | 7/10
+- El País Internacional | La disputa entre Lula y Trump marca las elecciones brasileñas | 7/10
+- Europa Press | La marcha orangista fracasa en su intento de desfilar en Portadown (Irlanda del Norte) en medio de la tensión  | 7/10
+- El Tiempo Justicia | La certeza de que el crimen no queda impune es clave para combatir la delincuencia | 7/10
+- El Tiempo Mundo | La inteligencia artificial va a redefinir la guerra y cuáles serán las potencias militares | 7/10
+- Semana | Presunto ladrón fue capturado en el centro comercial Diverplaza; comunidad lo golpeó | 7/10
 - Infobae Colombia | “Nos dijeron que había muerto”: el caso de un colombiano que viajó a Rusia y reapareció vivo en un video como  | 7/10
-- Infobae Colombia | Fondo Milagro anunciado por De la Espriella aún no arranca: crecen interrogantes sobre la millonada destinada  | 7/10
-- NOAA Huracanes | Atlantic Tropical Weather Outlook | 7/10
-- La República | “Estimamos que la reconstrucción de Caldas tras el terremoto costaría $4 billones” | 7/10
-- La República | Ventaja de Lula sobre Bolsonaro se reduce de cara a las elecciones de mañana en Brasil | 7/10
-- El Colombiano | Giro en el crimen de ‘Jhon Calzones’: investigación apunta a disidencias de ‘Iván Mordisco’ | 6/10
-- El Colombiano | “No tenemos nada que ocultar”: Fedearroz responde a MinAgricultura por revisión de recursos | 6/10
-- El Colombiano | Temblor de magnitud 5,3 cerca de Venezuela se sintió en Colombia: ¿dónde fue el epicentro? | 6/10
-- France 24 | Los hutíes afirman que atacaron una sede de Aramco tras culpar a Arabia Saudita de bombardeos en Saná | 6/10
-- France 24 | Miles se manifiestan en Madrid por la crisis de vivienda tras bloqueo a decretos del Gobierno | 6/10
-- France 24 | Rusia insta a extranjeros y diplomáticos a abandonar Kiev en el tercer día de ataques contra puentes | 6/10
-- El Colombiano | Identifican al soldado que murió tras ataque con drones explosivos en Neiva; otro uniformado quedó herido | 6/10
-- El País Internacional | Al menos cinco muertos por un ataque israelí en Ciudad de Gaza | 6/10
-- BBC Mundo | En fotos: las multitudinarias protestas en España contra la crisis de la vivienda | 6/10
-- France 24 | Los hutíes afirman haber atacado las instalaciones de Aramco en Riad con misiles y drones | 6/10
-- El País América | Europa vuelve a perder la carrera bursátil contra EE UU, lastrada por la guerra y el retraso tecnológico | 6/10
-- El Tiempo Justicia | El poder, los negocios y las amenazas alrededor de ‘Jhon Calzones’: las actividades que desarrollaba antes del | 6/10
-- El Tiempo Justicia | Golpe al Frente 44 de ‘Iván Mordisco’: cinco capturas por homicidios y ataques contra la Fuerza Pública | 6/10
-- El Tiempo Economía | Cuentas Claras / El empujón del Gobierno a la tasa de desempleo | 6/10
-- El Tiempo Economía | Acudir al FMI no significa una economía en crisis: Colombia, Venezuela y Argentina llegan al Fondo por razones | 6/10
-- El Tiempo Economía | Los debates que abrió la renuncia de Bruce Mac Master a la presidencia de la Andi | 6/10
-- El Colombiano | Río Caunapí se desbordó en Tumaco: “Ya la mayoría de las casas están inundadas” | 6/10
-- El Colombiano | Así rescataron a dos personas entre los escombros de casa afectada por el terremoto que colapsó en Pereira | 6/10
-- France 24 | Yemen: se escuchan fuertes explosiones en la capital, Saná, controlada por los hutíes | 6/10
-- Europa Press | La marcha orangista fracasa en su intento de desfilar en Portadown (Irlanda del Norte) en medio de la tensión  | 6/10
-- El Tiempo Mundo | Benjamín Netanyahu habló con el piloto de FlyDubai que enfrentó el ataque terrorista y se revelaron nuevos det | 6/10
-- El Espectador | Del ELN al Tren de Aragua: quiénes están en el Top 10 de los más buscados por el FBI | 6/10
+- La República | Petroecuador declaró una emergencia en la estación de bombeo del Sote por incendio | 7/10
+- DW Español | Hutíes reivindican ataque con misiles balísticos contra Arabia Saudita | 7/10
+- La República | Inflación en Perú sigue arriba del rango meta y se prevé subida de tasas | 7/10
+- La República | Crisis de vivienda moviliza a miles de personas en 50 ciudades de España | 7/10
+- Asuntos Legales | Empresas sólidas: son parte de la fórmula para proteger la vida, el trabajo y el sustento tras una emergencia | 7/10
+- BBC Mundo | "Mitbestimmung": cómo Alemania obliga a las grandes empresas a dar voz a los trabajadores en la toma de decisi | 6/10
+- El País América | La mayoría del PSOE y el Gobierno anima a Sánchez a convocar elecciones ya: “Ahora hay una oportunidad” | 6/10
+- El País América | A Sol no llega el fin del mundo | 6/10
+- El País Internacional | La tormenta que se formó en el celular de un banquero en Brasil | 6/10
+- El País Economía | El buen legado del decreto de vivienda | 6/10
+- Semana | Proyecto de ley busca declarar la Sierra Nevada de Santa Marta como Patrimonio Biocultural de la Nación | 6/10
+- Caracol Radio | Alcalde de Cali rechaza “politiquería” en manejo de escombros del terremoto | 6/10
 - Valora Analitik | Expectativas del mercado ante elecciones en Brasil: así está el panorama y las propuestas fiscales de Lula y B | 6/10
-- El Colombiano | “Nace un nuevo camino”: Cabal lanza el Partido Republicano que evoca al de EE. UU. hacia 2027 y 2030 | 6/10
-- El Colombiano Negocios | “Ruta Milagro”: inicia la recuperación de 3.500 negocios afectados por el terremoto | 6/10
-- DW Español | Ejército de Yemen ejecuta bombardeos contra hutíes en Saná | 6/10
-- DW Español | Israel lanza ataque contra líder de Hamás en Gaza y causa cinco muertos | 6/10
-- DW Español | Hutíes reivindican ataque con misiles balísticos contra Arabia Saudita | 6/10
-- La República | Inflación en Perú sigue arriba del rango meta y se prevé subida de tasas | 6/10
-- La República | Acción de First Quantum se resintió tras recomendarse cierre de mina en Panamá | 6/10
-- La República | Crisis de vivienda moviliza a miles de personas en 50 ciudades de España | 6/10
-### cupo_tema (10)
-- BBC Mundo | Renuncia el jefe de las prisiones de Tennessee tras el fallido intento de ejecutar a Christa Pike | 6/10
-- France 24 | El caso Christa Pike: ¿por qué su ejecución fallida agita el debate sobre la pena de muerte? | 6/10
-- El País Internacional | El asalto de Trump al Supremo de Estados Unidos entra en un año decisivo | 6/10
-- El Tiempo Justicia | Secretariado de las antiguas Farc pagan su sentencia por 21 mil secuestros en un cementerio de Pitalito, donde | 6/10
-- El Espectador | Decisión de ampliar el plazo de la ZUT en Putumayo seguiría sin respetar fallo de juez | 6/10
-- Infobae Colombia | Colombiano y su esposa fueron condenados en Estados Unidos por millonario fraude: lideraron una compañía ‘fant | 6/10
-- Infobae Colombia | Alias Araña, jefe de los Comandos de la Frontera, revelará información antes de ser condenado por la justicia  | 6/10
-- France 24 | Renuncia jefe penitenciario de Tennessee tras fallida ejecución de Christa Pike | 6/10
+- urbanstreet.com.pe | Batallas confirmadas para la Jornada 1 de FMS Colombia 2026 en Bogotá | 5/10
+### cupo_tema (20)
+- El Tiempo Justicia | Secretariado de las antiguas Farc pagan su sentencia por 21 mil secuestros en un cementerio de Pitalito, donde | 10/10
+- Infobae Colombia | Alias Araña, jefe de los Comandos de la Frontera, revelará información antes de ser condenado por la justicia  | 10/10
+- diariodelnorte.net | Reforma pensional prevé entrar en vigencia el 1 de abril de 2027 tras revisión de la Corte Constitucional | 10/10
+- Noticias RCN | Admiten demanda contra norma que permite suspender órdenes de captura a solicitud del Gobierno | 10/10
+- Infobae Colombia | Colombiano y su esposa fueron condenados en Estados Unidos por millonario fraude: lideraron una compañía ‘fant | 9/10
+- France 24 | Renuncia jefe penitenciario de Tennessee tras fallida ejecución de Christa Pike | 9/10
+- DW Español | Renuncia jefe de prisiones de Tennessee que supervisó ejecución fallida | 9/10
+- El Espectador | Decisión de ampliar el plazo de la ZUT en Putumayo seguiría sin respetar fallo de juez | 8/10
+- Asuntos Legales | Reformar la Rama Ejecutiva por decreto | 8/10
+- Win Sports | América tiene rival para los cuartos de final de la Copa BetPlay | 7/10
+- France 24 | El caso Christa Pike: ¿por qué su ejecución fallida agita el debate sobre la pena de muerte? | 7/10
+- Semana | Contundente decisión de Millonarios con Gamero tras el fracaso ante Barranquilla: es oficial | 7/10
+- Caracol Radio | ¿Puede pedir vacaciones si no ha cumplido un año laboral? Esto dice la ley | 7/10
+- France 24 | Luis Miller: "Españoles están pidiendo leyes más intervencionistas y radicales sobre la vivienda" | 6/10
 - El Tiempo Mundo | ¿Qué falló en la ejecución de Christa Pike? Las hipótesis detrás de un procedimiento que reabre el debate sobr | 6/10
-- DW Español | Renuncia jefe de prisiones de Tennessee que supervisó ejecución fallida | 6/10
+- El Tiempo Deportes | Alberto Gamero, técnico de Millonarios, explotó tras ser eliminado de la Copa Colombia por Barranquilla | 6/10
+- Caracol Radio | Clásicos en cuartos de final de la Copa Colombia 2026: Así quedaron tras eliminación de Millonarios | 6/10
+- Pulzo | Equipo de la Liga BetPlay anunció radical decisión: sacó a dos jugadores en pleno campeonato | 6/10
+- Noticias RCN | Se habría tomado una decisión en la Selección Colombia tras la derrota vs. Paraguay: ¿cuál? | 6/10
+- El Tiempo | Participe en el debate "¿Está de acuerdo con la nómina que está probando el técnico Néstor Lorenzo en la Selec | 5/10
 ### fuera_de_interes (16)
 - El Tiempo Economía | Lotería de Boyacá y del Cauca: conozca los números ganadores del sábado 3 de octubre de 2026 | lotería
 - Semana | Los números de Walter Mercado para ganar el premio gordo de la lotería el 4 de octubre | lotería
@@ -267,7 +308,7 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Semana | ¿Conoce las plantas carnívoras? El plan imperdible en Bogotá que lo sorprenderá | 4 pts: pregunta retórica; titular sin sujeto
 - Infobae Colombia | Así reaccionó la prensa paraguaya tras la victoria de su selección ante Colombia por la fecha FIFA: “Noche soñ | 3 pts: frase de gancho
 - Infobae | Así reaccionó la prensa paraguaya tras la victoria de su selección ante Colombia por la fecha FIFA: “Noche soñ | 3 pts: frase de gancho
-### sin_tema (207)
+### sin_tema (198)
 - BBC Mundo | Por qué hay más de un Polo Norte (y lo difícil que es definir cuántos son en total)
 - BBC Mundo | El presidente de Cornell dice que la universidad "debe hacer más" tras la denuncia de violación en grupo en un
 - BBC Mundo | Thomas Piketty: "El nerviosismo que vemos hoy en Washington tiene que ver con el hecho de que EE.UU. está perd
@@ -418,27 +459,27 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Caracol Radio | Autoridades intensifican controles sanitarios en carnes del Mercado Campesino de Calixto
 - Caracol Radio | En el Quindío advierten sobre las enfermedades respiratorias en medio del cambio de clima
 - Caracol Radio | En Buenaventura fue capturada una mujer por el delito de acceso carnal con menor de 14 años
-- … y 57 más
-### tema_apagado (44)
+- … y 48 más
+### tema_apagado (45)
 - procuraduria.gov.co | Por directiva de la Procuraduría se establece la política para la sustitución del asbesto
 - procuraduria.gov.co | Procuraduría convoca mesa interinstitucional contra la minería ilegal y la contaminación por mercurio
 - procuraduria.gov.co | Procuraduría activó agencias especiales para proteger derechos de niños y niñas en Cali
 - procuraduria.gov.co | Sanción a exalcalde de Palestina, Huila, por aumentar el impuesto de alumbrado público irregularmente
 - procuraduria.gov.co | Procuraduría revisa nuevas reglas para proteger a los colombianos de las estafas por mensajes de texto
+- Diario del Huila | Procuraduría sanciona a exalcalde y siete exconcejales de Palestina, Huila
 - Proclama del Pacifico | Jesús Mauricio Castañeda fue elegido contralor de Cali
 - DefOnline | Escudo de las Américas a Contraloría, ¿Chile puede salir del acuerdo con Estados Unidos?
-- Diario del Huila | Procuraduría sanciona a exalcalde y siete exconcejales de Palestina, Huila
 - Revista Semana | Contraloría imputó $60.178 millones por caso tributario del Acueducto
 - Blu Radio | Procuraduría pone la lupa a nuevas reglas de la CRC para frenar estafas por mensajes de texto
 - AlMomento.net | Contraloría publica 28 nuevas auditorías instituciones públicas
 - ELHERALDO.CO | Procuraduría investiga presuntas anomalías en contrato de $17.700 millones en Alpujarra, Tolima
-- EL INFORMADOR - Santa Marta, Colombia | Procuraduría intensifica seguimiento a derechos ambientales en Providencia - EL INFORMADOR
 - El Meridiano | Lupa a la contratación: Procuraduría indaga contrato de $17.700 millones en Tolima
+- EL INFORMADOR - Santa Marta, Colombia | Procuraduría intensifica seguimiento a derechos ambientales en Providencia - EL INFORMADOR
 - Canal 1 En vivo | Contraloría vigila la contratación de urgencia para producir pasaportes en Colombia
 - Agencia Andina | ERM 2026: Contraloría envía 80 auditores en Arequipa para fiscalizar comicios
-- BioBioChile | Contraloría da luz verde a cambios en construcción: expertos advierten riesgo de "guetos verticales"
 - UCV radio | Contraloría confirma que Municipalidad de Valparaíso no respondió preinforme de auditoría
 - Minuto60 | ¿Por qué la Contraloría de Bogotá sancionó a dos funcionarios del Acueducto? Esto se sabe
+- BioBioChile | Contraloría da luz verde a cambios en construcción: expertos advierten riesgo de "guetos verticales"
 - Canal 9 Bío Bío Televisión | Contraloría aprueba ajustes en construcción; expertos alertan por posible surgimiento de "guetos verticales"
 - Canal 7 SLP | 14 proyectos de obra, pendientes de autorizar en Contraloría General del Estado: Eustorgio Chávez
 - Agencia Andina | ERM 2026: Contraloría verificó entrega adecuada de material electoral en Lima y Callao
@@ -448,28 +489,31 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - La República | Contraloría detecta deficiencias y riesgos en cuatro puentes de la Panamericana Norte: ¿cuáles son?
 - Diario Libre | Auditoría a la DGM indica 150 vehículos no localizados compras sin plan por RD$ 553 millones
 - N Digital | Contraloría detecta pagos por más de RD$162 millones sin soportes legales en el CONAPE
-- Ciudadoriental.com | Contraloría encuentra 52 vehículos sin localizar y RD$20 millones pagados a 99 personas en Turismo
 - gestion.pe | ERM 2026: Contraloría desplegará a más de 1,300 auditores para supervisar centros de votación
+- Ciudadoriental.com | Contraloría encuentra 52 vehículos sin localizar y RD$20 millones pagados a 99 personas en Turismo
 - abc.com.py | MEC registró títulos universitarios de carreras no habilitadas y 200 horas “fantasma”, según la CGR
 - Diario Ahora | Contraloría despliega más de 1300 auditores para fiscalizar gasto electoral en ERM 2026
 - Diario Correo | Contraloría de Huánuco desplegará más de 1300 auditores para supervisar recursos públicos durante las ERM 2026
 - elcaribe.com.do | Contraloría detecta varias anomalías y fallas de control
+- Diario Viral Arequipa | Contraloría revela alteración documentaria para simular ingreso a tiempo de expedientes de contratista
 - Cachicha.com | Contraloría detecta compras fuera de planificación y fondos manejados fuera de la Cuenta Única del Tesoro
 - Gob MX | Descarga la gaceta de cultura contributiva de PRODECON
 - vanguardia.com.mx | Aún sin titulares la Contraloría y el Implan de Torreón
 - Perú Informa | Contraloría confirma la correcta distribución de material electoral en locales de Lima y Callao
 - radio uno 93.7 | Contraloría detectó retraso en contrato con empresa a cargo de transportar material electoral
 - evidencia.pe | Moquegua: Procuraduría alerta por posible usurpación de funciones en El Algarrobal
-- Diario Viral Arequipa | Contraloría revela alteración documentaria para simular ingreso a tiempo de expedientes de contratista
 - El Nacional — La voz de todos | Revelan 28 nuevos informes de auditoría sobre el manejo de los recursos públicos
 - eldia.com.do | Contraloría hace públicos 28 informes sobre el uso de recursos públicos
+- Gob MX | Profeco difunde llamado a revisión de Ford Motor Company para más de seis mil automóviles
 - Panamericana TV | Contraloría verificó distribución de material...
 
 ## Descartadas LOCALES
-### baja_importancia (208)
+### baja_importancia (202)
+- Minuto30 | Dos extranjeros fueron capturados con más de cuatro kilos de marihuana en el centro de Bogotá | prefiltro 6/10
 - Minuto30 | ¡Pánico en Andes! Ataque a tiros en un establecimiento terminó con una persona fallecida | prefiltro 6/10
 - Minuto30 | ¡Las llevaba a zonas solitarias! Hombre fue condenado por abusar de dos mujeres y robarles dinero en Cali | prefiltro 6/10
 - Minuto30 | ¡Alerta ciudadana los delató! Tres hombres fueron capturados desguazando un carro hurtado en Bogotá | prefiltro 6/10
+- El Tiempo | Presidente Abelardo De La Espriella donó nuevamente su sueldo para respaldar a estudiantes destacados de Monte | prefiltro 5/10
 - Infobae | Disputa entre los familiares de Pablo Escobar por el traslado de una camioneta ligada a la época del narcotraf | prefiltro 5/10
 - Portafolio.co | Las nuevas rutas internacionales del Gobierno De La Espriella: Mincomercio anuncia conexión Barranquilla-Nueva | prefiltro 5/10
 - Valora Analitik | Montería estrena ruta aérea a Panamá y presidente De La Espriella anticipa conexión directa de Córdoba con | prefiltro 5/10
@@ -489,7 +533,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - El Nuevo Siglo | Montería estrena conexión aérea directa con Panamá: Satena inicia vuelos el 26 de octubre | prefiltro 5/10
 - KienyKe | Montería-Panamá: Satena abre venta de tiquetes para la nueva ruta | prefiltro 5/10
 - Noticias RCN | Con fotos de extranjeros condenados, Medellín lanzó campaña contra explotación sexual de menores | prefiltro 5/10
-- El Tiempo Política | Presidente Abelardo De La Espriella donó nuevamente su sueldo para respaldar a estudiantes destacados de Monte | prefiltro 4/10
 - Revista Semana | “Mi sueldo como presidente no me pertenece”: Abelardo De La Espriella donará su salario para dos causas social | prefiltro 4/10
 - Revista Semana | “Usted no merece estar sentado en esa silla”: Presidente Abelardo De La Espriella al rector de la Universidad  | prefiltro 4/10
 - Revista Semana | Presidente inauguró nueva ruta aérea Montería-Panamá y anunció próxima conexión internacional | prefiltro 4/10
@@ -531,8 +574,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Caracol Radio | Climate Week Medellín 2026: biodiversidad y soluciones frente al cambio climático | prefiltro 3/10
 - AS Colombia | Águilas vence a Jaguares en Medellín y sueña en la Liga BetPlay | prefiltro 3/10
 - Diario AS | Medellín vs Santa Fe: estadísticas previas y datos en directo | Liga BetPlay II 2026 | prefiltro 3/10
-- Q'hubo Medellín | ¡Aproveche! Parque Explora y el de la Conservación tendrán entrada gratis | prefiltro 3/10
-- Q'hubo Medellín | Su último baile sobre la bici: así le dijeron adiós a Nairo Quintana | prefiltro 3/10
 - Q'hubo Medellín | “La foto del avión en llamas”: Pipe Bueno relató cómo se enteró de la tragedia de Yeison Jiménez | prefiltro 3/10
 - Q'hubo Medellín | Daniela Pachón tiene nuevo camello: en los micrófonos y doble noticiero | prefiltro 3/10
 - Q'hubo Medellín | ¡Encanado! Se iba a robar un celular en el Centro y lo pillaron | prefiltro 3/10
@@ -546,8 +587,8 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - presidencia.gov.co | Palabras del señor Presidente de la República, Abelardo De La Espriella, durante el acto oficial de lanzamient | prefiltro 3/10
 - ELHERALDO.CO | “Usted no merece estar sentado en esa silla de decano”: presidente ADLE al rector de la Unicórdoba durante un  | prefiltro 3/10
 - Vanguardia | Satena inaugura ruta Montería-Panamá: esto debe saber antes de comprar su tiquete | prefiltro 3/10
-- EL INFORMADOR - Santa Marta, Colombia | ¡Montería se conecta con el mundo! Abren ruta aérea directa hacia Panamá - EL INFORMADOR | prefiltro 3/10
 - larazon.co | La ruta Montería–Panamá se gestionó en 30 días: Zuleta | prefiltro 3/10
+- EL INFORMADOR - Santa Marta, Colombia | ¡Montería se conecta con el mundo! Abren ruta aérea directa hacia Panamá - EL INFORMADOR | prefiltro 3/10
 - El Espectador | De la Espriella inauguró ruta Montería-Ciudad de Panamá: prometió más vuelos internacionales | prefiltro 3/10
 - Aviacionline | Vuelos Montería - Miami, el nuevo objetivo del gobierno colombiano para SATENA | prefiltro 3/10
 - Aviacionline | Montería–Miami flights: the Colombian government's new goal for SATENA | prefiltro 3/10
@@ -558,7 +599,6 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - río noticias | ¿Vuelo directo Montería-Miami? Abelardo de la Espriella planteó conectar a Córdoba con Estados Unidos | prefiltro 3/10
 - Blu Radio | De La Espriella inaugura la ruta Montería - Panamá y apunta a conectividad con Miami | prefiltro 3/10
 - río noticias | Mejoró el clima y el aeropuerto Los Garzones retoma sus operaciones | prefiltro 3/10
-- larazon.co | Feria de vivienda de Comfacor reúne 22 constructoras y cierra este sábado en Montería | prefiltro 3/10
 - Caracol Radio | Decretan medidas especiales de seguridad y movilidad por visita presidencial en Montería | prefiltro 3/10
 - río noticias | Desde Los Garzones, Mauricio Gómez Amín destaca el potencial turístico de Córdoba | prefiltro 3/10
 - Diario La Libertad | De La Espriella inaugura ruta Montería-Panamá y pone la mira en un vuelo directo a Miami | prefiltro 3/10
@@ -566,64 +606,71 @@ Página: 67 KB · 20 noticias · modo respaldo (sin IA) · llamadas a Gemini: 17
 - Chica Noticias | Alcalde Hugo Kerguelén destaca gestión para hacer realidad la ruta Montería – Panamá | prefiltro 3/10
 - Chica Noticias | iSí LO DICE LO HACE! Kerguelén celebró ruta Montería - Panamá y destaca anuncio de la Ruta Montería - Miami | prefiltro 3/10
 - Chica Noticias | ¡De Montería a Panamá! Abelardo y Erasmo Zuleta anuncian nueva conexión aérea internacional con Satena | prefiltro 3/10
-- Chica Noticias | Satena entrega tres aeronaves en Montería para fortalecer la conexión aérea de Colombia | prefiltro 3/10
+- Chica Noticias | De La Espriella confirmó a Kerguelén recursos para la Comuna 9 y los Cuatro Patios | prefiltro 3/10
 - Chica Noticias | Erasmo Zuleta destaca oportunidades para el departamento con la nueva ruta Montería-Panamá | prefiltro 3/10
 - Chica Noticias | “Lo imposible lo hacemos nosotros”: Abelardo tras la conexión Montería–Panamá | prefiltro 3/10
 - Chica Noticias | “Aquí jugué béisbol menor”: Marcos Daniel celebró la renovación del estadio de La Pradera | prefiltro 3/10
 - Chica Noticias | “Hoy Montería y Panamá están más cerca”: Satena destacó la conexión ante el presidente Abelardo de la Espriell | prefiltro 3/10
 - Chica Noticias | “Más ingresos y oportunidades para las comunidades”: Satena busca impulsar la conexión Montería–Panamá | prefiltro 3/10
 - Chica Noticias | ¡“Córdoba tiene presidente”! Abelardo promete más conectividad y desarrollo para su tierra | prefiltro 3/10
-- Chica Noticias | De La Espriella confirmó a Kerguelén recursos para la Comuna 9 y los Cuatro Patios | prefiltro 3/10
 - Chica Noticias | “Venir, quedarse y recorrer el departamento”: Satena a De la Espriella sobre la conexión con Panamá | prefiltro 3/10
-- Chica Noticias | “No vinimos a cortar una cinta, venimos a abrir una puerta”: Hugo Kerguelén | prefiltro 3/10
 - pares.com.co | La mejor película sobre el narcotráfico que se hizo jamás en Medellín | prefiltro 3/10
 - clarin.com | Clima hoy en Medellín, Colombia: el pronóstico del tiempo para este domingo 4 octubre de 2026 | prefiltro 3/10
-- TyC Sports | Independiente Medellín vs. Santa Fe en vivo: cómo llegan al partido | prefiltro 3/10
 - Diario AS | Independiente Medellín - Santa Fe | Pronóstico y cuotas 06.10.2026 | prefiltro 3/10
 - MiOriente | Cedelo, la plataforma para comprar vivienda a precio de oportunidad, ganó el premio Capital Semilla de Medellí | prefiltro 3/10
 - El Colombiano | Cuco Hernández, de A dos velas, y su paso por Medellín | prefiltro 3/10
 - AS Colombia | Gonzalo Berrío (77 años), el ilustrador que aparece en famoso mural de Medellín: “Estoy muy orgulloso” | prefiltro 3/10
-- La Gran Noticia | Climate Week Biodiversity 2026 en Medellín: Bogotá, Medellín y Miami,firmaron la declaración de áreas naturale | prefiltro 3/10
+- TyC Sports | Independiente Medellín vs. Santa Fe en vivo: cómo llegan al partido | prefiltro 3/10
 - Telemedellín | ¡Héroes! Bomberos de Medellín rompen muro para salvar a gatito atrapado | prefiltro 3/10
+- La Gran Noticia | Climate Week Biodiversity 2026 en Medellín: Bogotá, Medellín y Miami,firmaron la declaración de áreas naturale | prefiltro 3/10
 - Telemedellín | Reportan grave accidente en la vía Medellín-Salgar por derrumbe: rocas golpearon van de pasajeros | prefiltro 3/10
 - bogota.alerta.com.co | Evite multas en Medellín: revise qué carros tienen pico y placa del 5 al 11 de octubre de 2026 | prefiltro 3/10
-- Hora 13 Noticias | Alcaldía de Medellín garantiza protección de escenarios deportivos durante concierto | prefiltro 3/10
 - Telemedellín | El Museo de Antioquia llega a sus 145 años con una celebración por el centro de Medellín | prefiltro 3/10
 - El Frente | Familia pide traslado urgente para joven accidentado en Medellín | prefiltro 3/10
+- Hora 13 Noticias | Alcaldía de Medellín garantiza protección de escenarios deportivos durante concierto | prefiltro 3/10
 - IFM Noticias | Medellín refuerza controles para proteger escenarios deportivos durante concierto en el Atanasio Girardot | prefiltro 3/10
 - Minuto60 | Ambulancias deben cumplir normas de tránsito si no atienden pacientes: aclaró Movilidad de Medellín | prefiltro 3/10
 - IFM Noticias | En Bogotá y Medellín el Foro NEXO conectará emprendimientos culturales de Colombia y Francia con nuevos mercad | prefiltro 3/10
 - paisa.alerta.com.co | Cuatro jóvenes de Medellín fueron rescatadas tras caer en red de explotación sexual en Villavicencio: cayó la  | prefiltro 3/10
 - Hora 13 Noticias | Desprendimiento de roca provoca accidente en vía entre Medellín y Salgar; reportan varias personas fallecidas | prefiltro 3/10
 - Caracol Radio | Reportan fallas en el servicio de energía eléctrica y retrasos en vuelos por lluvias en Montería | prefiltro 2/10
-- Q'hubo Medellín | ¿Los conoce? Buscan a los familiares de Luis Felipe Forero Villa | prefiltro 2/10
 - Q'hubo Medellín | ¿Cocinaba tusi? A Keiner lo mataron dentro de su apartamento en el Popular | prefiltro 2/10
 - Q'hubo Medellín | ¡Antioquia tiene otro millonario! Cayeron $ 1375 millones en Titiribí | prefiltro 2/10
 - Q'hubo Medellín | Capturaron a 30 presuntos delincuentes del Suroeste y el Occidente | prefiltro 2/10
+- Q'hubo Medellín | ¡Aproveche! Parque Explora y el de la Conservación tendrán entrada gratis | prefiltro 2/10
 - Q'hubo Medellín | En Medellín se cocina un evento gastronómico gratuito y con expertos | prefiltro 2/10
 - Q'hubo Medellín | Capturaron a presunto abusador serial en el Urabá antioqueño | prefiltro 2/10
 - Q'hubo Medellín | ¡A estudiar! Bello habilitó plataforma para cupos escolares en 2027 | prefiltro 2/10
+- Q'hubo Medellín | Su último baile sobre la bici: así le dijeron adiós a Nairo Quintana | prefiltro 2/10
 - larazon.co | “Esta nueva conectividad acercará las relaciones entre Montería y Panamá”: embajador | prefiltro 2/10
 - larazon.co | Presidente Abelardo de la Espriella llegó a Montería para agenda oficial en Córdoba | prefiltro 2/10
 - larazon.co | “Esta ruta se conecta con más de 35 países”: Erasmo Zuleta destaca conexión Montería-Panamá | prefiltro 2/10
 - El Meridiano | Presidenta de Anato celebra la nueva conexión aérea entre Montería y Panamá | prefiltro 2/10
 - Caracol Radio | “Designaré un gerente encargado solo de ‘Caregato’ para que resuelva ese problema: De la Espriella | prefiltro 2/10
+- larazon.co | Feria de vivienda de Comfacor reúne 22 constructoras y cierra este sábado en Montería | prefiltro 2/10
 - río noticias | Lluvias generan demoras en vuelos del aeropuerto Los Garzones de Montería | prefiltro 2/10
 - ELHERALDO.CO | Montería está de moda: la ‘Perla del Sinú’ gana terreno como destino turístico | prefiltro 2/10
 - EL INFORMADOR - Santa Marta, Colombia | Onda tropical mantendrá las lluvias en Montería durante el fin de semana - EL INFORMADOR | prefiltro 2/10
 - Hoy Diario del Magdalena | ¡Es oficial! Presidente Abelardo De la Espriella inauguró ruta directa Montería - Ciudad de Panamá: operará tr | prefiltro 2/10
 - Chica Noticias | ¡OJO AL DATO! Esto costaría el vuelo Panamá – Montería | prefiltro 2/10
+- Chica Noticias | Satena entrega tres aeronaves en Montería para fortalecer la conexión aérea de Colombia | prefiltro 2/10
+- Chica Noticias | “No vinimos a cortar una cinta, venimos a abrir una puerta”: Hugo Kerguelén | prefiltro 2/10
 - Chica Noticias | ¡Llegó el Tigre! Abelardo arriba en Los Garzones para inaugurar nueva ruta aérea | prefiltro 2/10
 - Chica Noticias | “No están solos”, Gobernador visitó la Joyería Mazal emprendedores víctimas de robo | prefiltro 2/10
 - NTN24 | Avanza megacárcel en Medellín: “Donde bandidos puedan encontrar segundas oportunidades, pero pagan por su pena | prefiltro 2/10
 - Alcaldia de Soacha | Soacha supera en las pruebas Saber 11 a ciudades como Medellín, Cali, Barranquilla y Cartagena | prefiltro 2/10
-- … y 58 más
-### cupo_tema (5)
-- Q'hubo Medellín | Ricardo Orrego comparecerá ante la justicia por acoso y acto sexual violento | 5/10
-- El Colombiano Antioquia | Grave accidente en la vía Andes-Salgar deja cuatro muertos y tres heridos, microbús cayó a un barranco | 5/10
-- El Colombiano Medellín | Golpe al tráfico de drogas en Barrio Antioquia: tres capturados y más de 10.000 dosis incautadas | 5/10
-- El Colombiano Medellín | Las engañaron en Medellín y las llevaron a Meta para explotarlas sexualmente; Fiscalía revela el caso | 5/10
-- Minuto30 | ¡Lo pillaron cobrando una extorsión! Capturan en Medellín a presunto integrante del Clan del Golfo | 5/10
+- … y 52 más
+### cupo_seccion (3)
+- Infobae | Abelardo de la Espriella inauguró la ruta Montería-Panamá y pidió a Satena avanzar en una conexión directa con | 7/10
+- El Colombiano | “¿Quién tiene $14 millones para pagar un arriendo?”: emprendedora expresa su preocupación por los altos precio | 7/10
+- El Colombiano Medellín | “Llegan de otras ciudades y países”: secretaria de Inclusión explica qué pasa con los habitantes de calle en M | 6/10
+### cupo_tema (6)
+- El Colombiano Antioquia | Grave accidente en la vía Andes-Salgar deja cuatro muertos y tres heridos, microbús cayó a un barranco | 8/10
+- El Colombiano Medellín | Golpe al tráfico de drogas en Barrio Antioquia: tres capturados y más de 10.000 dosis incautadas | 8/10
+- El Colombiano Medellín | “No estoy de acuerdo”: alcalde de Medellín reaccionó a la “mansión por cárcel” que tendrá Miguel Quintero tras | 8/10
+- Minuto30 | ¡Lo pillaron cobrando una extorsión! Capturan en Medellín a presunto integrante del Clan del Golfo | 8/10
+- El Colombiano Medellín | Casa por cárcel para Miguel Quintero, imputado por presunta corrupción en el Área Metropolitana | 7/10
+- Minuto30 | ¡Golpe al Clan del Golfo! Tres capturados y más de 680 gramos de droga incautados en Antioquia | 7/10
 ### fuera_de_interes (18)
 - Q'hubo Medellín | ¡Cayó un seco de la de Medellín! Resultados de las loterías del 2 de octubre | lotería
 - Infobae | Lotería de Medellín: revisa el premio mayor y resultados del 2 de octubre de 2026 | lotería
