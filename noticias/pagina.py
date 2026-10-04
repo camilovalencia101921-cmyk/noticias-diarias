@@ -10,7 +10,8 @@ DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "doming
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
          "octubre", "noviembre", "diciembre"]
 SECCIONES = [("internacional", "Internacional", "🌎"), ("nacional", "Nacional", "🇨🇴"),
-             ("local", "Local", "📍"), ("ocio", "Ocio", "🎮"), ("agenda", "Agenda", "📅")]
+             ("local", "Local", "📍"), ("ocio", "Ocio", "🎮"), ("cine", "Cine", "🎬"),
+             ("agenda", "Agenda", "📅"), ("alma", "Para el alma", "🕯️")]
 ORDEN_LOCAL = ["seguridad", "orden_publico", "movilidad_servicios", "otros"]
 
 
@@ -171,6 +172,66 @@ class Pagina:
                 f'{self.cabecera_seccion("agenda", "Agenda", "📅", len(items))}'
                 f'<ul class="agenda">{"".join(filas)}</ul></section>')
 
+    def ver_mas(self, lista):
+        """Bloque plegable sin JavaScript con las siguientes mejores noticias (filas compactas)."""
+        if not lista:
+            return ""
+        filas = []
+        for n in lista:
+            nombre, color = self.etiqueta(n)
+            filas.append(
+                f'<li><a href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a>'
+                f'<div class="meta"><span class="src">{e(n.fuente)}</span><span class="dot">·</span>'
+                f'<time datetime="{n.fecha.isoformat()}" data-t="{int(n.fecha.timestamp())}">'
+                f'{tiempo_relativo(n.fecha, self.ctx["ahora_utc"])}</time>'
+                f'<span class="tag" style="--c:{color}">{e(nombre)} · {n.puntaje}/10</span></div></li>')
+        return (f'<details class="mas"><summary>Ver más ({len(lista)})</summary>'
+                f'<ul>{"".join(filas)}</ul></details>')
+
+    def cine(self):
+        pelis, origen = self.ctx.get("cine", (None, ""))
+        if pelis is None:
+            return ""
+        color = (self.cfg.get("cine", {}) or {}).get("color", "#D64550")
+        cab = self.cabecera_seccion("cine", "Cine · estrenos en Colombia", "🎬", len(pelis))
+        if not pelis:
+            return (f'<section class="sec" data-sec="cine" id="cine" style="--sc:{color}">{cab}'
+                    f'<p class="aviso">Sin estrenos confirmados hoy.</p></section>')
+        filas, grupo = [], None
+        for p in pelis:
+            g = "Esta semana" if p["semana"] else "Próximos"
+            if g != grupo:
+                grupo = g
+                filas.append(f'<li class="ag-dia">{g}</li>')
+            f = p["fecha"]
+            fuente = (f'<a class="fte" href="{e(p["enlace"])}" target="_blank" rel="noopener noreferrer">'
+                      f'{e(p["fuente"] or "Fuente")}</a>') if p.get("enlace") else ""
+            filas.append(
+                f'<li class="peli"><span class="fd"><b>{f.day}</b>{MESES[f.month - 1][:3]}</span><div class="pd">'
+                f'<div class="pt">{e(p["titulo"])} <span class="tag" style="--c:{color}">{e(p["genero"])}</span></div>'
+                f'<div class="ps">{e(p["sinopsis"])}</div><div class="pf">Estreno: {DIAS[f.weekday()]} {f.day} de '
+                f'{MESES[f.month - 1]}{" · " + fuente if fuente else ""}</div></div></li>')
+        return (f'<section class="sec" data-sec="cine" id="cine" style="--sc:{color}">{cab}'
+                f'<ul class="agenda cine">{"".join(filas)}</ul>'
+                f'<p class="nota">Datos: {e(origen)}. Las salas pueden cambiar las fechas.</p></section>')
+
+    def alma(self):
+        temas = self.ctx.get("alma")
+        if temas is None:
+            return ""
+        color = (self.cfg.get("para_el_alma", {}) or {}).get("color", "#C98A1B")
+        cab = self.cabecera_seccion("alma", "Para el alma", "🕯️", len(temas))
+        if not temas:
+            return (f'<section class="sec" data-sec="alma" id="alma" style="--sc:{color}">{cab}'
+                    f'<p class="aviso">Hoy no disponible.</p></section>')
+        tarjetas = "".join(
+            f'<article class="card alma"><span class="tag" style="--c:{color}">{e(t["nombre_categoria"])}</span>'
+            f'<h3>{e(t["titulo"])}</h3><p class="txt">{e(t["resumen"])}</p>'
+            f'<p class="pq"><b>Por qué es interesante:</b> {e(t["interes"])}</p>'
+            f'<p class="preg">🤔 {e(t["pregunta"])}</p></article>' for t in temas)
+        return (f'<section class="sec" data-sec="alma" id="alma" style="--sc:{color}">{cab}{tarjetas}'
+                f'<p class="nota">Texto generado por IA; verifica antes de citar.</p></section>')
+
     # ------------------------------------------------------------ página
     def html(self, prefijo=""):
         c = self.ctx
@@ -181,6 +242,12 @@ class Pagina:
         for clave, nombre, icono in SECCIONES:
             if clave == "agenda":
                 partes.append(self.agenda())
+                continue
+            if clave == "cine":
+                partes.append(self.cine())
+                continue
+            if clave == "alma":
+                partes.append(self.alma())
                 continue
             lista = c["secciones"].get(clave, [])
             if not lista:
@@ -198,6 +265,7 @@ class Pagina:
                 cuerpo = "".join(self.tarjeta(n, prefijo) for n in lista)
             else:
                 cuerpo = "".join(self.tarjeta(n, prefijo) for n in lista)
+            cuerpo += self.ver_mas(c.get("ver_mas", {}).get(clave, []))
             partes.append(f'<section class="sec" data-sec="{clave}" id="{clave}">'
                           f'{self.cabecera_seccion(clave, nombre, icono, total)}{cuerpo}</section>')
         if not any(c["secciones"].values()) and not c["destacada"]:
@@ -214,8 +282,8 @@ class Pagina:
         insta = ""
         if c["instagram"]:
             botones = "".join(
-                f'<a class="ig" href="{e(u)}" target="_blank" rel="noopener noreferrer">{ICONO_IG}@{e(_usuario_ig(u))}</a>'
-                for u in c["instagram"])
+                f'<a class="ig" href="{e(b["url"])}" target="_blank" rel="noopener noreferrer">{ICONO_IG}{e(b["nombre"])}</a>'
+                for b in c["instagram"])
             insta = f'<section class="insta"><h2 class="sh">Tus medios locales en Instagram</h2><div class="igs">{botones}</div></section>'
         archivo = ""
         if c["archivo"]:
@@ -230,9 +298,13 @@ class Pagina:
         if c["portada"]:
             portada = (f' style="background-image:linear-gradient(rgba(10,14,28,.55),rgba(10,14,28,.78)),'
                        f'url(\'{prefijo}{c["portada"]}\')"')
-        chips = "".join(f'<button type="button" class="chip{" on" if v == "todo" else ""}" data-f="{v}">{t}</button>'
+        col = {"cine": (self.cfg.get("cine", {}) or {}).get("color", "#D64550"),
+               "alma": (self.cfg.get("para_el_alma", {}) or {}).get("color", "#C98A1B")}
+        chips = "".join(f'<button type="button" class="chip{" on" if v == "todo" else ""}" data-f="{v}"'
+                        + (f' style="--c:{col[v]}"' if v in col else "") + f'>{t}</button>'
                         for v, t in [("todo", "Todo"), ("local", "Local"), ("nacional", "Nacional"),
-                                     ("internacional", "Internacional"), ("ocio", "Ocio"), ("agenda", "Agenda")])
+                                     ("internacional", "Internacional"), ("ocio", "Ocio"), ("cine", "Cine"),
+                                     ("agenda", "Agenda"), ("alma", "Para el alma")])
         cuerpo = "".join(partes)
         return f"""<!doctype html>
 <html lang="es">
@@ -378,7 +450,30 @@ footer{padding:18px 16px 40px;text-align:center;font-size:.8rem;color:var(--mu)}
 body:not([data-f="todo"]) .sec:not([data-sec]),body:not([data-f="todo"]) .contador,body:not([data-f="todo"]) .insta{display:none}
 body[data-f="local"] .sec:not([data-sec="local"]),body[data-f="nacional"] .sec:not([data-sec="nacional"]),
 body[data-f="internacional"] .sec:not([data-sec="internacional"]),body[data-f="ocio"] .sec:not([data-sec="ocio"]),
-body[data-f="agenda"] .sec:not([data-sec="agenda"]){display:none}
+body[data-f="agenda"] .sec:not([data-sec="agenda"]),body[data-f="cine"] .sec:not([data-sec="cine"]),
+body[data-f="alma"] .sec:not([data-sec="alma"]){display:none}
+.chip[style].on{background:var(--c);color:#fff}
+.sec[style] .sh .ic{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:color-mix(in srgb,var(--sc) 18%,transparent)}
+.aviso{margin:0 4px;padding:14px;border-radius:14px;background:var(--card);color:var(--mu);font-size:.92rem}
+.mas{margin:2px 0 12px;background:var(--card);border-radius:16px;box-shadow:var(--sh)}
+.mas summary{cursor:pointer;padding:12px 14px;font-weight:650;font-size:.92rem;list-style:none}
+.mas summary::-webkit-details-marker{display:none}
+.mas summary::after{content:"\25BE";float:right;color:var(--mu)}.mas[open] summary::after{content:"\25B4"}
+.mas ul{list-style:none;margin:0;padding:0 14px 6px}
+.mas li{padding:10px 0;border-top:1px solid var(--ln)}
+.mas li>a{text-decoration:none;font-weight:600;font-size:.95rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.mas .meta{margin-top:6px}
+.cine .peli{align-items:flex-start}
+.fd{flex:none;width:44px;text-align:center;border-radius:10px;padding:4px 0;background:color-mix(in srgb,var(--sc) 14%,transparent);font-size:.72rem;text-transform:uppercase;color:var(--mu)}
+.fd b{display:block;font-size:1.15rem;color:var(--tx)}
+.pd{flex:1;min-width:0}.pt{font-weight:650}.pt .tag{margin-left:4px;vertical-align:1px}
+.ps{color:var(--mu);font-size:.86rem;margin-top:2px}.pf{font-size:.78rem;color:var(--mu);margin-top:3px}
+.fte{color:var(--tx)}
+.alma{border-left:4px solid var(--sc)}
+.alma .tag{margin-left:0}
+.alma h3{-webkit-line-clamp:unset;display:block;margin-top:8px;font-size:1.1rem}
+.alma .txt{margin:8px 0 0;font-size:.95rem;line-height:1.55}
+.preg{margin:10px 0 0;font-style:italic;font-size:.92rem}
 @media (min-width:640px){main{padding:0 0 24px}.cab{border-radius:0 0 22px 22px}}
 """
 

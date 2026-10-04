@@ -38,9 +38,10 @@ seleccion:
   minimo_serias: 6
   minimo_ocio: 5
   minimo_local: 5
-  max_serias: 10
-  max_ocio: 7
-  max_local: 8
+  max_serias: 14
+  max_ocio: 10
+  max_local: 8               # lo local tiene su propio tope, aparte de serias y ocio
+  ver_mas_por_seccion: 6     # bloque plegable "Ver más" en cada sección (0 = sin bloque); no cuenta para los topes
   cupo_por_tema: 3           # máximo de noticias de un mismo tema
   horas_maximas: 36          # ignora noticias más viejas que esto
   similitud_duplicados: 0.55 # 0 a 1; más alto = solo elimina títulos casi idénticos
@@ -404,8 +405,54 @@ local:
       peso: 1.0
       palabras: []
   # Botones a perfiles de Instagram (el programa NO lee Instagram)
+  # Máximo 6 botones. Solo se muestran los que tienen "activo: true" y una URL válida.
+  # Estos perfiles NO están verificados (Instagram exige iniciar sesión para revisarlos).
   instagram:
-    - "https://www.instagram.com/elmeridiano.co"
+    - {nombre: "El Meridiano", url: "https://www.instagram.com/elmeridiano.co", activo: true}
+    - {nombre: "Río Noticias", url: "https://www.instagram.com/rionoticiasco", activo: true}
+    - {nombre: "Lo que sale en Lorica", url: "https://www.instagram.com/loquesaenlorica", activo: true}
+    - {nombre: "Chica Noticias", url: "", activo: false}     # pendiente de enlace
+    - {nombre: "El Propio", url: "", activo: false}          # pendiente de enlace
+    - {nombre: "Q'hubo Medellín", url: "", activo: false}    # pendiente de enlace
+
+# ---------------------------------------------------------------------
+#  PARA EL ALMA: 3 temas de espiritualidad al día, escritos por Gemini.
+#  Si Gemini falla, la sección se omite ese día ("Hoy no disponible").
+#  Los temas publicados se guardan en temas-publicados.json (últimos 120)
+#  para no repetirlos.
+# ---------------------------------------------------------------------
+para_el_alma:
+  activo: true
+  color: "#C98A1B"           # ámbar
+  temas_por_dia: 3
+  historial_maximo: 120
+  # Tradiciones que rotan. "frecuencia": cuántos días de cada 3 aparece (cristianismo casi siempre).
+  categorias:
+    - {clave: cristianismo, nombre: "Cristianismo y misticismo cristiano", frecuencia: 2}
+    - {clave: budismo, nombre: "Budismo", frecuencia: 1}
+    - {clave: estoicismo, nombre: "Estoicismo", frecuencia: 1}
+    - {clave: sufismo, nombre: "Sufismo", frecuencia: 1}
+    - {clave: meditacion, nombre: "Meditación y ciencia", frecuencia: 1}
+    - {clave: simbolos, nombre: "Símbolos, rituales y lugares sagrados", frecuencia: 1}
+
+# ---------------------------------------------------------------------
+#  CINE: estrenos de películas en Colombia (de la semana y próximos).
+#  1) Búsqueda de Google integrada en Gemini (UNA llamada al día), solo con
+#     modelos cuyo nivel GRATUITO la incluye (hoy: gemini-2.5-flash y -lite).
+#  2) Si no está disponible: datos públicos de la página de Cinemark Colombia.
+#  3) Si nada es confiable: "Sin estrenos confirmados hoy". Nunca se inventan.
+#  NO actives la facturación de Google Cloud: la búsqueda solo es gratis
+#  dentro de su cuota y luego se cobra.
+# ---------------------------------------------------------------------
+cine:
+  activo: true
+  color: "#D64550"
+  busqueda_gemini: true
+  modelos_busqueda_gratuita: ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
+  respaldo_cinemark: true
+  dias_hacia_adelante: 30    # "próximos" = hasta 30 días desde hoy
+  maximo: 12
+  excluir_generos: [Musical, Concierto, Música]
 
 # ---------------------------------------------------------------------
 #  MEJORAS

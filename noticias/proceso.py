@@ -132,7 +132,7 @@ def seleccionar(noticias, cfg, reg):
             return "local"
         return (temas.get(n.tema or "", {}) or {}).get("grupo", "serias")
 
-    elegidas, cuenta, por_tema = [], Counter(), Counter()
+    elegidas, sobrantes, cuenta, por_tema = [], [], Counter(), Counter()
     orden = sorted(noticias, key=lambda n: (n.puntaje, -n.zona_prioridad if n.zona_prioridad else 0,
                                             len(n.fuentes_cluster), bool(n.imagen)), reverse=True)
     for n in orden:
@@ -142,15 +142,33 @@ def seleccionar(noticias, cfg, reg):
             continue
         clave_tema = (g, n.categoria_local if g == "local" else n.tema)
         if por_tema[clave_tema] >= (cupo + 1 if g == "local" else cupo):
-            reg.descarte("cupo_tema", n, f"{n.puntaje}/10")
+            sobrantes.append((n, "cupo_tema"))
             continue
         if cuenta[g] >= maximos[g]:
-            reg.descarte("cupo_seccion", n, f"{n.puntaje}/10")
+            sobrantes.append((n, "cupo_seccion"))
             continue
         cuenta[g] += 1
         por_tema[clave_tema] += 1
         elegidas.append(n)
-    return elegidas
+    return elegidas, sobrantes
+
+
+def elegir_ver_mas(sobrantes, cfg, reg, aceptar=lambda n: True):
+    """Bloque "Ver más": siguientes mejores noticias de cada sección que superaron el mínimo
+    pero quedaron fuera por los topes. No cuentan para los topes. Lo que no entra se registra
+    como descartado por cupo, igual que antes."""
+    maximo = int((cfg.get("seleccion", {}) or {}).get("ver_mas_por_seccion", 6))
+    cupo = (cfg.get("seleccion", {}) or {}).get("cupo_por_tema", 3)
+    por_seccion, por_tema, extra = Counter(), Counter(), []
+    for n, motivo in sobrantes:          # ya vienen ordenadas de mayor a menor puntaje
+        tema = n.categoria_local if n.seccion == "local" else n.tema
+        if (por_seccion[n.seccion] < maximo and por_tema[(n.seccion, tema)] < cupo and aceptar(n)):
+            por_seccion[n.seccion] += 1
+            por_tema[(n.seccion, tema)] += 1
+            extra.append(n)
+        else:
+            reg.descarte(motivo, n, f"{n.puntaje}/10")
+    return extra
 
 
 def completar_departamento(cfg, ya_locales, reg, procesar):

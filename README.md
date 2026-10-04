@@ -32,6 +32,8 @@ Cada mañana, alrededor de las **6:30 a. m. (hora de Colombia)**, este proyecto 
 
 > El nivel gratuito no cobra nada y no necesita tarjeta. El programa solo envía titulares y descripciones públicas de noticias. Google puede usar lo que se envía en el nivel gratuito para mejorar sus productos; por eso nunca se envían datos personales.
 
+> ⛔ **NO actives la facturación (Billing) de Google Cloud en el proyecto de esta clave.** Mientras no haya facturación, Google no puede cobrarte: si se acaba la cuota, simplemente responde "límite alcanzado" y la página sale en modo de respaldo. Con la facturación activada, la búsqueda de Google integrada (usada en la sección Cine) y el uso por encima de la cuota **se cobran**.
+
 ### 1.2 Guardar la clave como secreto en GitHub
 1. En tu repositorio de GitHub, entra a **Settings** (Configuración).
 2. Menú izquierdo: **Secrets and variables → Actions**.
@@ -103,8 +105,11 @@ Temas de ocio: anime, fútbol, básquet (solo NBA/WNBA), freestyle e historia an
 ### 4.2 Cuántas noticias entran
 Sección `seleccion:`:
 - `minimo_serias: 6`, `minimo_ocio: 5`, `minimo_local: 5`: puntaje mínimo (de 1 a 10) para entrar.
-- `max_serias: 10`, `max_ocio: 7`, `max_local: 8`: máximos. **No son metas**: si pocas noticias superan el mínimo, la página trae menos.
+- `max_serias: 14`, `max_ocio: 10`, `max_local: 8`: topes (lo local tiene su propio tope, aparte). **No son metas**: si pocas noticias superan el mínimo, la página trae menos. Para cambiarlos, edita el número.
 - `cupo_por_tema: 3`: para que ningún tema acapare la página.
+- `ver_mas_por_seccion: 6`: cuántas noticias extra caben en el bloque plegable **"Ver más"** al final de Internacional, Nacional, Local y Ocio.
+
+**"Ver más"**: son las siguientes mejores noticias de la sección, que pasaron todos los filtros y el puntaje mínimo pero quedaron fuera por los topes. No cuentan para los topes. En el celular, toca "Ver más (N)" para desplegarlas (funciona sin JavaScript). Para quitar el bloque: `ver_mas_por_seccion: 0`.
 
 ### 4.3 Encender o apagar mejoras
 Sección `mejoras:`
@@ -144,7 +149,20 @@ Además, `local: fuentes` son los medios locales que se leen siempre (El Meridia
 
 Categorías del bloque Local (con color propio): seguridad, orden público, movilidad y servicios públicos, y otros. Seguridad y orden público tienen peso extra.
 
-**Instagram:** el programa NO lee Instagram; solo muestra botones a los perfiles en `local: instagram:`.
+**Botones de Instagram** (sección "Tus medios locales en Instagram"): el programa NO lee Instagram; solo muestra botones. La lista está en `local: instagram:`:
+```yaml
+  instagram:
+    - {nombre: "El Meridiano", url: "https://www.instagram.com/elmeridiano.co", activo: true}
+    - {nombre: "Chica Noticias", url: "", activo: false}     # pendiente de enlace
+```
+- Se muestran como máximo **6** botones, y solo los que tienen `activo: true` y una URL válida (`https://www.instagram.com/usuario`).
+- Los perfiles **no están verificados** (Instagram exige iniciar sesión para revisarlos). Ábrelos tú una vez para confirmar que son los correctos.
+- **Reactivar un pendiente** (Chica Noticias, El Propio, Q'hubo Medellín): escribe su `url` y cambia `activo: false` por `activo: true`. O más fácil: usa el workflow **Agregar fuente** (sección 5) con el link del perfil; si el nombre coincide con un pendiente, lo completa y lo reactiva.
+- Para ocultar un botón sin borrarlo: `activo: false`.
+
+### 4.5.1 "Para el alma" y "Cine"
+- **Para el alma** (`para_el_alma:`): 3 temas al día para leer con calma (cristianismo y misticismo cristiano con frecuencia, budismo, estoicismo, sufismo, meditación y ciencia, símbolos, rituales y lugares sagrados). Los escribe Gemini, con la nota "Texto generado por IA; verifica antes de citar". Los títulos publicados se guardan en `temas-publicados.json` (últimos 120) para no repetirlos. Si Gemini falla ese día, la sección dice "Hoy no disponible" (no hay modo de respaldo para esta sección). Puedes cambiar la `frecuencia` de cada tradición o apagarla toda con `activo: false`.
+- **Cine** (`cine:`): estrenos de películas en Colombia de la semana y próximos (sin conciertos ni música). Primero intenta la búsqueda de Google integrada de Gemini (una sola llamada al día, solo con modelos cuyo nivel gratuito la incluye). Si no está disponible, usa los datos públicos de la página de Cinemark Colombia. Si nada es confiable, muestra "Sin estrenos confirmados hoy". Nunca inventa películas ni fechas.
 
 ### 4.6 Cambiar el filtro de una fuente
 Cada fuente tiene `filtro: estricto` o `filtro: flexible`:
@@ -180,7 +198,7 @@ python agregar_fuente.py --eliminar "instagram.com/medio"
 ```
 
 Qué hace el comando:
-1. Si es Instagram: no lo lee; lo guarda como botón y avisa.
+1. Si es Instagram: no lo lee; lo guarda como botón (o reactiva el que ya existía, incluso uno "pendiente de enlace" con el mismo nombre) y avisa.
 2. Si es YouTube: obtiene el ID del canal desde el @usuario y usa su feed.
 3. Busca el RSS en la página (`<link rel="alternate">`), luego prueba `/feed`, `/rss`, `/rss.xml`, `/feeds/all.rss`.
 4. Si el sitio no tiene RSS, prueba su "sitemap de noticias" (enlaces directos).

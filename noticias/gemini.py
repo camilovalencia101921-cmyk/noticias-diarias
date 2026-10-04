@@ -127,10 +127,54 @@ class Gemini:
         raise GeminiError("ningún modelo Flash respondió (" + ", ".join(probados) + ")")
 
 
+def buscar_con_google(ia, prompt, modelos):
+    """UNA llamada con la búsqueda de Google integrada (herramienta google_search).
+
+    Solo se pasa a otro modelo si el anterior no existe o no admite la herramienta
+    (HTTP 400/404: en ese caso no se hizo ninguna búsqueda). Cualquier otro error
+    termina aquí, sin reintentos, para no gastar más de una búsqueda al día.
+    Devuelve (texto, metadatos_de_busqueda, modelo) o lanza GeminiError.
+    """
+    if not ia.activo:
+        raise GeminiError("sin clave GEMINI_API_KEY o desactivado")
+    cuerpo = {"contents": [{"role": "user", "parts": [{"text": prompt}]}],
+              "tools": [{"google_search": {}}],
+              "generationConfig": {"temperature": 0.1}}
+    motivos = []
+    for modelo in modelos:
+        try:
+            r = http_post(f"{API}/models/{modelo}:generateContent", params={"key": ia.clave},
+                          json=cuerpo, timeout=120)
+        except Exception as ex:  # noqa: BLE001
+            raise GeminiError(f"{modelo}: {type(ex).__name__}") from None
+        ia.llamadas += 1
+        if r.status_code == 200:
+            try:
+                cand = r.json()["candidates"][0]
+                texto = "".join(p.get("text", "") for p in cand["content"]["parts"] if not p.get("thought"))
+            except (KeyError, IndexError, ValueError) as ex:
+                raise GeminiError(f"{modelo}: respuesta no válida ({ex})") from None
+            return texto, cand.get("groundingMetadata") or {}, modelo
+        try:
+            detalle = r.json().get("error", {}).get("message", "")[:140]
+        except ValueError:
+            detalle = r.text[:140]
+        motivos.append(f"{modelo}: HTTP {r.status_code} {detalle}")
+        if r.status_code not in (400, 404) or "API key" in detalle:
+            break
+    raise GeminiError("; ".join(motivos) or "sin modelos para la búsqueda")
+
+
 def _parsear_json(texto):
     texto = texto.strip()
     texto = re.sub(r"^```(?:json)?|```$", "", texto, flags=re.M).strip()
-    return json.loads(texto)
+    try:
+        return json.loads(texto)
+    except ValueError:
+        m = re.search(r"(\[.*\]|\{.*\})", texto, re.S)
+        if not m:
+            raise
+        return json.loads(m.group(1))
 
 
 # ---------------------------------------------------------------- prompts

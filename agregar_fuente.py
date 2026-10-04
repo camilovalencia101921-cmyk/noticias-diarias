@@ -19,7 +19,7 @@ from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap
 
 from noticias.fuentes import leer_rss, leer_sitemap
-from noticias.utils import RAIZ, dominio, http_get
+from noticias.utils import RAIZ, dominio, http_get, normalizar
 
 CONFIG = RAIZ / "config.yaml"
 RUTAS_FEED = ["/feed", "/feed/", "/rss", "/rss.xml", "/feeds/all.rss", "/index.xml", "/atom.xml"]
@@ -165,9 +165,11 @@ def listar():
         say(f"{n:3}. [{estado}] {f.get('alcance', 'local'):13} {f.get('filtro', 'estricto'):9} {f.get('nombre')}  ->  {f.get('url')}")
     ig = (cfg.get("local") or {}).get("instagram") or []
     if ig:
-        say("\nBotones de Instagram:")
-        for u in ig:
-            say(f"   - {u}")
+        say("\nBotones de Instagram (máximo 6 visibles; no verificados):")
+        for b in ig:
+            b = {"url": b, "activo": True} if isinstance(b, str) else b
+            estado = "activo " if b.get("activo") and b.get("url") else "APAGADO"
+            say(f"   [{estado}] {b.get('nombre', '')}  ->  {b.get('url') or '(pendiente de enlace)'}")
 
 
 def eliminar(texto, confirmar=True):
@@ -181,7 +183,8 @@ def eliminar(texto, confirmar=True):
         t = texto.lower()
         elegidas = [x for x in todas if t in str(x[2].get("nombre", "")).lower() or t in str(x[2].get("url", "")).lower()]
     ig = (cfg.get("local") or {}).get("instagram") or []
-    ig_match = [u for u in ig if texto.lower().rstrip("/") in u.lower()] if "instagram.com" in texto.lower() else []
+    ig_match = [b for b in ig if texto.lower().rstrip("/") in str(b if isinstance(b, str) else b.get("url", "")).lower()] \
+        if "instagram.com" in texto.lower() else []
     if not elegidas and not ig_match:
         say("No encontré ninguna fuente con ese número o texto. Usa --listar para verlas.")
         return 1
@@ -194,7 +197,7 @@ def eliminar(texto, confirmar=True):
         seccion, i, f = elegidas[0]
         say(f"Se eliminará: {f.get('nombre')}  ->  {f.get('url')}")
     else:
-        say(f"Se eliminará el botón de Instagram: {ig_match[0]}")
+        say(f"Se eliminará el botón de Instagram: {ig_match[0] if isinstance(ig_match[0], str) else ig_match[0].get('url')}")
     if confirmar and input("¿Confirmas? (s/n): ").strip().lower() not in ("s", "si", "sí", "y"):
         say("Cancelado.")
         return 1
@@ -207,6 +210,52 @@ def eliminar(texto, confirmar=True):
     return 0
 
 
+def _letras(t):
+    return re.sub(r"[^a-z0-9]", "", normalizar(t or ""))
+
+
+def agregar_instagram(cfg, link, nombre=None):
+    """Guarda el perfil como botón. Si ya existe (por URL o por nombre pendiente), lo reactiva."""
+    m = re.match(r"^https?://(?:www\.)?instagram\.com/([A-Za-z0-9._]{1,30})/?(?:[?#].*)?$", link.strip())
+    if not m or m.group(1).lower() in ("p", "reel", "reels", "stories", "explore", "accounts"):
+        say("No se guardó nada. Motivo: el link no es de un perfil de Instagram (debe ser instagram.com/usuario).")
+        return 1
+    usuario = m.group(1)
+    url = f"https://www.instagram.com/{usuario}"
+    loc = cfg.setdefault("local", CommentedMap())
+    ig = loc.setdefault("instagram", [])
+    for i, b in enumerate(ig):                     # formato antiguo: solo la URL
+        if isinstance(b, str):
+            nueva = CommentedMap(nombre="@" + b.rstrip("/").rsplit("/", 1)[-1], url=b, activo=True)
+            nueva.fa.set_flow_style()
+            ig[i] = nueva
+    existente = next((b for b in ig if str(b.get("url", "")).rstrip("/").lower() == url.lower()), None)
+    if existente is None:                          # entrada "pendiente de enlace" con el mismo nombre
+        existente = next((b for b in ig if not b.get("url") and _letras(b.get("nombre")) == _letras(usuario)), None)
+        if existente is None and nombre:
+            existente = next((b for b in ig if not b.get("url") and _letras(b.get("nombre")) == _letras(nombre)), None)
+    if existente is not None:
+        ya = existente.get("activo") and existente.get("url")
+        existente["url"] = url
+        existente["activo"] = True
+        if nombre:
+            existente["nombre"] = nombre
+        accion = "ya estaba activo" if ya else "quedó reactivado"
+        say(f"El botón '{existente.get('nombre')}' {accion}.")
+    else:
+        nueva = CommentedMap(nombre=nombre or "@" + usuario, url=url, activo=True)
+        nueva.fa.set_flow_style()
+        ig.append(nueva)
+        say(f"Se agregó el botón '{nueva['nombre']}'.")
+    activos = sum(1 for b in ig if b.get("activo") and b.get("url"))
+    guardar(cfg)
+    say("Instagram no se puede leer automáticamente (exige iniciar sesión): NO se agregó como fuente de noticias")
+    say("y el perfil no fue comprobado. Solo se muestra como botón en 'Tus medios locales en Instagram'.")
+    if activos > 6:
+        say(f"Atención: hay {activos} botones activos y la página muestra solo los primeros 6.")
+    return 0
+
+
 def agregar(link, alcance, filtro, nombre=None):
     link = link.strip()
     if not re.match(r"^https?://", link):
@@ -214,17 +263,7 @@ def agregar(link, alcance, filtro, nombre=None):
     cfg = cargar()
 
     if "instagram.com" in link:
-        loc = cfg.setdefault("local", CommentedMap())
-        ig = loc.setdefault("instagram", [])
-        limpio = link.split("?")[0].rstrip("/")
-        if any(limpio.lower() == u.rstrip("/").lower() for u in ig):
-            say("Ese perfil de Instagram ya estaba en la lista de botones.")
-            return 0
-        ig.append(limpio)
-        guardar(cfg)
-        say("Instagram no se puede leer automáticamente, así que NO se agregó como fuente de noticias.")
-        say("Se guardó como botón en la sección 'Tus medios locales en Instagram'.")
-        return 0
+        return agregar_instagram(cfg, link, nombre)
 
     say(f"Revisando {link} ...")
     url, tipo, nota, items, titulo = detectar(link)
@@ -292,6 +331,8 @@ def main():
         while alcance not in ("local", "nacional", "internacional"):
             alcance = input("¿Alcance de esta fuente? (local / nacional / internacional): ").strip().lower()
     filtro = a.filtro or ("flexible" if alcance == "local" else "estricto")
+    if "instagram.com" in a.link:
+        return agregar_instagram(cargar(), a.link, a.nombre)
     return agregar(a.link, alcance, filtro, a.nombre)
 
 

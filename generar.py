@@ -4,12 +4,13 @@ Uso:  python generar.py            (genera sitio/index.html)
       python generar.py --sin-ia   (fuerza el modo de respaldo)
 """
 import argparse
+import re
 import shutil
 import sys
 import traceback
 from datetime import date, datetime, timedelta
 
-from noticias import agenda, medios, mercados, notificar
+from noticias import agenda, alma, cine, medios, mercados, notificar
 from noticias import filtros as FL
 from noticias import proceso as P
 from noticias.fuentes import descargar_todas, fuentes_activas, filtrar_por_edad
@@ -59,6 +60,20 @@ def imagenes_categoria():
                 shutil.copy2(f, destino / f.name)
                 mapa[f.stem] = f"categorias/{f.name}"
     return mapa
+
+
+def botones_instagram(loc):
+    """Hasta 6 botones activos con URL válida de perfil de Instagram (no se comprueba el perfil)."""
+    out = []
+    for b in loc.get("instagram") or []:
+        if isinstance(b, str):
+            b = {"url": b, "activo": True}
+        url = str(b.get("url") or "").strip()
+        if not b.get("activo", True) or not re.match(r"^https://(www\.)?instagram\.com/[A-Za-z0-9._]{1,30}/?$", url):
+            continue
+        nombre = b.get("nombre") or "@" + url.rstrip("/").rsplit("/", 1)[-1]
+        out.append({"nombre": nombre, "url": url})
+    return out[:6]
 
 
 def guardar_log(hoy, reg, errores):
@@ -143,27 +158,35 @@ def main():
         reg.info("Gemini apagado o sin clave: modo de respaldo")
 
     # 4. selección
-    elegidas = P.seleccionar(candidatos, cfg, reg)
+    elegidas, sobrantes = P.seleccionar(candidatos, cfg, reg)
     if not any(n.seccion == "local" for n in elegidas):
         extra = P.completar_departamento(cfg, False, reg, procesar)
         extra = [n for n in extra if not hist.enviado_antes(n.enlace, hoy)]
         for n in extra:
             n.seccion, n.alcance = "local", "local"
-        elegidas += [n for n in P.seleccionar(extra, cfg, reg) if n.seccion == "local"]
+        extra_elegidas, extra_sobrantes = P.seleccionar(extra, cfg, reg)
+        elegidas += [n for n in extra_elegidas if n.seccion == "local"]
+        sobrantes += [(n, m) for n, m in extra_sobrantes if n.seccion == "local"]
 
     # 5. seguimiento de historias
-    if seg.get("activo", True):
-        finales = []
-        for n in elegidas:
-            h = hist.buscar_historia(n.tokens, hoy, seg.get("dias_memoria", 14), seg.get("similitud", 0.45))
-            if h:
-                if n.fecha.astimezone(tz).date() < hoy:
+    def es_nueva(n, registrar=True):
+        if not seg.get("activo", True):
+            return True
+        h = hist.buscar_historia(n.tokens, hoy, seg.get("dias_memoria", 14), seg.get("similitud", 0.45))
+        if h:
+            if n.fecha.astimezone(tz).date() < hoy:
+                if registrar:
                     reg.descarte("ya_publicada", n, "sin novedad")
-                    continue
-                n.seguimiento_dia = (hoy - h[1]).days + 1
-                n._historia = h[0]
-            finales.append(n)
-        elegidas = finales
+                return False
+            n.seguimiento_dia = (hoy - h[1]).days + 1
+            n._historia = h[0]
+        return True
+
+    elegidas = [n for n in elegidas if es_nueva(n)]
+    # "Ver más": siguientes mejores de cada sección (no cuentan para los topes)
+    ver_mas = {}
+    for n in P.elegir_ver_mas(sobrantes, cfg, reg, aceptar=lambda n: es_nueva(n, registrar=False)):
+        ver_mas.setdefault(n.seccion, []).append(n)
 
     # 6. resúmenes (lote 2) y medios
     ok_resumen = P.resumir(elegidas, cfg, ia, not modo_respaldo, reg)
@@ -184,6 +207,8 @@ def main():
     for lista in secciones.values():
         lista.sort(key=lambda n: -n.puntaje)
 
+    temas_alma, _ = alma.generar(cfg, ia, hoy, reg.info)
+    estrenos = cine.construir(cfg, ia, hoy, reg.info)
     tarjetas_mercado = mercados.actualizar(cfg, hist, reg.info)
     items_agenda = agenda.construir(cfg, hoy, tz, reg.info)
 
@@ -210,7 +235,8 @@ def main():
         "ahora_utc": ahora_utc(), "fecha_larga": fecha_larga(hoy), "fecha_corta": hoy.strftime("%d/%m/%Y"),
         "actualizado": f"Actualizado hoy {ahora.hour}:{ahora.minute:02d} (hora de Colombia)",
         "destacada": destacada, "secciones": secciones, "mercados": tarjetas_mercado, "agenda": items_agenda,
-        "contador": contador, "instagram": (loc.get("instagram") or []) if loc.get("activo", True) else [],
+        "contador": contador, "instagram": botones_instagram(loc) if loc.get("activo", True) else [],
+        "ver_mas": ver_mas, "alma": temas_alma, "cine": estrenos,
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
         "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes, "portada": preparar_portada(cfg, reg),
         "imagenes_categoria": imagenes_categoria(), "colores": colores,
@@ -220,11 +246,12 @@ def main():
     (SITIO / "index.html").write_text(html, encoding="utf-8")
     (SITIO / "archivo" / f"{hoy.isoformat()}.html").write_text(pagina.html(prefijo="../"), encoding="utf-8")
     (SITIO / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
-    reg.info(f"Página: {len(html.encode()) / 1024:.0f} KB · {len(elegidas)} noticias · "
+    reg.info(f"Página: {len(html.encode()) / 1024:.0f} KB · {len(elegidas)} noticias + "
+             f"{sum(len(v) for v in ver_mas.values())} en 'Ver más' · "
              f"modo {'respaldo (sin IA)' if modo_respaldo else ('IA (resúmenes sin IA)' if respaldo_resumenes else 'IA')} · llamadas a Gemini: {ia.llamadas}")
 
     # 9. historial, log y canales opcionales
-    for n in elegidas:
+    for n in elegidas + [x for v in ver_mas.values() for x in v]:
         hist.registrar(n, hoy, getattr(n, "_historia", None))
     hist.registrar_ejecucion(hoy, "respaldo" if modo_respaldo else "ia", revisados, len(elegidas))
     hist.limpiar(hoy)
