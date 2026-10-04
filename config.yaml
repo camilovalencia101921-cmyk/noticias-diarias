@@ -447,7 +447,7 @@ para_el_alma:
 cine:
   activo: true
   color: "#D64550"
-  busqueda_gemini: true
+  busqueda_gemini: false     # apagado: la búsqueda de Google no está disponible gratis para esta clave
   modelos_busqueda_gratuita: ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
   respaldo_cinemark: true
   dias_hacia_adelante: 30    # "próximos" = hasta 30 días desde hoy
