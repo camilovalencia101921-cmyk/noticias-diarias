@@ -31,8 +31,8 @@ class Gemini:
         self.llamadas = 0
 
     # ------------------------------------------------------------ modelos
-    def _modelo_flash_disponible(self):
-        """Consulta el listado de modelos y elige el Flash más reciente."""
+    def _modelos_flash(self):
+        """Lista de modelos Flash disponibles: primero los estables más recientes, luego los preview."""
         r = http_get(f"{API}/models", params={"key": self.clave, "pageSize": 200}, timeout=20)
         if r.status_code != 200:
             raise GeminiError(f"no se pudo listar modelos (HTTP {r.status_code})")
@@ -44,27 +44,18 @@ class Gemini:
             if any(x in nombre for x in ("lite", "image", "tts", "audio", "live", "thinking", "exp", "8b")):
                 continue
             ver = re.search(r"gemini-(\d+(?:\.\d+)?)", nombre)
-            estable = 0 if "preview" in nombre else 1
-            latest = 1 if nombre.endswith("latest") else 0
-            candidatos.append((float(ver.group(1)) if ver else 0, estable, -latest, nombre))
-        if not candidatos:
-            raise GeminiError("no hay modelos Flash disponibles")
+            estable = 0 if ("preview" in nombre or "latest" in nombre) else 1
+            candidatos.append((estable, float(ver.group(1)) if ver else 0, nombre))
         candidatos.sort(reverse=True)
-        return candidatos[0][3]
+        return [c[2] for c in candidatos]
 
     # ------------------------------------------------------------ llamada
-    def generar_json(self, prompt):
-        if not self.activo:
-            raise GeminiError("sin clave GEMINI_API_KEY o desactivado")
-        cuerpo = {
-            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
-        }
-        cambio_modelo = False
+    def _intentar(self, modelo, cuerpo):
+        """Prueba un modelo. Devuelve (json, None) o (None, 'siguiente'|'fatal', motivo)."""
         ultimo = ""
         for intento in range(self.reintentos + 1):
             try:
-                r = http_post(f"{API}/models/{self.modelo}:generateContent",
+                r = http_post(f"{API}/models/{modelo}:generateContent",
                               params={"key": self.clave}, json=cuerpo, timeout=180)
             except Exception as ex:  # noqa: BLE001
                 ultimo = f"{type(ex).__name__}"
@@ -75,31 +66,54 @@ class Gemini:
                 try:
                     partes = r.json()["candidates"][0]["content"]["parts"]
                     texto = "".join(p.get("text", "") for p in partes if not p.get("thought"))
-                    return _parsear_json(texto)
+                    return _parsear_json(texto), None, ""
                 except (KeyError, IndexError, ValueError) as ex:
                     ultimo = f"respuesta no válida: {ex}"
                     continue
-            ultimo = f"HTTP {r.status_code}: {r.text[:200]}"
-            if r.status_code in (400, 404) and not cambio_modelo and "API key" not in r.text:
-                nuevo = self._modelo_flash_disponible()
-                self.log(f"Modelo {self.modelo} no disponible; se usa {nuevo}")
-                self.modelo, cambio_modelo = nuevo, True
-                continue
+            ultimo = f"HTTP {r.status_code}: {r.text[:160]}"
+            if r.status_code in (401, 403) or "API key" in r.text:
+                return None, "fatal", "clave no válida o sin permiso"
+            if r.status_code in (400, 404):
+                return None, "siguiente", f"modelo no disponible (HTTP {r.status_code})"
             if r.status_code == 429:
+                if "PerDay" in r.text or "per day" in r.text.lower():
+                    return None, "siguiente", "cuota diaria agotada para este modelo"
                 espera = self.pausa
                 m = re.search(r'"retryDelay":\s*"(\d+)', r.text)
                 if m:
                     espera = min(int(m.group(1)) + 2, 90)
-                if "PerDay" in r.text or "per day" in r.text.lower():
-                    raise GeminiError("cuota diaria agotada")
-                self.log(f"Límite de cuota; espero {espera} s")
+                self.log(f"Límite de cuota en {modelo}; espero {espera} s")
                 time.sleep(espera)
                 continue
             if r.status_code in (500, 502, 503, 504):
-                time.sleep(min(self.pausa, 15) * (intento + 1))
+                time.sleep(min(self.pausa, 20) * (intento + 1))
                 continue
-            raise GeminiError(ultimo)
-        raise GeminiError(ultimo or "sin respuesta")
+            return None, "fatal", ultimo
+        return None, "siguiente", f"sin respuesta útil tras {self.reintentos + 1} intentos ({ultimo[:60]})"
+
+    def generar_json(self, prompt):
+        if not self.activo:
+            raise GeminiError("sin clave GEMINI_API_KEY o desactivado")
+        cuerpo = {
+            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+            "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
+        }
+        probados, alternativos = [], None
+        modelo = self.modelo
+        while modelo and len(probados) < 3:
+            probados.append(modelo)
+            datos, accion, motivo = self._intentar(modelo, cuerpo)
+            if accion is None:
+                self.modelo = modelo        # el segundo lote usa el que funcionó
+                return datos
+            self.log(f"Gemini {modelo}: {motivo}")
+            if accion == "fatal":
+                raise GeminiError(motivo)
+            if alternativos is None:
+                alternativos = self._modelos_flash()
+                self.log("Modelos Flash disponibles: " + ", ".join(alternativos[:6]))
+            modelo = next((m for m in alternativos if m not in probados), None)
+        raise GeminiError("ningún modelo Flash respondió (" + ", ".join(probados) + ")")
 
 
 def _parsear_json(texto):
