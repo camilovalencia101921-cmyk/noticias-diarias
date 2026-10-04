@@ -223,6 +223,8 @@ class Pagina:
             archivo = f'<details class="archivo"><summary>Días anteriores</summary><ul>{enlaces}</ul></details>'
         inicio = f'<a class="volver" href="{prefijo}index.html">← Ir a la edición de hoy</a>' if prefijo else ""
         respaldo = '<p class="nota">Hoy se usó el modo de respaldo (sin IA)</p>' if c["modo_respaldo"] else ""
+        if not respaldo and c.get("respaldo_resumenes"):
+            respaldo = '<p class="nota">Hoy los resúmenes se hicieron en modo de respaldo (sin IA)</p>'
 
         portada = ""
         if c["portada"]:

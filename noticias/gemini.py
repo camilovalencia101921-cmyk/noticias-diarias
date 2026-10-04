@@ -29,6 +29,7 @@ class Gemini:
         self.activo = bool(g.get("activo", True)) and bool(self.clave)
         self.log = log
         self.llamadas = 0
+        self.lista_registrada = False
 
     # ------------------------------------------------------------ modelos
     def _modelos_flash(self):
@@ -53,7 +54,8 @@ class Gemini:
     def _intentar(self, modelo, cuerpo):
         """Prueba un modelo. Devuelve (json, None) o (None, 'siguiente'|'fatal', motivo)."""
         ultimo = ""
-        for intento in range(self.reintentos + 1):
+        errores_servidor = 0
+        for _ in range(self.reintentos + 1):
             try:
                 r = http_post(f"{API}/models/{modelo}:generateContent",
                               params={"key": self.clave}, json=cuerpo, timeout=180)
@@ -70,7 +72,11 @@ class Gemini:
                 except (KeyError, IndexError, ValueError) as ex:
                     ultimo = f"respuesta no válida: {ex}"
                     continue
-            ultimo = f"HTTP {r.status_code}: {r.text[:160]}"
+            try:
+                detalle = r.json().get("error", {}).get("message", "")[:140]
+            except ValueError:
+                detalle = r.text[:140]
+            ultimo = f"HTTP {r.status_code}: {detalle}"
             if r.status_code in (401, 403) or "API key" in r.text:
                 return None, "fatal", "clave no válida o sin permiso"
             if r.status_code in (400, 404):
@@ -86,10 +92,13 @@ class Gemini:
                 time.sleep(espera)
                 continue
             if r.status_code in (500, 502, 503, 504):
-                time.sleep(min(self.pausa, 20) * (intento + 1))
+                errores_servidor += 1
+                if errores_servidor >= 2:       # saturado: mejor probar otro modelo
+                    break
+                time.sleep(min(self.pausa, 20))
                 continue
             return None, "fatal", ultimo
-        return None, "siguiente", f"sin respuesta útil tras {self.reintentos + 1} intentos ({ultimo[:60]})"
+        return None, "siguiente", f"sin respuesta útil ({ultimo})"
 
     def generar_json(self, prompt):
         if not self.activo:
@@ -100,7 +109,7 @@ class Gemini:
         }
         probados, alternativos = [], None
         modelo = self.modelo
-        while modelo and len(probados) < 3:
+        while modelo and len(probados) < 5:
             probados.append(modelo)
             datos, accion, motivo = self._intentar(modelo, cuerpo)
             if accion is None:
@@ -111,7 +120,9 @@ class Gemini:
                 raise GeminiError(motivo)
             if alternativos is None:
                 alternativos = self._modelos_flash()
-                self.log("Modelos Flash disponibles: " + ", ".join(alternativos[:6]))
+                if not self.lista_registrada:
+                    self.log("Modelos Flash disponibles: " + ", ".join(alternativos[:8]))
+                    self.lista_registrada = True
             modelo = next((m for m in alternativos if m not in probados), None)
         raise GeminiError("ningún modelo Flash respondió (" + ", ".join(probados) + ")")
 

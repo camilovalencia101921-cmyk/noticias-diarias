@@ -24,7 +24,7 @@ portada_imagen:
 # ---------------------------------------------------------------------
 gemini:
   activo: true
-  modelo: "gemini-2.5-flash"   # si falla, se busca el Flash más reciente disponible
+  modelo: "gemini-3.8-flash"   # si falla o está saturado, se prueban otros Flash disponibles
   max_candidatos: 160          # titulares enviados en el lote 1
   reintentos: 3
   pausa_segundos: 30           # espera ante límite de cuota

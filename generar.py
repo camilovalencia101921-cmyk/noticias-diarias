@@ -167,8 +167,7 @@ def main():
 
     # 6. resúmenes (lote 2) y medios
     ok_resumen = P.resumir(elegidas, cfg, ia, not modo_respaldo, reg)
-    if not ok_resumen and not modo_respaldo:
-        modo_respaldo = True
+    respaldo_resumenes = not ok_resumen and not modo_respaldo
     medios.enriquecer(elegidas, cfg)
 
     # 7. destacada y secciones
@@ -213,7 +212,7 @@ def main():
         "destacada": destacada, "secciones": secciones, "mercados": tarjetas_mercado, "agenda": items_agenda,
         "contador": contador, "instagram": (loc.get("instagram") or []) if loc.get("activo", True) else [],
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
-        "modo_respaldo": modo_respaldo, "portada": preparar_portada(cfg, reg),
+        "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes, "portada": preparar_portada(cfg, reg),
         "imagenes_categoria": imagenes_categoria(), "colores": colores,
     }
     pagina = Pagina(cfg, ctx)
@@ -222,7 +221,7 @@ def main():
     (SITIO / "archivo" / f"{hoy.isoformat()}.html").write_text(pagina.html(prefijo="../"), encoding="utf-8")
     (SITIO / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
     reg.info(f"Página: {len(html.encode()) / 1024:.0f} KB · {len(elegidas)} noticias · "
-             f"modo {'respaldo (sin IA)' if modo_respaldo else 'IA'} · llamadas a Gemini: {ia.llamadas}")
+             f"modo {'respaldo (sin IA)' if modo_respaldo else ('IA (resúmenes sin IA)' if respaldo_resumenes else 'IA')} · llamadas a Gemini: {ia.llamadas}")
 
     # 9. historial, log y canales opcionales
     for n in elegidas:
