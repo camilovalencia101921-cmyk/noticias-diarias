@@ -48,6 +48,58 @@ def preparar_portada(cfg, reg):
         return ""
 
 
+CORAL = (216, 90, 48)
+
+
+def _icono(lado, logo=None):
+    """Ícono cuadrado: el logo propio o el recuadro coral con una N blanca."""
+    from PIL import Image, ImageDraw
+    if logo is not None:
+        return logo.convert("RGB").resize((lado, lado))
+    k = lado / 100
+    img = Image.new("RGB", (lado, lado), CORAL)      # lleno: los sistemas recortan sus propias esquinas
+    d = ImageDraw.Draw(img)
+    d.polygon([(30 * k, 74 * k), (30 * k, 26 * k), (40 * k, 26 * k), (60 * k, 57 * k), (60 * k, 26 * k),
+               (70 * k, 26 * k), (70 * k, 74 * k), (60 * k, 74 * k), (40 * k, 43 * k), (40 * k, 74 * k)], fill="white")
+    return img
+
+
+def preparar_logo_e_iconos(cfg, reg):
+    """Copia assets/logo.png si es válido y crea íconos y manifest para 'Añadir a pantalla de inicio'.
+    Devuelve (usar_logo_png, hay_iconos)."""
+    lc = cfg.get("logo", {}) or {}
+    origen = RAIZ / lc.get("archivo", "assets/logo.png")
+    logo = None
+    (SITIO / "logo.png").unlink(missing_ok=True)
+    if lc.get("activo", True) and origen.exists():
+        try:
+            from PIL import Image
+            im = Image.open(origen)
+            if origen.stat().st_size >= 50_000:
+                reg.info("Logo: assets/logo.png pesa 50 KB o más; se usa el logo dibujado")
+            elif abs(im.width - im.height) > 2:
+                reg.info("Logo: assets/logo.png no es cuadrado; se usa el logo dibujado")
+            else:
+                logo = im
+                shutil.copy2(origen, SITIO / "logo.png")
+        except Exception as ex:  # noqa: BLE001
+            reg.info(f"Logo: no se pudo leer assets/logo.png ({type(ex).__name__}); se usa el logo dibujado")
+    try:
+        for lado in (180, 192, 512):
+            _icono(lado, logo).save(SITIO / f"icono-{lado}.png", optimize=True)
+    except Exception as ex:  # noqa: BLE001
+        reg.info(f"Íconos: no se pudieron crear ({type(ex).__name__})")
+        return logo is not None, False
+    titulo = (cfg.get("pagina", {}) or {}).get("titulo", "Noticias diarias")
+    manifest = {"name": titulo, "short_name": "News", "start_url": "./", "scope": "./", "display": "browser",
+                "background_color": "#17203A", "theme_color": "#17203A",
+                "icons": [{"src": f"icono-{x}.png", "sizes": f"{x}x{x}", "type": "image/png", "purpose": "any"}
+                          for x in (192, 512)]}
+    import json
+    (SITIO / "manifest.webmanifest").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    return logo is not None, True
+
+
 def imagenes_categoria():
     origen = RAIZ / "assets" / "categorias"
     destino = SITIO / "categorias"
@@ -231,6 +283,7 @@ def main():
     for kk, v in (((cfg.get("local", {}) or {}).get("categorias", {})) or {}).items():
         colores[f"local_{kk}"] = v.get("color")
     loc = cfg.get("local", {}) or {}
+    usar_logo_png, hay_iconos = preparar_logo_e_iconos(cfg, reg)
     ctx = {
         "ahora_utc": ahora_utc(), "fecha_larga": fecha_larga(hoy), "fecha_corta": hoy.strftime("%d/%m/%Y"),
         "actualizado": f"Actualizado hoy {ahora.hour}:{ahora.minute:02d} (hora de Colombia)",
@@ -240,6 +293,7 @@ def main():
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
         "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes, "portada": preparar_portada(cfg, reg),
         "imagenes_categoria": imagenes_categoria(), "colores": colores,
+        "logo_png": usar_logo_png, "iconos": hay_iconos,
     }
     pagina = Pagina(cfg, ctx)
     html = pagina.html()

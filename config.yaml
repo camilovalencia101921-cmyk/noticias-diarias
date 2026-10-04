@@ -13,6 +13,28 @@ pagina:
   # https://TU-USUARIO.github.io/noticias-diarias/
   url_publica: ""
 
+# Logo "News" a la derecha del título. Si existe assets/logo.png (cuadrado y de menos de 50 KB),
+# se usa esa imagen en lugar del logo dibujado (y también como ícono de la pantalla de inicio).
+logo:
+  activo: true
+  archivo: "assets/logo.png"
+
+# Borde suave del color de cada tema en las tarjetas (el mismo color de su etiqueta).
+# Opacidad en %: más alto = borde más visible. El modo claro necesita algo más para notarse.
+bordes_tema:
+  activo: true
+  grosor: 1.5
+  opacidad_oscuro: 45
+  opacidad_claro: 55
+  destacada_oscuro: 60        # "Lo más importante hoy"
+  destacada_claro: 70
+
+# Chip de filtro "Tecnología": muestra solo las noticias de estos temas, de cualquier zona.
+chip_tecnologia:
+  activo: true
+  color: "#1D9E75"
+  temas: [tecnologia, inteligencia_artificial, ciberseguridad]
+
 portada_imagen:
   activo: true               # usa assets/portada.jpg si existe
   archivo: "assets/portada.jpg"
@@ -93,7 +115,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#C62828"
+    color: "#E24B4A"
     descripcion: "crimen organizado, homicidios, grupos armados, terrorismo, Fuerza Pública"
     palabras: [homicidio, asesinato, asesinado, masacre, secuestro, extorsión, narcotráfico, cartel, "clan del golfo", eln, disidencias, "grupo armado", sicario, atentado, terrorismo, policía, ejército, "fuerza pública", fiscalía, capturado, capturados, "fuerzas militares", explosivo, dron, minas antipersonal]
   orden_publico:
@@ -101,7 +123,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#E65100"
+    color: "#EF9F27"
     descripcion: "marchas, bloqueos, paros, disturbios, protestas, operativos"
     palabras: [marcha, marchas, bloqueo, bloqueos, paro, "paro armado", "paro camionero", disturbios, protesta, protestas, manifestación, manifestantes, asonada, "toque de queda", operativo, "orden público", esmad, undmo, "consejo de seguridad", "ley seca"]
   economia:
@@ -117,7 +139,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.0
-    color: "#6A1B9A"
+    color: "#1D9E75"
     descripcion: "inteligencia artificial: modelos, regulación, empresas de IA, impacto laboral"
     palabras: ["inteligencia artificial", " ia ", "ia generativa", chatgpt, openai, gemini, anthropic, claude, "modelo de lenguaje", llm, deepmind, "machine learning", "aprendizaje automático", "artificial intelligence", " ai ", nvidia, copilot, "agentes de ia", deepseek, mistral, grok]
   fenomenos_naturales:
@@ -125,7 +147,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#00838F"
+    color: "#D9443F"
     descripcion: "sismos, volcanes, lluvias, inundaciones, huracanes, sequías, alertas del IDEAM/UNGRD/SGC"
     palabras: [sismo, temblor, terremoto, volcán, erupción, huracán, tormenta, ciclón, tsunami, inundación, inundaciones, deslizamiento, avalancha, "ola invernal", lluvias, sequía, "fenómeno de el niño", "la niña", ideam, ungrd, "servicio geológico", "gestión del riesgo", magnitud, earthquake, incendio forestal, "alerta roja"]
   geopolitica:
@@ -149,7 +171,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.3                  # peso extra
-    color: "#AD1457"
+    color: "#7F77DD"
     descripcion: "jurisprudencia y justicia: Corte Constitucional, Corte Suprema, Consejo de Estado, JEP, sentencias, cambios de normas, leyes y decretos"
     palabras: ["corte constitucional", "corte suprema", "consejo de estado", jep, sentencia, fallo, tutela, jurisprudencia, magistrado, magistrada, decreto, "proyecto de ley", "ley ", juez, jueza, "tribunal", demanda, inexequible, exequible, condena, condenado, imputación, "fiscal general", "nueva norma", resolución, "código", "acción popular", "comisión de acusaciones"]
   mercados:
@@ -157,7 +179,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#00695C"
+    color: "#3B8E3E"
     descripcion: "mercados e inversión: bolsa, dólar, tasas de interés, petróleo, acciones, bonos, criptomonedas"
     palabras: [bolsa, acciones, dólar, "tasa de cambio", trm, "tasas de interés", "tasa de interés", petróleo, brent, wti, opep, "wall street", "s&p 500", nasdaq, colcap, "msci colcap", bonos, tes, inversión, inversionistas, "reserva federal", fed, ecopetrol, bitcoin, oro, "renta fija", dividendos, mercados]
   politica:
@@ -174,7 +196,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.0
-    color: "#37474F"
+    color: "#1D9E75"
     descripcion: "ciberataques, vulnerabilidades, filtraciones de datos, ransomware, fraudes digitales"
     palabras: [ciberataque, hackeo, hacker, hackers, ransomware, malware, vulnerabilidad, "filtración de datos", phishing, ciberseguridad, "fuga de datos", exploit, "día cero", "zero-day", breach, cve, botnet, "robo de datos", ciberdelincuentes, cybersecurity, "data breach"]
   energia:
@@ -198,7 +220,7 @@ temas:
     grupo: serias
     activo: true
     peso: 0.9
-    color: "#0277BD"
+    color: "#1D9E75"
     descripcion: "tecnología (solo lo que NO sea inteligencia artificial ni ciberseguridad): móviles, internet, empresas tecnológicas, espacio"
     palabras: [tecnología, apple, google, microsoft, samsung, android, iphone, smartphone, internet, "redes sociales", meta, tiktok, chips, semiconductores, satélite, nasa, spacex, software, 5g, telecomunicaciones]
   contratacion:
@@ -216,7 +238,7 @@ temas:
     grupo: ocio
     activo: true
     peso: 1.0
-    color: "#EC407A"
+    color: "#D4537E"
     descripcion: "anime: estrenos, nuevas temporadas, anuncios de la industria, estudios"
     palabras: [anime, manga, temporada, "season", crunchyroll, "estudio", tráiler, estreno, "one piece", "attack on titan", "demon slayer", "kimetsu", "jujutsu", "chainsaw man", "dragon ball", "my hero academia", "light novel", otaku, "toei", "mappa", "ufotable"]
     palabras_impacto: [estreno, "nueva temporada", "segunda temporada", "tercera temporada", anuncia, anuncio, película, adaptación, "fecha de estreno", tráiler, "season", announced, "anime adaptation", premiere]
@@ -225,7 +247,7 @@ temas:
     grupo: ocio
     activo: true
     peso: 1.0
-    color: "#43A047"
+    color: "#E8752F"
     descripcion: "fútbol: SOLO Liga BetPlay (Colombia), Selección Colombia y Champions League"
     palabras: ["liga betplay", "selección colombia", "champions league", "liga de campeones", "tricolor", "néstor lorenzo", "james rodríguez", "luis díaz", nacional, millonarios, "américa de cali", "junior", "santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares", "uefa", "dimayor"]
     requiere: ["liga betplay", "betplay", "selección colombia", "selección de colombia", "champions", "liga de campeones", "tricolor", "lorenzo", "dimayor", "atlético nacional", millonarios, "américa de cali", "junior de barranquilla", "independiente santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares de córdoba", "uefa"]
@@ -236,7 +258,7 @@ temas:
     grupo: ocio
     activo: true
     peso: 1.0
-    color: "#FB8C00"
+    color: "#E8752F"
     descripcion: "baloncesto: SOLO NBA y WNBA (masculino y femenino)"
     palabras: [nba, wnba, lakers, celtics, warriors, knicks, "liberty", "aces", "valkyries", "lebron", "curry", "wembanyama", "jokic", "playoffs", draft, "caitlin clark", "a'ja wilson", "fever"]
     requiere: [nba, wnba]
@@ -247,7 +269,7 @@ temas:
     grupo: ocio
     activo: true
     peso: 1.0
-    color: "#8E24AA"
+    color: "#C2479B"
     descripcion: "freestyle rap: FMS, Red Bull Batalla y la escena de batallas de gallos"
     palabras: [freestyle, fms, "red bull batalla", "batalla de gallos", gallos, rap, "urban roosters", "freestyle master series", "god level", chuty, aczino, gazir, "skone", "mecha", "bnet", "mnak"]
     requiere: [freestyle, fms, "red bull batalla", "batalla de gallos", gallos, "urban roosters", "batalla"]
@@ -257,7 +279,7 @@ temas:
     grupo: ocio
     activo: true
     peso: 1.0
-    color: "#8D6E63"
+    color: "#BA7517"
     descripcion: "historia antigua: Roma, Egipto, Grecia, Mesopotamia, Persia, Cartago, mayas, aztecas, incas; hallazgos arqueológicos, excavaciones, estudios, museos. Excluir pseudociencia."
     palabras: [arqueología, arqueológico, arqueólogos, excavación, hallazgo, yacimiento, roma, romano, romana, egipto, egipcio, faraón, grecia, griego, mesopotamia, babilonia, persia, persa, cartago, maya, mayas, azteca, aztecas, mexica, inca, incas, momia, tumba, necrópolis, "edad de bronce", museo, ancient, archaeolog, roman, egypt, greek, tomb, excavation, pharaoh, etrusco, etruscan]
     excluir: [alien, aliens, extraterrestre, extraterrestres, ovni, ovnis, anunnaki, atlántida, atlantis, "civilización perdida", gigantes, "antiguos astronautas", nibiru, "ancient aliens"]
@@ -386,12 +408,12 @@ local:
   categorias:
     seguridad:
       nombre: "Seguridad"
-      color: "#C62828"
+      color: "#E24B4A"
       peso: 1.2
       palabras: [homicidio, asesinado, asesinato, sicario, sicarios, robo, hurto, capturado, capturados, policía, extorsión, balacera, ataque, muerto, muertos, cadáver, cuerpo, crimen, riña, herido, heridos, judicial, fiscalía, cárcel, condenado, secuestro, desaparecido, "a bala", disparos, "arma blanca", violencia, feminicidio]
     orden_publico:
       nombre: "Orden público"
-      color: "#E65100"
+      color: "#EF9F27"
       peso: 1.2
       palabras: [marcha, bloqueo, bloqueos, paro, protesta, protestas, disturbios, asonada, manifestación, operativo, "toque de queda", "consejo de seguridad", "ley seca", desalojo, invasión]
     movilidad_servicios:

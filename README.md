@@ -177,6 +177,17 @@ Busca la fuente en `config.yaml` y cambia la palabra. Para apagar una fuente sin
 
 Para subir un archivo desde GitHub: entra a la carpeta → **Add file → Upload files** → arrastra la imagen → **Commit changes**.
 
+### 4.8 Logo "News", colores y bordes de las tarjetas
+- **Logo:** el recuadro coral "News ●" a la derecha del título está dibujado con código (se ve nítido a cualquier tamaño). Para **apagarlo**: `logo: activo: false`. Para usar tu propio logo, sube `assets/logo.png` **cuadrado y de menos de 50 KB**; también se usará como ícono al "Añadir a pantalla de inicio" en el celular. Si la imagen no cumple, se usa el logo dibujado y el registro del día lo explica.
+- **Ícono del celular:** en Chrome (Android) abre la página → menú **⋮** → **Añadir a pantalla de inicio**. El acceso directo usa el recuadro coral con la "N".
+- **Cambiar colores:** cada tema tiene su `color:` en `temas:` (y las categorías locales en `local: categorias:`). Ese color se usa en la etiqueta y en el borde de la tarjeta. "Para el alma" usa `para_el_alma: color` y "Cine" usa `cine: color`. Escribe el color en formato `"#RRGGBB"` (puedes elegirlo en cualquier selector de color de internet).
+- **Intensidad de los bordes** (`bordes_tema:`):
+  - `opacidad_oscuro: 45` y `opacidad_claro: 55`: porcentaje de color del borde normal en modo oscuro y claro. Más alto = más visible.
+  - `destacada_oscuro: 60` y `destacada_claro: 70`: lo mismo para "Lo más importante hoy".
+  - `grosor: 1.5`: grosor en píxeles.
+  - Para quitar los bordes: `bordes_tema: activo: false`.
+- **Chip "Tecnología":** muestra solo las noticias de tecnología, inteligencia artificial y ciberseguridad de cualquier zona (incluidas las de "Ver más"). Puedes cambiar la lista en `chip_tecnologia: temas` o apagarlo con `activo: false`.
+
 ---
 
 ## 5. Agregar, listar y eliminar fuentes

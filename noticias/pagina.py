@@ -104,17 +104,27 @@ class Pagina:
                 f'<time datetime="{n.fecha.isoformat()}" data-t="{int(n.fecha.timestamp())}">{rel}</time>'
                 f'{tag}{compartir}</div>')
 
+    def es_tec(self, n):
+        ct = self.cfg.get("chip_tecnologia", {}) or {}
+        return n.tema in (ct.get("temas") or [])
+
+    def attrs(self, n):
+        """Color del borde (el mismo de la etiqueta) y marca para el chip Tecnología."""
+        _, color = self.etiqueta(n)
+        return f' style="--bc:{color}"' + (' data-tec="1"' if self.es_tec(n) else "")
+
     def tarjeta(self, n, prefijo):
         resumen = f'<p class="res">{e(n.resumen)}</p>' if n.resumen else ""
         pq = f'<p class="pq"><b>Por qué importa:</b> {e(n.por_que)}</p>' if n.por_que else ""
-        return (f'<article class="card">{self.insignias(n)}<div class="fila">'
+        return (f'<article class="card"{self.attrs(n)}>{self.insignias(n)}<div class="fila">'
                 f'<h3><a class="stretch" href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a></h3>'
                 f'{self.miniatura(n, prefijo)}</div>{resumen}{pq}{self.meta(n)}</article>')
 
     def destacada(self, n, prefijo):
         pq = f'<p class="pq"><b>Por qué importa:</b> {e(n.por_que)}</p>' if n.por_que else ""
         resumen = f'<p class="res">{e(n.resumen)}</p>' if n.resumen else ""
-        return (f'<section class="sec" data-sec="{n.seccion}"><article class="card top">'
+        tec = ' data-tec="1"' if self.es_tec(n) else ""
+        return (f'<section class="sec" data-sec="{n.seccion}"{tec}><article class="card top"{self.attrs(n)}>'
                 f'{self.miniatura(n, prefijo, "th grande")}'
                 f'<div class="cuerpo"><span class="kicker">Lo más importante hoy</span>{self.insignias(n)}'
                 f'<h2><a class="stretch" href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a></h2>'
@@ -123,12 +133,12 @@ class Pagina:
 
     def tarjeta_ocio_ancha(self, n, prefijo):
         resumen = f'<p class="res">{e(n.resumen)}</p>' if n.resumen else ""
-        return (f'<article class="card ancha">{self.miniatura(n, prefijo, "th grande")}<div class="cuerpo">'
+        return (f'<article class="card ancha"{self.attrs(n)}>{self.miniatura(n, prefijo, "th grande")}<div class="cuerpo">'
                 f'{self.insignias(n)}<h3><a class="stretch" href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a></h3>'
                 f'{resumen}{self.meta(n)}</div></article>')
 
     def tarjeta_ocio_mini(self, n, prefijo):
-        return (f'<article class="card mini">{self.miniatura(n, prefijo, "th media")}<div class="cuerpo">'
+        return (f'<article class="card mini"{self.attrs(n)}>{self.miniatura(n, prefijo, "th media")}<div class="cuerpo">'
                 f'{self.insignias(n)}<h3><a class="stretch" href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a></h3>'
                 f'{self.meta(n, compacta=True)}</div></article>')
 
@@ -180,12 +190,13 @@ class Pagina:
         for n in lista:
             nombre, color = self.etiqueta(n)
             filas.append(
-                f'<li><a href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a>'
+                f'<li{self.attrs(n)}><a href="{e(n.enlace)}" target="_blank" rel="noopener noreferrer">{e(n.titulo)}</a>'
                 f'<div class="meta"><span class="src">{e(n.fuente)}</span><span class="dot">·</span>'
                 f'<time datetime="{n.fecha.isoformat()}" data-t="{int(n.fecha.timestamp())}">'
                 f'{tiempo_relativo(n.fecha, self.ctx["ahora_utc"])}</time>'
                 f'<span class="tag" style="--c:{color}">{e(nombre)} · {n.puntaje}/10</span></div></li>')
-        return (f'<details class="mas"><summary>Ver más ({len(lista)})</summary>'
+        tec = ' data-tec="1"' if any(self.es_tec(n) for n in lista) else ""
+        return (f'<details class="mas"{tec}><summary>Ver más ({len(lista)})</summary>'
                 f'<ul>{"".join(filas)}</ul></details>')
 
     def cine(self):
@@ -212,7 +223,7 @@ class Pagina:
                 f'<div class="ps">{e(p["sinopsis"])}</div><div class="pf">Estreno: {DIAS[f.weekday()]} {f.day} de '
                 f'{MESES[f.month - 1]}{" · " + fuente if fuente else ""}</div></div></li>')
         return (f'<section class="sec" data-sec="cine" id="cine" style="--sc:{color}">{cab}'
-                f'<ul class="agenda cine">{"".join(filas)}</ul>'
+                f'<ul class="agenda cine" style="--bc:{color}">{"".join(filas)}</ul>'
                 f'<p class="nota">Datos: {e(origen)}. Las salas pueden cambiar las fechas.</p></section>')
 
     def alma(self):
@@ -225,12 +236,28 @@ class Pagina:
             return (f'<section class="sec" data-sec="alma" id="alma" style="--sc:{color}">{cab}'
                     f'<p class="aviso">Hoy no disponible.</p></section>')
         tarjetas = "".join(
-            f'<article class="card alma"><span class="tag" style="--c:{color}">{e(t["nombre_categoria"])}</span>'
+            f'<article class="card alma" style="--bc:{color}"><span class="tag" style="--c:{color}">{e(t["nombre_categoria"])}</span>'
             f'<h3>{e(t["titulo"])}</h3><p class="txt">{e(t["resumen"])}</p>'
             f'<p class="pq"><b>Por qué es interesante:</b> {e(t["interes"])}</p>'
             f'<p class="preg">🤔 {e(t["pregunta"])}</p></article>' for t in temas)
         return (f'<section class="sec" data-sec="alma" id="alma" style="--sc:{color}">{cab}{tarjetas}'
                 f'<p class="nota">Texto generado por IA; verifica antes de citar.</p></section>')
+
+    def logo(self, prefijo):
+        if not (self.cfg.get("logo", {}) or {}).get("activo", True):
+            return ""
+        if self.ctx.get("logo_png"):
+            return f'<img class="logo-img" src="{prefijo}logo.png" width="40" height="40" alt="News">'
+        return '<span class="logo" role="img" aria-label="News">News<i></i></span>'
+
+    def css_bordes(self):
+        b = self.cfg.get("bordes_tema", {}) or {}
+        if not b.get("activo", True):
+            return ""
+        g = float(b.get("grosor", 1.5))
+        return (f":root{{--bw:{g}px;--bo:{int(b.get('opacidad_claro', 55))}%;--bod:{int(b.get('destacada_claro', 70))}%}}"
+                f"@media (prefers-color-scheme:dark){{:root{{--bo:{int(b.get('opacidad_oscuro', 45))}%;"
+                f"--bod:{int(b.get('destacada_oscuro', 60))}%}}}}" + CSS_BORDES)
 
     # ------------------------------------------------------------ página
     def html(self, prefijo=""):
@@ -266,7 +293,8 @@ class Pagina:
             else:
                 cuerpo = "".join(self.tarjeta(n, prefijo) for n in lista)
             cuerpo += self.ver_mas(c.get("ver_mas", {}).get(clave, []))
-            partes.append(f'<section class="sec" data-sec="{clave}" id="{clave}">'
+            tec = ' data-tec="1"' if any(self.es_tec(n) for n in lista + c.get("ver_mas", {}).get(clave, [])) else ""
+            partes.append(f'<section class="sec" data-sec="{clave}" id="{clave}"{tec}>'
                           f'{self.cabecera_seccion(clave, nombre, icono, total)}{cuerpo}</section>')
         if not any(c["secciones"].values()) and not c["destacada"]:
             partes.append('<p class="vacio">Hoy ninguna noticia superó el puntaje mínimo.</p>')
@@ -298,14 +326,25 @@ class Pagina:
         if c["portada"]:
             portada = (f' style="background-image:linear-gradient(rgba(10,14,28,.55),rgba(10,14,28,.78)),'
                        f'url(\'{prefijo}{c["portada"]}\')"')
+        ct = self.cfg.get("chip_tecnologia", {}) or {}
         col = {"cine": (self.cfg.get("cine", {}) or {}).get("color", "#D64550"),
-               "alma": (self.cfg.get("para_el_alma", {}) or {}).get("color", "#C98A1B")}
+               "alma": (self.cfg.get("para_el_alma", {}) or {}).get("color", "#C98A1B"),
+               "tec": ct.get("color", "#1D9E75")}
         chips = "".join(f'<button type="button" class="chip{" on" if v == "todo" else ""}" data-f="{v}"'
                         + (f' style="--c:{col[v]}"' if v in col else "") + f'>{t}</button>'
                         for v, t in [("todo", "Todo"), ("local", "Local"), ("nacional", "Nacional"),
-                                     ("internacional", "Internacional"), ("ocio", "Ocio"), ("cine", "Cine"),
-                                     ("agenda", "Agenda"), ("alma", "Para el alma")])
-        cuerpo = "".join(partes)
+                                     ("internacional", "Internacional"), ("ocio", "Ocio")]
+                        + ([("tec", "Tecnología")] if ct.get("activo", True) else [])
+                        + [("cine", "Cine"), ("agenda", "Agenda"), ("alma", "Para el alma")])
+        sin_tec = '<p class="vacio solo-tec">Hoy no hay noticias de tecnología.</p>'
+        if any('data-tec="1"' in x for x in partes):
+            sin_tec = ""
+        cuerpo = "".join(partes) + sin_tec
+        css_extra = self.css_bordes()
+        logo = self.logo(prefijo)
+        iconos = (f'<link rel="apple-touch-icon" href="{prefijo}icono-180.png">\n'
+                  f'<link rel="manifest" href="{prefijo}manifest.webmanifest">') if c.get("iconos") else ""
+        favicon = (f'{prefijo}logo.png' if c.get("logo_png") else FAVICON)
         return f"""<!doctype html>
 <html lang="es">
 <head>
@@ -316,13 +355,14 @@ class Pagina:
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#17203A">
 <title>{e(titulo)} · {e(c["fecha_corta"])}</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2317203A'/%3E%3Cpath d='M28 30h44M28 46h44M28 62h28' stroke='%23fff' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>{CSS}</style>
+<link rel="icon" href="{favicon}">
+{iconos}
+<style>{CSS}{css_extra}</style>
 </head>
 <body data-f="todo">
 {simbolos(c["colores"])}
 <header class="cab"{portada}>
-  <h1>{e(titulo)}</h1>
+  <div class="tit"><h1>{e(titulo)}</h1>{logo}</div>
   <p class="fecha">{e(c["fecha_larga"]).capitalize()}</p>
   <p class="act">{e(c["actualizado"])}</p>
 </header>
@@ -341,6 +381,19 @@ class Pagina:
 <script>{JS}</script>
 </body>
 </html>"""
+
+
+FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E"
+           "%3Crect width='100' height='100' rx='24' fill='%23D85A30'/%3E"
+           "%3Cpath d='M30 74V26h10l20 31V26h10v48H60L40 43v31z' fill='%23fff'/%3E%3C/svg%3E")
+
+CSS_BORDES = """
+.card,.mas li,.agenda.cine{border:var(--bw) solid color-mix(in srgb,var(--bc,transparent) var(--bo),transparent)}
+.card.top{border-color:color-mix(in srgb,var(--bc,transparent) var(--bod),transparent)}
+.alma{border-left:4px solid var(--sc)}
+.mas ul{padding:0 10px 4px}
+.mas li{border-radius:12px;padding:10px 12px;margin-bottom:8px}
+"""
 
 
 def _usuario_ig(url):
@@ -367,6 +420,12 @@ main,.cab,footer{max-width:600px;margin:0 auto}
 a{color:inherit}
 .cab{background:#17203A center/cover no-repeat;color:#fff;padding:28px 16px 22px}
 .cab h1{margin:0;font-size:1.75rem;letter-spacing:-.01em}
+.tit{display:flex;align-items:center;gap:12px}
+.tit h1{flex:0 1 auto;min-width:0;overflow-wrap:anywhere}
+.logo{flex:none;display:inline-flex;align-items:center;gap:7px;background:#D85A30;color:#fff;border-radius:12px;
+padding:8px 12px;font-size:19px;font-weight:500;line-height:1;letter-spacing:0;white-space:nowrap}
+.logo i{display:block;width:9px;height:9px;border-radius:50%;background:#fff}
+.logo-img{flex:none;width:40px;height:40px;border-radius:12px;object-fit:cover}
 .cab .fecha{margin:4px 0 0;opacity:.92}
 .cab .act{margin:2px 0 0;font-size:.85rem;opacity:.75}
 main{padding:0 12px 24px}
@@ -410,6 +469,7 @@ background:rgba(0,0,0,.62);color:#fff;display:grid;place-items:center;text-decor
 .dot{opacity:.6}time{white-space:nowrap}
 .tag{--c:#546E7A;margin-left:auto;flex:none;font-size:.74rem;font-weight:650;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);
 border-radius:999px;padding:3px 9px;white-space:nowrap}
+@media (prefers-color-scheme:light){.tag{color:color-mix(in srgb,var(--c) 80%,#000)}}
 @media (prefers-color-scheme:dark){.tag{color:color-mix(in srgb,var(--c) 55%,#fff)}}
 .share{position:relative;z-index:2;flex:none;border:0;background:transparent;color:var(--mu);padding:6px;margin:-6px -6px -6px 0;border-radius:50%;cursor:pointer;display:grid}
 .share:hover{background:var(--chip)}
@@ -429,7 +489,7 @@ border-radius:999px;padding:3px 9px;white-space:nowrap}
 .mini .cuerpo{padding:8px 2px 0;display:flex;flex-direction:column;flex:1}
 .mini h3{font-size:.92rem}
 .mini .meta{margin-top:8px}.mini .meta:last-child{margin-top:6px}.mini .src{max-width:none}
-.mini .tag{margin-left:0;margin-right:auto}.mini .share{margin-right:-2px}
+.mini .tag{margin-left:0;margin-right:auto}.mini .share{margin-right:0}
 .agenda{list-style:none;margin:0;padding:6px 14px;background:var(--card);border-radius:18px;box-shadow:var(--sh)}
 .agenda li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ln);font-size:.9rem}
 .agenda li:last-child{border-bottom:0}
@@ -452,6 +512,9 @@ body[data-f="local"] .sec:not([data-sec="local"]),body[data-f="nacional"] .sec:n
 body[data-f="internacional"] .sec:not([data-sec="internacional"]),body[data-f="ocio"] .sec:not([data-sec="ocio"]),
 body[data-f="agenda"] .sec:not([data-sec="agenda"]),body[data-f="cine"] .sec:not([data-sec="cine"]),
 body[data-f="alma"] .sec:not([data-sec="alma"]){display:none}
+body[data-f="tec"] .sec:not([data-tec]),body[data-f="tec"] .card:not([data-tec]),body[data-f="tec"] .mas:not([data-tec]),
+body[data-f="tec"] .mas li:not([data-tec]),body[data-f="tec"] .sh .n{display:none}
+.solo-tec{display:none}body[data-f="tec"] .solo-tec{display:block}
 .chip[style].on{background:var(--c);color:#fff}
 .sec[style] .sh .ic{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:color-mix(in srgb,var(--sc) 18%,transparent)}
 .aviso{margin:0 4px;padding:14px;border-radius:14px;background:var(--card);color:var(--mu);font-size:.92rem}
@@ -482,7 +545,8 @@ JS = """
 var b=document.body;
 document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){
 document.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===c)});
-b.setAttribute('data-f',c.getAttribute('data-f'));});});
+b.setAttribute('data-f',c.getAttribute('data-f'));
+if(c.getAttribute('data-f')==='tec'){document.querySelectorAll('details.mas[data-tec]').forEach(function(d){d.open=true});}});});
 var now=Date.now()/1000;
 document.querySelectorAll('time[data-t]').forEach(function(t){var s=Math.max(0,now-(+t.getAttribute('data-t')));
 t.textContent=s<3600?Math.max(1,Math.floor(s/60))+' min':s<86400?Math.floor(s/3600)+' h':Math.floor(s/86400)+' d';});
