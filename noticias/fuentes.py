@@ -182,10 +182,25 @@ def leer_sitemap(fuente, contenido):
     return salida
 
 
+def _youtube_por_pagina(fuente):
+    """Respaldo cuando el RSS de YouTube falla: lee la página pública del canal."""
+    from .youtube import por_pagina
+    cid = re.search(r"channel_id=(UC[\w-]{22})", fuente["url"]).group(1)
+    vids, _ = por_pagina(cid)
+    return [Noticia(titulo=v["titulo"], enlace=f"https://www.youtube.com/watch?v={v['vid']}", fuente=fuente["nombre"],
+                    alcance=fuente.get("alcance", "nacional"), filtro=fuente.get("filtro", "estricto"),
+                    fecha=v["fecha"], video=f"https://www.youtube.com/watch?v={v['vid']}",
+                    imagen=f"https://i.ytimg.com/vi/{v['vid']}/hqdefault.jpg", temas_pista=list(fuente.get("temas") or []),
+                    youtube=True, dominio_medio="youtube.com") for v in vids if v["fecha"]]
+
+
 def descargar_fuente(fuente):
     """Devuelve (lista_de_noticias, error_o_None)."""
     try:
         r = http_get(fuente["url"], timeout=20)
+        if r.status_code != 200 and "youtube.com/feeds" in fuente["url"]:
+            items = _youtube_por_pagina(fuente)
+            return (items, None) if items else ([], f"HTTP {r.status_code} y sin videos en la página")
         if r.status_code != 200:
             return [], f"HTTP {r.status_code}"
         if fuente.get("tipo") == "sitemap":

@@ -12,7 +12,7 @@ import traceback
 from collections import Counter
 from datetime import date, datetime, timedelta
 
-from noticias import agenda, alma, aprobados, cine, deportes, humor, medios, mercados, notificar
+from noticias import agenda, alma, aprobados, cine, deportes, medios, mercados, notificar, videos
 from noticias import filtros as FL
 from noticias import proceso as P
 from noticias.fuentes import descargar_todas, filtrar_por_edad, fuentes_activas, url_google_news
@@ -219,12 +219,16 @@ def main():
     base = [n for n in procesar(recientes) if not hist.enviado_antes(n.enlace, hoy)]
     reg.info(f"Noticias tras filtros: {len(base)} (de medios aprobados: {sum(n.aprobado for n in base)})")
 
+    # videos de canales aprobados (sus títulos van en el mismo lote de Gemini)
+    lista_videos, errores_videos = videos.construir(cfg, reg.info)
+    errores.update(errores_videos)
+
     # 3. destacadas: lote 1 de Gemini (temas, importancia y revisión de contenido sexual)
     modo_respaldo = True
     candidatos = list(base)
     if ia.activo:
         try:
-            candidatos = P.clasificar_ia([n for n in base if not n.sensacional], cfg, ia, reg)
+            candidatos = P.clasificar_ia([n for n in base if not n.sensacional], cfg, ia, reg, extras=lista_videos)
             modo_respaldo = False
             reg.info(f"Gemini lote 1 OK (modelo {ia.modelo})")
         except GeminiError as ex:
@@ -292,7 +296,11 @@ def main():
 
     # 6. secciones especiales
     temas_alma, _ = alma.generar(cfg, ia, hoy, reg.info)
-    videos, aviso_humor = humor.construir(cfg, reg.info)
+    if not modo_respaldo:                # con IA: solo videos que Gemini revisó y aprobó (falla cerrado)
+        antes_v = len(lista_videos)
+        lista_videos = [v for v in lista_videos if v.get("revisado")]
+        reg.contador["contenido_sexual"] += antes_v - len(lista_videos)
+    lista_videos = lista_videos[: int((cfg.get("videos", {}) or {}).get("tope_sesion", 20))]
     estrenos = cine.construir(cfg, ia, hoy, reg.info)
     tarjetas_mercado = mercados.actualizar(cfg, hist, reg.info)
     items_agenda = agenda.construir(cfg, hoy, tz, reg.info, estrenos=(estrenos or (None, ""))[0])
@@ -324,7 +332,7 @@ def main():
         "hora": f"{ahora.hour}:{ahora.minute:02d}",
         "elegidas": elegidas, "ver_mas": ver_mas, "mercados": tarjetas_mercado, "agenda": items_agenda,
         "contador": contador, "instagram": botones_instagram(loc) if loc.get("activo", True) else [],
-        "alma": temas_alma, "cine": estrenos, "humor": videos, "aviso_humor": aviso_humor,
+        "alma": temas_alma, "cine": estrenos, "videos": lista_videos,
         "resultados": res_deportes, "tablas": tablas_dep, "errores": errores,
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
         "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes,

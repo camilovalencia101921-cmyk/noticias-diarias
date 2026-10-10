@@ -216,20 +216,27 @@ class Pagina:
         return (f'<div class="w" data-sub="alma"><h3 class="bt">🕯️ Para el alma</h3>{tarjetas}'
                 f'<p class="nota">Texto generado por IA; verifica antes de citar.</p></div>')
 
-    def humor(self):
-        videos = self.ctx.get("humor") or []
-        if not videos:
-            return f'<p class="aviso">{e(self.ctx.get("aviso_humor") or "Sin videos.")}</p>'
-        out = []
-        for v in videos:
-            h = int(v["fecha"].timestamp()) if v["fecha"] else 0
-            out.append(f'<article class="card video it" data-id="{v["id"]}" data-sub="{v["sub"]}" data-src="{e(v["canal"])}" '
-                       f'data-dom="youtube.com" data-u="{e(v["enlace"])}" data-t="{e(v["titulo"])}" data-tm="Humor" '
-                       f'data-c="#C25E14" data-h="{h}" style="--c:#C25E14"><a class="lk vb" href="{e(v["enlace"])}" target="_blank" '
-                       f'rel="noopener noreferrer"><span class="pl" aria-hidden="true">▶</span><span class="vt">{e(v["titulo"])}</span></a>'
-                       f'<div class="pie"><p class="meta"><span class="src">{e(v["canal"])}</span> · <time data-h="{h}"></time></p>'
-                       f'<button type="button" class="b-menu mini" aria-label="Opciones">⋯</button></div></article>')
-        return "".join(out)
+    def videos(self):
+        """Pantalla estilo Instagram: un video por pantalla (scroll vertical), reproductor oficial de YouTube."""
+        vs = self.ctx.get("videos") or []
+        if not vs:
+            return ""
+        slides = []
+        for v in vs:
+            h = int(v["fecha"].timestamp()) if v.get("fecha") else 0
+            slides.append(
+                f'<div class="vs it" data-vid="{e(v["vid"])}" data-id="{v["id"]}" data-sub="{v["sub"]}" data-src="{e(v["canal"])}" '
+                f'data-dom="youtube.com" data-u="{e(v["enlace"])}" data-t="{e(v["titulo"])}" data-tm="Video · {e(v["tema"])}" '
+                f'data-c="#C25E14" data-h="{h}"><div class="vplayer"></div><div class="vtap" aria-hidden="true"><span class="vpl">▶</span></div>'
+                f'<div class="vinfo"><div class="fila-chips"><span class="vchip ok">✔ Canal aprobado</span><span class="vchip">{e(v["tema"])}</span></div>'
+                f'<h3 class="vtit">{e(v["titulo"])}</h3><p class="vcan">{e(v["canal"])} · <time data-h="{h}"></time></p></div>'
+                f'<div class="vacc"><button type="button" class="b-guardar" aria-label="Guardar">{ICONO_GUARDAR}<span>Guardar</span></button>'
+                f'<button type="button" class="b-compartir" aria-label="Compartir">{ICONO_COMPARTIR}<span>Compartir</span></button>'
+                f'<button type="button" class="b-bloquear" aria-label="Bloquear canal">{ICONO_OCULTAR}<span>Bloquear canal</span></button></div></div>')
+        slides.append('<div class="vs vfin"><p>✅ Estás al día en Videos</p><small>Tope de 20 videos por sesión.</small></div>')
+        return (f'<div class="vtop"><p class="vcont" id="vcont">1 de {len(vs)} · tope por sesión</p>'
+                f'<button type="button" class="vsonido" id="vsonido">🔇 Activar sonido</button></div>'
+                f'<div class="vfeed" id="vfeed">{"".join(slides)}</div>')
 
     def instagram(self):
         botones = self.ctx.get("instagram") or []
@@ -262,10 +269,10 @@ class Pagina:
         antes = cuerpo = despues = ""
         ids, subs = [], set()
         if clave == "videos":
-            videos = self.ctx.get("humor") or []
-            cuerpo = self.humor() if videos else ""
-            ids = [v["id"] for v in videos]
-            subs |= {v["sub"] for v in videos} | ({"humor"} if videos else set())
+            vs = self.ctx.get("videos") or []
+            cuerpo = self.videos()
+            ids = [v["id"] for v in vs]
+            subs |= {v["sub"] for v in vs}
         elif clave == "agenda":
             cuerpo = self.agenda()
             subs |= {it.get("sub", "eventos") for it in self.ctx["agenda"]}
@@ -306,6 +313,8 @@ class Pagina:
             despues = ""
         if clave == "hoy":
             return True
+        if clave == "videos":
+            return bool(ids) and not archivo
         return bool(ids or n_mas or cuerpo or (antes and clave in ("fe", "deportes")) or (despues and clave == "ocio"))
 
     def panel(self, clave, icono, nombre, prefijo, archivo, primera):
@@ -324,6 +333,8 @@ class Pagina:
                       f'<div class="masl" id="mas-{clave}"></div>')
         filtros = f'<div class="subs">{chips}</div>' if len(subs) > 1 else ""
         oculto = "" if primera else " hidden"
+        if clave == "videos":
+            return (f'<section class="panel videos-p" id="p-{clave}" data-tab="{clave}"{oculto}>{filtros}{cuerpo}</section>')
         return (f'<section class="panel" id="p-{clave}" data-tab="{clave}"{oculto}>{cab}{filtros}{antes}'
                 f'<div class="lista">{cuerpo}</div>{despues}{vermas}'
                 f'<p class="aldia">Estás al día en {nombre}</p></section>')
@@ -606,6 +617,30 @@ dialog button{min-height:44px;border:1px solid var(--ln);border-radius:12px;back
 .aj-l{margin:0;padding-left:18px;font-size:.9rem}.aj-l li{margin:4px 0}.aj-l button{min-height:36px;margin-left:6px;padding:0 10px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
 .toast.on{opacity:1}
+body.en-videos{background:#0B0F14;color:#E8EDF3}
+body.en-videos .cab,body.en-videos .modo{display:none}
+body.en-videos .tabs{background:#0B0F14}
+body.en-videos .tab:not(.on){background:#1A212B;color:#E8EDF3;box-shadow:none}
+.videos-p .subs{padding-top:2px}.videos-p .sf{background:#1A212B;color:#E8EDF3;border-color:#2A3340}.videos-p .sf.on{background:#E8EDF3;color:#0B0F14}
+.vtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
+.vcont{margin:0;font-size:.8rem;color:#A3ADBA}
+.vsonido{min-height:40px;border:1px solid #2A3340;border-radius:999px;background:#1A212B;color:#E8EDF3;padding:0 14px;font-size:.85rem;cursor:pointer}
+.vfeed{height:calc(100dvh - 228px);min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:18px;background:#0B0F14;scrollbar-width:none}
+.vfeed::-webkit-scrollbar{display:none}
+.vs{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;border-radius:18px;overflow:hidden;margin-bottom:6px}
+.vplayer,.vplayer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vtap{position:absolute;inset:0 76px 150px 0;display:grid;place-items:center;cursor:pointer;z-index:2}
+.vpl{width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center;font-size:1.6rem;opacity:0;transition:opacity .2s}
+.vs.pausado .vpl,.vs:not(.cargado) .vpl{opacity:1}
+.vinfo{position:absolute;left:0;right:76px;bottom:0;z-index:3;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;pointer-events:none}
+.vchip{font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 9px;background:rgba(255,255,255,.16)}.vchip.ok{background:#15803D}
+.vtit{margin:8px 0 2px;font:600 1.05rem/1.3 var(--serif);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.vcan{margin:0;font-size:.82rem;color:#D0D6DE}
+.vacc{position:absolute;right:6px;bottom:18px;z-index:4;display:flex;flex-direction:column;gap:10px}
+.vacc button{width:64px;min-height:64px;border:0;border-radius:16px;background:rgba(20,26,34,.75);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.66rem;cursor:pointer;padding:6px 2px;line-height:1.1}
+.vacc button.on{background:#E8EDF3;color:#0B0F14}
+.vfin{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#E8EDF3;background:#111821}
+.vfin p{font:700 1.2rem var(--serif);margin:0}
 .franja{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.franja::-webkit-scrollbar{display:none}
 .res-p{flex:none;min-width:150px;max-width:190px;background:var(--card);border-radius:14px;box-shadow:var(--sh);padding:10px 12px;text-decoration:none;display:flex;flex-direction:column;gap:3px;font-size:.85rem}
 .rl{font-size:.7rem;color:var(--mu);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -645,18 +680,19 @@ function contar(){document.querySelectorAll('.tab').forEach(function(tb){var k=t
  ids.forEach(function(id){if(!vistos[id]&&S.leidas.indexOf(id)<0&&S.ocultas.indexOf(id)<0)n++;vistos[id]=1});
  if(k==='guardado')n=0;tb.querySelector('.bd').textContent=n?n:'';
  var p=document.querySelector('#p-'+k+' [data-nuevas]');if(p)p.textContent=n?n+' nuevas':(ids.length?'Todo leído':'')});var ng=Object.keys(S.guardadas).length,pg=document.querySelector('#p-guardado [data-nuevas]');if(pg)pg.textContent=ng===1?'1 guardada':ng+' guardadas'}
-function irA(k,arriba){if(k==='ajustes'){abrirAjustes();return}
+function irA(k,arriba){if(k==='ajustes'){abrirAjustes();return}if(k!=='videos')videosSalir();
  document.querySelectorAll('.tab').forEach(function(b){var on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.tab!==k});
  document.querySelectorAll('.barra button').forEach(function(b){b.classList.toggle('on',b.dataset.ir===k)});
- try{history.replaceState(null,'','#'+k)}catch(e){}if(arriba!==false)window.scrollTo(0,0)}
+ try{history.replaceState(null,'','#'+k)}catch(e){}if(arriba!==false)window.scrollTo(0,0);if(k==='videos')setTimeout(videosEntrar,50)}
 document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){irA(b.dataset.tab)}});
 document.querySelectorAll('.barra button').forEach(function(b){b.onclick=function(){irA(b.dataset.ir)}});
 var subs={};
 function aplicarSub(){document.querySelectorAll('.panel').forEach(function(p){var s=subs[p.dataset.tab]||'todo';
  p.querySelectorAll('[data-sub]').forEach(function(el){var ok=s==='todo'||(' '+el.dataset.sub+' ').indexOf(' '+s+' ')>=0;el.style.display=ok?'':'none'})})}
 document.querySelectorAll('.sf').forEach(function(b){b.onclick=function(){var p=b.closest('.panel');subs[p.dataset.tab]=b.dataset.sf;
- p.querySelectorAll('.sf').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});aplicarSub()}});
+ p.querySelectorAll('.sf').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});aplicarSub();
+ if(p.dataset.tab==='videos'){var f=document.getElementById('vfeed');f.scrollTop=0;var l=vSlides();if(l[0])vActivar(l[0])}}});
 document.addEventListener('click',function(ev){var a=ev.target.closest('a.lk');if(!a)return;var it=a.closest('.it');
  if(it&&S.leidas.indexOf(it.dataset.id)<0){S.leidas.push(it.dataset.id);if(S.leidas.length>3000)S.leidas=S.leidas.slice(-3000);sv('leidas',S.leidas);setTimeout(refrescar,300)}});
 var dm=document.getElementById('d-menu'),sel=null;
@@ -697,6 +733,35 @@ document.getElementById('aj-pal-b').onclick=function(){var i=document.getElement
 document.getElementById('aj-mostrar').onclick=function(){S.ocultas=[];sv('ocultas',[]);refrescar();aviso('Noticias ocultas visibles de nuevo')};
 document.getElementById('aj-leidas').onclick=function(){S.leidas=[];sv('leidas',[]);refrescar();aviso('Historial de leídas borrado')};
 document.getElementById('escudo').onclick=function(){aviso('Filtro de contenido activo: medios aprobados, lista de palabras, revisión con IA, imágenes controladas y tus bloqueos.')};
+// --- Videos: un video por pantalla, arranca sin sonido, solo se cargan el actual y el siguiente
+var V={players:{},cola:null,sonido:ld('sonido',false),actual:null,obs:null};
+function cargarAPI(cb){if(window.YT&&YT.Player)return cb();if(!V.cola){V.cola=[];var sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc);
+ window.onYouTubeIframeAPIReady=function(){var c=V.cola;V.cola=[];c.forEach(function(f){f()})}}V.cola.push(cb)}
+function vSlides(){return Array.prototype.filter.call(document.querySelectorAll('#vfeed .vs[data-vid]'),function(x){return !x.hidden&&x.style.display!=='none'})}
+function vCrear(sl){if(V.players[sl.dataset.id])return;var d=document.createElement('div');sl.querySelector('.vplayer').appendChild(d);
+ V.players[sl.dataset.id]=new YT.Player(d,{host:'https://www.youtube-nocookie.com',videoId:sl.dataset.vid,width:'100%',height:'100%',
+  playerVars:{autoplay:0,mute:1,playsinline:1,rel:0,controls:0,modestbranding:1,iv_load_policy:3},
+  events:{onReady:function(ev){sl.classList.add('cargado');if(V.actual===sl){if(V.sonido)ev.target.unMute();else ev.target.mute();ev.target.playVideo()}},
+   onStateChange:function(ev){sl.classList.toggle('pausado',ev.data===2)}}})}
+function vDestruir(id){var p=V.players[id];if(p){try{p.destroy()}catch(e){}delete V.players[id];var sl=document.querySelector('#vfeed .vs[data-id="'+id+'"]');if(sl){sl.classList.remove('cargado');sl.querySelector('.vplayer').innerHTML=''}}}
+function vActivar(sl){var l=vSlides(),i=l.indexOf(sl);if(i<0)return;V.actual=sl;
+ var guardar={};guardar[sl.dataset.id]=1;if(l[i+1])guardar[l[i+1].dataset.id]=1;
+ Object.keys(V.players).forEach(function(id){if(!guardar[id])vDestruir(id)});
+ cargarAPI(function(){if(V.actual!==sl)return;vCrear(sl);if(l[i+1])vCrear(l[i+1]);
+  Object.keys(V.players).forEach(function(id){var p=V.players[id];try{if(id===sl.dataset.id){if(V.sonido)p.unMute();else p.mute();p.playVideo()}else p.pauseVideo()}catch(e){}})});
+ var c=document.getElementById('vcont');if(c)c.textContent=(i+1)+' de '+l.length+' · tope por sesión'}
+function vObservar(){if(V.obs||!window.IntersectionObserver)return;V.obs=new IntersectionObserver(function(es){es.forEach(function(en){
+  if(en.isIntersecting&&en.intersectionRatio>.6&&document.body.classList.contains('en-videos')&&en.target.dataset.vid)vActivar(en.target)})},
+  {root:document.getElementById('vfeed'),threshold:[.6,.9]});document.querySelectorAll('#vfeed .vs').forEach(function(x){V.obs.observe(x)})}
+function videosEntrar(){if(!document.getElementById('vfeed'))return;document.body.classList.add('en-videos');vObservar();
+ var f=document.getElementById('vfeed');f.scrollTop=0;var l=vSlides();if(l[0])vActivar(l[0])}
+function videosSalir(){document.body.classList.remove('en-videos');V.actual=null;Object.keys(V.players).forEach(vDestruir)}
+document.addEventListener('click',function(ev){var t=ev.target.closest('.vtap');if(!t)return;var sl=t.closest('.vs'),p=V.players[sl.dataset.id];if(!p||!p.getPlayerState)return;
+ try{if(p.getPlayerState()===1)p.pauseVideo();else p.playVideo()}catch(e){}});
+document.addEventListener('click',function(ev){var b=ev.target.closest('.b-bloquear');if(!b)return;var el=b.closest('.it');if(!el)return;
+ if(S.medios.indexOf(el.dataset.src)<0)S.medios.push(el.dataset.src);sv('medios',S.medios);aviso('Canal bloqueado: '+el.dataset.src);refrescar();var l=vSlides();if(l[0])vActivar(l[0])});
+var vs=document.getElementById('vsonido');function pintarSonido(){if(vs)vs.textContent=V.sonido?'🔊 Sonido activado':'🔇 Activar sonido'}pintarSonido();
+if(vs)vs.onclick=function(){V.sonido=!V.sonido;sv('sonido',V.sonido);pintarSonido();var p=V.actual&&V.players[V.actual.dataset.id];if(p){try{if(V.sonido)p.unMute();else p.mute()}catch(e){}}};
 refrescar();function desdeHash(){var h=(location.hash||'').slice(1);if(h&&document.getElementById('p-'+h))irA(h,false);else irA('hoy',false)}desdeHash();window.addEventListener('hashchange',desdeHash);
 })();
 """

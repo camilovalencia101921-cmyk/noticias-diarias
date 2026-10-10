@@ -178,10 +178,13 @@ def _parsear_json(texto):
 
 
 # ---------------------------------------------------------------- prompts
-def prompt_clasificar(items, temas, locales):
+def prompt_clasificar(items, temas, locales, extras=None):
     lista_temas = "\n".join(f'- {k}: {v.get("descripcion", v.get("nombre", k))}' for k, v in temas.items())
     datos = [{"id": n.id, "t": n.titulo[:200], "d": n.descripcion[:220], "f": n.fuente, "a": n.alcance,
               "nf": len(n.fuentes_cluster or {n.fuente}), "of": int(n.oficial)} for n in items]
+    # títulos de videos de YouTube (a="video"): solo importa su revisión "s"
+    datos += [{"id": v["id"], "t": v["titulo"][:200], "d": "", "f": v["canal"], "a": "video", "nf": 1, "of": 0}
+              for v in (extras or [])]
     return f"""Eres editor de un resumen diario de noticias para Colombia. Clasifica cada noticia y evalúa su importancia.
 
 TEMAS permitidos (usa la clave exacta; "ninguno" si no encaja en ninguno):

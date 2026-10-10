@@ -83,7 +83,7 @@ def clasificar_reglas(noticias, cfg, reg):
     return out
 
 
-def clasificar_ia(noticias, cfg, ia, reg):
+def clasificar_ia(noticias, cfg, ia, reg, extras=None):
     """Lote 1 de Gemini sobre los mejores candidatos por reglas. Devuelve la lista final o lanza GeminiError."""
     temas = C.temas_activos(cfg)
     gcfg = cfg.get("gemini", {}) or {}
@@ -93,12 +93,15 @@ def clasificar_ia(noticias, cfg, ia, reg):
     enviados, resto = candidatos[:maxc], candidatos[maxc:]
     for n in resto:
         reg.descarte("baja_importancia", n, f"prefiltro {n.puntaje}/10")
-    respuesta = ia.generar_json(prompt_clasificar(enviados, temas, True))
+    respuesta = ia.generar_json(prompt_clasificar(enviados, temas, True, extras))
     if not isinstance(respuesta, list):
         raise GeminiError("la respuesta del lote 1 no es una lista")
     por_id = {str(x.get("id")): x for x in respuesta if isinstance(x, dict)}
     if len(por_id) < len(enviados) * 0.5:
         raise GeminiError(f"respuesta incompleta ({len(por_id)} de {len(enviados)})")
+    for v in extras or []:                 # videos: pasan solo si la IA los revisó y dijo "no sexual"
+        x = por_id.get(v["id"])
+        v["revisado"] = bool(x) and str(x.get("s", "2")) == "0"
     out = []
     for n in enviados:
         x = por_id.get(n.id)

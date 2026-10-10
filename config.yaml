@@ -468,6 +468,17 @@ google_news_temas:
   cine: {activo: true, alcance: nacional, consulta: '"estrenos de cine" OR cartelera OR taquilla película'}
 
 # ---------------------------------------------------------------------
+#  VIDEOS (pestaña 🎬): solo YouTube, solo canales aprobados
+#  Canales por tema: config/video_canales.json · Humor: config/humor_canales.json
+# ---------------------------------------------------------------------
+videos:
+  activo: true
+  dias_maximos: 7            # videos publicados en los últimos 7 días
+  maximo_por_canal: 2
+  candidatos: 40             # títulos que revisa Gemini
+  tope_sesion: 20            # videos por sesión ("Estás al día en Videos")
+
+# ---------------------------------------------------------------------
 #  HUMOR: videos de YouTube SOLO de canales aprobados (config/humor_canales.json)
 # ---------------------------------------------------------------------
 humor:
