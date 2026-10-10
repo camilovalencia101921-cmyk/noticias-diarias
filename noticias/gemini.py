@@ -29,6 +29,8 @@ class Gemini:
         self.activo = bool(g.get("activo", True)) and bool(self.clave)
         self.log = log
         self.llamadas = 0
+        # tiempo total máximo para Gemini en cada actualización; si se acaba, se sigue sin IA
+        self.fin = time.monotonic() + int(g.get("presupuesto_segundos", 480))
         self.lista_registrada = False
 
     # ------------------------------------------------------------ modelos
@@ -56,9 +58,12 @@ class Gemini:
         ultimo = ""
         errores_servidor = 0
         for _ in range(self.reintentos + 1):
+            restante = self.fin - time.monotonic()
+            if restante < 20:
+                return None, "fatal", "se agotó el tiempo máximo para Gemini en esta actualización"
             try:
                 r = http_post(f"{API}/models/{modelo}:generateContent",
-                              params={"key": self.clave}, json=cuerpo, timeout=180)
+                              params={"key": self.clave}, json=cuerpo, timeout=min(120, restante))
             except Exception as ex:  # noqa: BLE001
                 ultimo = f"{type(ex).__name__}"
                 time.sleep(5)
