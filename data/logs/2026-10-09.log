@@ -1,35 +1,30 @@
 # Registro 2026-10-09
 
-Inicio 2026-10-09 22:59 (America/Bogota)
-Fuentes: 140 · con errores: 8 · titulares: 6418
-Recientes: 4863 (más viejas de 36 h: 1555)
-Noticias tras filtros: 3032 (de medios aprobados: 1978)
+Inicio 2026-10-09 23:28 (America/Bogota)
+Fuentes: 140 · con errores: 5 · titulares: 6504
+Recientes: 4826 (más viejas de 36 h: 1678)
+Noticias tras filtros: 2997 (de medios aprobados: 1951)
+Videos: 40 candidatos de 35 canales (0 canales sin respuesta)
 Gemini gemini-3.5-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
 Modelos Flash disponibles: gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-2.5-flash, gemini-omni-1.1-flash, gemini-3-flash-preview, gemini-omni-flash-preview
-Gemini gemini-3.8-flash: sin respuesta útil (ReadTimeout)
-Gemini gemini-3.7-flash: sin respuesta útil (ReadTimeout)
-Gemini gemini-3.6-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
-Gemini gemini-2.5-flash: modelo no disponible (HTTP 404)
-Gemini no disponible (ningún modelo Flash respondió (gemini-3.5-flash, gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-2.5-flash)); se usa el modo de respaldo
-Ver más: hoy 40, mundo 40, local 40, deportes 40, ocio 36, ia 24, fe 12, historia 11
+Gemini gemini-3.8-flash: se agotó el tiempo máximo para Gemini en esta actualización
+Gemini no disponible (se agotó el tiempo máximo para Gemini en esta actualización); se usa el modo de respaldo
+Ver más: hoy 40, mundo 40, local 40, deportes 40, ocio 37, historia 11, ia 24, fe 12
 Para el alma: se reutilizan los temas de hoy (sin llamar a Gemini)
 Cine: 76 películas leídas de Cinemark Colombia
-Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' · modo respaldo (sin IA) · llamadas a Gemini: 7
+Página: 261 KB (+ 162 KB de 'Ver más') · 42 destacadas + 244 en 'Ver más' · modo respaldo (sin IA) · llamadas a Gemini: 2
 
 ## Fuentes con problemas
 - Conferencia Episcopal de Colombia: HTTP 403
 - ESPN NBA: HTTP 202
 - ESPN WNBA: HTTP 202
-- El Meridiano (YouTube): HTTP 404
 - El Meridiano Córdoba: HTTP 403
 - El Meridiano Sucre: HTTP 403
-- Red Bull Batalla (YouTube): HTTP 404
-- Urban Roosters / FMS (YouTube): HTTP 404
 
 ## Descartadas (nacional, internacional y ocio)
-### baja_importancia (3827)
+### baja_importancia (3785)
+- El Nuevo Siglo | Trump celebra acuerdo con Rusia sobre diésel antes de elecciones | prefiltro 7/10
 - El Nuevo Siglo | Gobierno expedirá decreto Modernización Portuaria | prefiltro 7/10
-- El Nuevo Siglo | Senado agenda plenarias y debate por crisis del gas tras receso | prefiltro 7/10
 - Cambio | ¡Aguanta, Ucrania! ¿Hasta desangrarse? Por Hans Blumenthal | prefiltro 7/10
 - Cambio | Rodrigo Lara, blanco de las críticas del abelardismo en redes: así se amplifican los ataques contra el ministr | prefiltro 7/10
 - Cambio | “Es difícil lograr todo el ajuste fiscal vía recorte”: Juan Carlos Ramírez, presidente del CARF | prefiltro 7/10
@@ -44,25 +39,23 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Tiempo | Dan primer balance de heridos y edificios colapsados tras terremoto de 7,7 en Panamá y fuertes réplicas: desca | prefiltro 7/10
 - El Tiempo | Fuerte terremoto en Panamá | Reportan sismo de magnitud 7,7 durante la tarde de este viernes 9 de octubre: se  | prefiltro 7/10
 - El Tiempo | Sismo en Panamá se sintió en Chocó: autoridades descartan daños y Dimar descarta amenaza de tsunami | prefiltro 7/10
-- El Tiempo | Videos del terremoto de magnitud 7,7 en Panamá: imágenes de los daños estructurales y de los momentos de angus | prefiltro 7/10
 - El Tiempo | Video | Panamá vivió réplica de magnitud 6,6 tras terremoto: en imágenes quedó registrado cómo la televisora S | prefiltro 7/10
+- El Tiempo | Videos del terremoto de magnitud 7,7 en Panamá: imágenes de los daños estructurales y de los momentos de angus | prefiltro 7/10
 - El Tiempo | Terremoto de magnitud 7,7 en Panamá: imágenes muestran el colapso de un hotel y otras edificaciones tras el fu | prefiltro 7/10
 - LaRepublica.co | Sismo de 7,7 en Panamá provoca fallas telefónicas y activa alerta de tsunami en la región | prefiltro 7/10
-- La FM | Huracán Simon podría subir a categoría 3: alertan por lluvias, inundaciones y evacuaciones en México | prefiltro 7/10
-- abceconomia.co | El huracán Isaias toca tierra en Florida y frena el petróleo del Golfo | prefiltro 7/10
-- Eje21 | Colombia descarta amenaza de tsunami por el terremoto de 7,7 que sacudió Panamá | prefiltro 7/10
-- Noticias RCN | Balance del terremoto en Panamá: no hay víctimas mortales | prefiltro 7/10
 - Infobae | Terremoto 7.6 en Panamá: qué ocurrió y qué pasaría en Perú ante un sismo de esa magnitud | prefiltro 7/10
+- La FM | Huracán Simon podría subir a categoría 3: alertan por lluvias, inundaciones y evacuaciones en México | prefiltro 7/10
+- Eje21 | Colombia descarta amenaza de tsunami por el terremoto de 7,7 que sacudió Panamá | prefiltro 7/10
+- abceconomia.co | El huracán Isaias toca tierra en Florida y frena el petróleo del Golfo | prefiltro 7/10
+- Noticias RCN | Balance del terremoto en Panamá: no hay víctimas mortales | prefiltro 7/10
 - Telemundo | Un terremoto de magnitud 7.7 sacude Panamá y provocó alertas de tsunami para otros 4 países que luego fueron s | prefiltro 7/10
 - Infobae | Terremoto de magnitud 7.6 en Panamá: Marina de Guerra del Perú activó vigilancia ante un posible tsunami | prefiltro 7/10
 - Infobae | Terremoto en Panamá de 7.9: así funcionan los avisos de emergencia en Android en Centroamérica | prefiltro 7/10
-- Telemedellín | Sobreviviente al terremoto en Cali se fue para Panamá de vacaciones y sufrió otra emergencia de otro sismo | prefiltro 7/10
 - DW.com | Estados Unidos impone sanciones a la Corte Penal Internacional luego del Nobel a exjueza Navi Pillay | prefiltro 7/10
 - EFE - Agencia de noticias | La Corte Penal Internacional rechaza las sanciones de EE.UU. contra el tribunal y alerta de ataque al orden ju | prefiltro 7/10
 - ELHERALDO.CO | La ONU considera “inaceptables” las sanciones de Estados Unidos contra la Corte Penal Internacional | prefiltro 7/10
 - Infobae | Portugal condena las sanciones de EE. UU. a la CPI por amenazar la independencia judicial | prefiltro 7/10
 - Digital Trends Español | Del sismo al celular: cómo funciona la tecnología que activa las alertas de tsunami | prefiltro 7/10
-- Infobae | La crisis de desaparecidos en México llega hasta el papa León XIV en el Vaticano | prefiltro 7/10
 - DW Español | Proyecto petrolero reaviva el conflicto por las Malvinas | prefiltro 6/10
 - France 24 | Desastre en Chile: un aluvión deja seis heridos y obliga a evacuar 600 hogares en Santiago | prefiltro 6/10
 - France 24 | Protestas estudiantiles: ¿por qué y cómo están remeciendo a Francia? | prefiltro 6/10
@@ -76,13 +69,11 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El País América | Las actas del BCE dejan entrever que el alza de la deuda puede tener “implicaciones” en próximas decisiones | prefiltro 6/10
 - El País Economía | Gabriel Escarrer (Meliá): “El nuevo Gobierno tiene que acabar con los pisos turísticos ilegales” | prefiltro 6/10
 - El País Economía | Salir del sanatorio | prefiltro 6/10
-- El País Economía | Las cajas de ahorro islámicas están de moda en Turquía | prefiltro 6/10
 - El País Economía | Convertir un local en una vivienda es una carrera de obstáculos: de los requisitos técnicos a los plazos | prefiltro 6/10
 - Europa Press | Christa Pike, la mujer que sobrevivió a su ejecución, registra una "notable" mejoría: puede caminar con ayuda  | prefiltro 6/10
 - Noticias ONU | Premio Nobel de la Paz: Navi Pillay, más 50 años de lucha por los derechos humanos | prefiltro 6/10
 - Investing.com | EE.UU., Ucrania y la UE celebran conversaciones de paz en Miami en medio de un acuerdo de diésel con Rusia | prefiltro 6/10
 - Expansión Mercados | El Ibex recupera los 19.000 puntos y reduce la caída semanal al 0,3% | prefiltro 6/10
-- Expansión Mercados | Spacex arrastra en Bolsa a Telefónica y al resto de telecos | prefiltro 6/10
 - Expansión Mercados | Los valores más expuestos al adelanto electoral | prefiltro 6/10
 - Expansión Mercados | La UE sella un acuerdo descafeinado de megasupervisión de los mercados | prefiltro 6/10
 - Bloomberg Línea | La inflación sigue subiendo en Colombia, pero por fin dio señales positivas: ¿cuáles? | prefiltro 6/10
@@ -98,6 +89,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Espectador | Derechos LGBT y aborto: tres decisiones que marcan la política exterior de De la Espriella | prefiltro 6/10
 - El Espectador | Licencias ambientales y consulta previa podrían ir al tiempo, según borrador de Minambiente | prefiltro 6/10
 - El Espectador | “Impuestos saludables quebraron a tenderos”: esta y otras afirmaciones engañosas del debate | prefiltro 6/10
+- Semana | Colombia negocia el fin de los aranceles: las exigencias que podría imponer EE. UU. | prefiltro 6/10
 - Semana | Primera dama, Ana Lucía Pineda, envió mensaje de solidaridad a Panamá tras terremoto | prefiltro 6/10
 - Semana | Retiran unas gafas inteligentes por un fallo que puede causar quemaduras graves | prefiltro 6/10
 - Semana | Emboscada contra la Fuerza Publica cerca a Popayán termina en tiroteo y siete capturas. Un militar fue asesina | prefiltro 6/10
@@ -108,10 +100,10 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Semana | Primicia| Ultimátum por la niñez wayúu: advierten duras sanciones contra ministros y alcaldes por desacatos | prefiltro 6/10
 - Semana | Terremoto en Panamá: Aerocivil activa plan de contingencia con rutas alternas | prefiltro 6/10
 - Semana | MinTransporte presenta decreto con megaplan para modernizar puertos: serán cuatro objetivos a abordar | prefiltro 6/10
-- Semana | Terremoto en Panamá: así se sintió en el municipio colombiano más cercano a la frontera | prefiltro 6/10
 - Infobae Colombia | Interventora de la EPS Capresoca habría falsificado su título profesional de enfermería: Supersalud la removió | prefiltro 6/10
 - Infobae Colombia | Juez prorrogó la suspensión del cierre de la Zona de Ubicación Temporal en Putumayo: advierte riesgos para la  | prefiltro 6/10
 - Infobae Colombia | Confederación General de Trabajadores no participará en las marchas convocadas por Petro contra el Gobierno De | prefiltro 6/10
+- Infobae Colombia | Hernán Darío ‘Bolillo’ Gómez fue ratificado como director técnico de El Salvador: la federación le salvó el pu | prefiltro 6/10
 - Infobae Colombia | Juan Guillermo Cuadrado se mostró triste por el momento de Millonarios: “Tenemos que pensar en nosotros” | prefiltro 6/10
 - El Nuevo Siglo | Petro bajo denuncia por presuntos perfilamientos ilegales de la DNI | prefiltro 6/10
 - Infobae Colombia | El Ministerio de Salud y el INS activan medidas ante el fenómeno de El Niño: exigen mantener activos los plane | prefiltro 6/10
@@ -121,7 +113,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Infobae Colombia | Nicolás Hernández, jugador del América de Cali, quedó herido por la caída de un árbol sobre su carro: Bomberos | prefiltro 6/10
 - Infobae Colombia | Murió el exgobernador de Magdalena Juan Carlos Vives Menotti a los 69 años: presidente Abelardo de la Espriell | prefiltro 6/10
 - Infobae Colombia | Gobierno De la Espriella solicitó con urgencia al Congreso tramitar modificación del PGN 2026: aumentaría a $6 | prefiltro 6/10
-- Infobae Colombia | Investigan reunión entre Olmedo López, Sneyder Pinilla y Gustavo Bolaños en La Picota | prefiltro 6/10
 - Infobae Colombia | La inflación aprieta el almuerzo: ‘corrientazo’ se encareció 22,4% y se acerca a los $20.000 | prefiltro 6/10
 - Caracol Radio | $2.000 millones para artistas extranjeros en las fiestas de Armenia van para post terremoto | prefiltro 6/10
 - Caracol Radio | Análisis: ¿Qué pasa si la inflación sigue subiendo en Colombia? La más alta registrada fue de 41,55% | prefiltro 6/10
@@ -138,7 +129,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - La República | Brasil prorroga medidas de alivio sobre combustibles antes de la segunda vuelta electoral | prefiltro 6/10
 - La República | Policía de Montenegro detiene al director del blog ruso de guerra Rybar y otros ciudadanos | prefiltro 6/10
 - La República | Unidad de almacenamiento de Regasificadora del Pacífico llegó a Buenaventura | prefiltro 6/10
-- La República | Bancolombia reportó donaciones de 50.000 empresas y personas por $9.300 millones | prefiltro 6/10
 - La República | Paraguay e Israel firman acuerdo de cooperación en salud y medicina para fortalecer relaciones | prefiltro 6/10
 - La República | EE.UU, impone sanciones a la CPI a las pocas horas del anuncio del Nobel a una exjueza | prefiltro 6/10
 - Portafolio | Salario mínimo de 2026 sigue en $1'750.905 y Gobierno descarta devolución de dinero a trabajadores | prefiltro 6/10
@@ -146,7 +136,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Valora Analitik | Estrella de la NBA se convierte en accionista del Atlético de Madrid y entra al negocio del fútbol europeo | prefiltro 6/10
 - Valora Analitik | Así operarían los subsidios a la nómina y trabajadores independientes que el Gobierno entregará a afectados po | prefiltro 6/10
 - Valora Analitik | Producción de café en Colombia cayó 15 % en el año cafetero 2025-2026: llegó a 12,65 millones de sacos | prefiltro 6/10
-- Valora Analitik | Colombia prende alertas por alta intensidad de fenómeno de El Niño hasta marzo de 2027; avanza plan de mitigac | prefiltro 6/10
 - Valora Analitik | Ahora | Gobierno pide tramitar con urgencia proyecto para adicionar $2,7 billones al Presupuesto de 2026 | prefiltro 6/10
 - El Colombiano | Conductor del MIO en Cali fue agredido tras pedirle a jóvenes que se bajaran del techo de un bus | prefiltro 6/10
 - El Colombiano | Enviaron a la cárcel a hombre señalado de abusar sexualmente de una mujer de 70 años en Santander | prefiltro 6/10
@@ -158,6 +147,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - IFM Noticias | Corte Constitucional respaldó a la Procuraduría en el pulso por las sanciones a diez exfuncionarios de elecció | prefiltro 6/10
 - El Nuevo Siglo | Piden al Congreso crear régimen disciplinario para elegidos por voto popular | prefiltro 6/10
 - expreso.ec | CNT: quiénes deben devolver los $ 7,9 millones y qué dispone el fallo de la Corte Constitucional | prefiltro 6/10
+- Eluniversal.com.co | Corte ordena reformar la política de infraestructura escolar tras fallo por colegio de Cartagena | prefiltro 6/10
 - RED+ Noticias | CNSC aterriza a colombianos que quieren ser profesores en Colombia: avisa decisión del Consejo de Estado que l | prefiltro 6/10
 - El Nuevo Siglo | Fenalco pide anular decreto que fijó el salario mínimo de 2026 | prefiltro 6/10
 - Minuto60 | ¿Señalada ficha del condenado exsenador Eduardo Pulgar saldrá del Congreso?: Consejo de Estado habló | prefiltro 6/10
@@ -172,20 +162,26 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Facebook | El Once Caldas y sus hinchas se desahogaron anoche en Palogrande. El equipo le ganó 1-0 a Llaneros y mantuvo l | prefiltro 6/10
 - La Opinión | Colombia, la campeona de la Liga de Naciones se foguea ante Venezuela | prefiltro 6/10
 - Dimayor | La DIMAYOR lamenta el fallecimiento de Eduardo Emilio Vilarete | prefiltro 6/10
-- Marca NBA | Ilusionante estreno de De Larrea en los Mavericks con Durant enfrente | prefiltro 6/10
 - Marca NBA | A'ja Wilson, la reina del baloncesto, gana su quinto MVP de la WNBA y el tercero consecutivo: "Lloré" | prefiltro 6/10
+- https://urbanstreet.com.pe/ | Knnon, capitán del Team Puerto Rico en la Freestyle World Cup: “Soñar con la final contra México no es una loc | prefiltro 6/10
 - El Debate | Roig Arena acoge el 8 de mayo la Gran Final de FMS Internacional, el mayor evento de rimas improvisadas | prefiltro 6/10
 - La Brújula Verde | La muela de un elefante gigante revela que los primeros humanos de Oriente Próximo vivían en un valle verde de | prefiltro 6/10
 - Ámbito Jurídico | Cuadro clínico complejo no desplaza por sí solo acciones laborales ordinarias, salvo perjuicio irremediable | prefiltro 6/10
 - Ámbito Jurídico | Así debe valorarse el requisito de buena conducta para conceder libertad condicional | prefiltro 6/10
-- … y 3677 más
-### contenido_sexual (14)
+- Ámbito Jurídico | Competencia disciplinaria de la Procuraduría se define según marco legal vigente para época de las sanciones | prefiltro 6/10
+- Ámbito Jurídico | Usuarios del mercado cambiario pueden acogerse a reducción del 15 % en sanciones | prefiltro 6/10
+- La Opinión | Con jornadas pedagógicas, el Ejército busca prevenir el reclutamiento de menores en Norte de Santander | prefiltro 6/10
+- El Nuevo Siglo | Nobel de paz a Pillay exacerbó pugna de EE.UU. e Israel con CPI | prefiltro 6/10
+- El Nuevo Siglo | Ventas de vivienda nueva cayeron 11,7% en Colombia durante 2026 | prefiltro 6/10
+- … y 3635 más
+### contenido_sexual (15)
 - El País América | El candidato en arnés que se niega a ser humillado: ¿ha dejado de importarnos la vida sexual de los políticos? | fetich*
 - El País América | La viuda de Hugh Hefner pide a Jessica Biel que reconsidere su papel en el ‘biopic’ sobre el fundador de ‘Play | playboy
 - Infobae Colombia | Organizaciones de trabajadoras sexuales rechazan la propuesta de prohibir la prostitución en el POT de Medellí | prostitu*
 - El Colombiano | Ni la vejez las protege: aumentan los casos de violencia sexual contra mujeres mayores | desnud*
 - El Colombiano | Desnuda, golpeada y con hipotermia: así encontraron a Blanco Pardo en un potrero en San Bernardo, Nariño | desnud*
 - Cambio | ¿Por qué el chavismo llamó traidor a Gustavo Petro? El choque en un seminario de izquierda que expuso la ruptu | xxx
+- La Vanguardia | Almejas italianas en Vigo | desnud*
 - La Vanguardia | Sanidad retira cinco activadores de la erección del pene en apenas una semana | pene
 - La Nación Argentina | La AFA, Chiqui Tapia y la farsa al desnudo | desnud*
 - The Guardian | ‘I’ve hit my midlife sexpot era!’ Romola Garai on marital misery, cheating … and sex scenes in cars | hookup*, sex scene, sex scenes
@@ -194,7 +190,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Infobae | Una influencer no humana factura más de 4.000 euros al mes por fotos en lencería: Aitana Lopez | lenceria*
 - Canal 12 Web | Desnudos falsos con inteligencia artificial: qué sanciones enfrentan los alumnos investigados | desnud*
 - Infobae | Investigan el asesinato en España de un cirujano por desacuerdo sobre operación de nalgas | nalgas
-### fuera_de_interes (95)
+### fuera_de_interes (104)
 - El País América | Calamares de campo, la receta de posguerra que sigue estando buenísima | receta de
 - El Tiempo Economía | Lotería de Risaralda: conozca los números ganadores del viernes 9 de octubre de 2026 | lotería
 - El Tiempo Economía | Conozca los resultados del último sorteo de la Lotería de Santander del viernes 9 de octubre de 2026 | lotería
@@ -206,8 +202,8 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Caracol Radio | Lotería de Santander: resultados viernes 9 de octubre de 2026 | lotería
 - Caracol Radio | Lotería de Risaralda: resultados viernes 9 de octubre de 2026 | lotería
 - Caracol Radio | Lotería de Medellín: resultados del viernes 9 de octubre de 2026 | lotería
-- El País | América de Cali Vs. Independiente Medellín: hora y por dónde ver el juego de la fecha 14 de la Liga BetPlay Di | dónde ver
 - El País | Deportivo Pereira Vs. Deportivo Cali: hora y por donde ver el partido de la fecha 14 de la Liga BetPlay Dimayo | dónde ver
+- El País | América de Cali Vs. Independiente Medellín: hora y por dónde ver el juego de la fecha 14 de la Liga BetPlay Di | dónde ver
 - Infobae | Selección Colombia femenina vs. Venezuela: hora y dónde ver a la Tricolor en duelo amistoso | dónde ver
 - Infobae | Augsburgo vs. Bayern Múnich: hora y dónde ver en vivo el regreso de Luis Díaz a la Bundesliga tras la fecha FI | dónde ver
 - Mundo Deportivo | Las 5 mejores ofertas del día en Amazon: -72% en New Balance, Moulinex, Lefant... | ofertas del día
@@ -216,6 +212,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Nintenderos | Dónde ver Dragon Ball Super: Beerus en España: Plataformas para el nuevo estreno del anime | dónde ver
 - sdpnoticias | ¿Dónde ver Dragon Ball Super: Beerus? Plataformas y fechas de estreno en streaming | dónde ver
 - Aire de Santa Fe | Dónde ver Electro Andes, el animé argentino que superó el millón de reproducciones en YouTube | dónde ver
+- El País | Deportivo Pereira Vs. Deportivo Cali: hora y por donde ver el partido de la fecha 14 de la Liga BetPlay Dimayo | dónde ver
 - El País | América de Cali Vs. Independiente Medellín: hora y por dónde ver el juego de la fecha 14 de la Liga BetPlay Di | dónde ver
 - Infobae | Selección Colombia femenina vs. Venezuela: hora y dónde ver a la Tricolor en duelo amistoso | dónde ver
 - Revista Semana | Liverpool vs. Manchester City: hora y dónde ver el partidazo estelar de la Premier League | dónde ver
@@ -230,41 +227,43 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Bolavip | Dónde ver EN VIVO Ipswich Town vs. Fulham por la jornada 6 de la Premier League: TV y streaming online | dónde ver
 - Bolavip Argentina | Ipswich Town vs. Fulham en vivo: dónde ver por TV y streaming online, por la jornada 6 de la Premier League | dónde ver
 - Bolavip | Dónde ver EN VIVO Chelsea vs. Bournemouth por la jornada 6 de la Premier League: TV y streaming online | dónde ver
-- Sporting News | Dónde y cómo ver en vivo y gratis Chelsea vs. Bournemouth hoy: TV y streaming online del partido de la Premier | cómo ver en vivo
 - OkDiario | La jornada 6 de la Premier League: horarios de todos los partidos y dónde ver por televisión en directo y e... | dónde ver
 - TyC Sports | Sunderland vs. Brighton and Hove, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Bolavip Argentina | Sunderland vs. Brighton en vivo: dónde ver por TV y streaming online, por la jornada 6 de la Premier League | dónde ver
 - TyC Sports | Aston Villa vs. Brentford, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - TyC Sports | Chelsea vs. Bournemouth, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Bolavip | Dónde ver EN VIVO Sunderland vs. Brighton por la jornada 6 de la Premier League: TV y streaming online | dónde ver
-- TyC Sports | Manchester United vs. Tottenham, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Bolavip México | Dónde ver EN VIVO Manchester United vs. Tottenham por la jornada 6 de la Premier League: TV y streaming online | dónde ver
+- TyC Sports | Manchester United vs. Tottenham, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - TyC Sports | Chelsea vs. Bournemouth, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Noticias Caracol | Real Madrid vs. Villarreal, EN VIVO: hora y dónde ver por TV el partido por la Liga de España | dónde ver
 - La Vanguardia | FC Barcelona – Getafe: horario y dónde ver hoy por TV el partido de fútbol de LaLiga EA Sports | dónde ver
+- La Vanguardia | Celta Fortuna – Real Sociedad B: horario y dónde ver hoy por TV el partido de fútbol de LaLiga Hypermotion | dónde ver
+- Depor | DAZN LaLiga TV EN DIRECTO — dónde ver partido FC Barcelona — Getafe CF por streaming y Online | dónde ver
 - 365Scores | Alavés vs Atlético de Madrid: horario, dónde ver EN VIVO y posibles alineaciones por LaLiga | dónde ver
 - 365Scores | Barcelona vs Getafe: horario, dónde ver EN VIVO y posibles alineaciones por LaLiga | dónde ver
 - 365Scores | Real Madrid vs Villarreal: horario, dónde ver EN VIVO y posibles alineaciones por LaLiga | dónde ver
 - La Vanguardia | Eldense – Córdoba CF: horario y dónde ver hoy por TV el partido de fútbol de LaLiga Hypermotion | dónde ver
+- La Vanguardia | Real Madrid – Villarreal: horario y dónde ver hoy por TV el partido de fútbol de LaLiga EA Sports | dónde ver
 - 365Scores | Qué canal pasa Puebla vs León hoy: dónde ver gratis y en vivo por la Liga MX | dónde ver
 - TyC Sports | Barcelona vs. Getafe, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Bolavip México | Dónde ver EN VIVO Real Madrid vs. Villarreal por la jornada 8 de la LaLiga: TV y streaming online | dónde ver
 - Grupo Animal | Dónde ver la Liga MX, NFL, futbol europeo y GP de Singapur este fin de semana | dónde ver
 - TyC Sports | Alavés vs. Atlético de Madrid, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - TyC Sports | Barcelona vs. Getafe, EN VIVO: dónde ver por TV y ONLINE | dónde ver
-- La Vanguardia | Deportivo Alavés – Atlético de Madrid: horario y dónde ver hoy por TV el partido de fútbol de LaLiga EA Sports | dónde ver
 - Telemundo | Serie A: calendario de partidos, horarios y dónde ver la Jornada 6 EN VIVO | dónde ver
 - El Tiempo | Bayern Múnich vuelve a la acción en la Bundesliga con Luis Díaz: hora y dónde ver en vivo por TV el partido co | dónde ver
 - Infobae | Augsburgo vs. Bayern Múnich: hora y dónde ver en vivo el regreso de Luis Díaz a la Bundesliga tras la fecha FI | dónde ver
 - Telemundo | Bundesliga: calendario de partidos, horarios y dónde ver la Jornada 5 EN VIVO | dónde ver
 - La Vanguardia | Leipzig – Eintracht de Frankfurt: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
 - La Vanguardia | Mainz 05 – Bayer Leverkusen: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
-- La Vanguardia | FC Augsburgo – Bayern de Munich: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
 - La Vanguardia | Hoffenheim – Hamburger SV: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
 - La Vanguardia | Unión Berlín – SV Elversberg: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
+- La Vanguardia | FC Augsburgo – Bayern de Munich: horario y dónde ver hoy por TV el partido de fútbol de la Bundesliga | dónde ver
 - Noticias Caracol | Augsburgo vs. Bayern Múnich: hora y dónde ver EN VIVO por TV y ONLINE el partido con Luis Díaz | dónde ver
 - DAZN | Borussia Dortmund vs Werder Bremen de Bundesliga 2026/2027: horario y dónde ver hoy por TV y online el partido | dónde ver
 - Bolavip | Dónde ver EN VIVO Mainz vs. Leverkusen por la jornada 5 de la Bundesliga: TV y streaming online | dónde ver
+- Sporting News | Dónde y cómo ver en vivo y gratis Augsburg vs. Bayern Múnich hoy: TV y streaming online del partido de la Bund | cómo ver en vivo
 - Bolavip | Dónde ver EN VIVO Augsburg vs. Bayern por la jornada 5 de la Bundesliga: TV y streaming online | dónde ver
 - Bolavip | Dónde ver EN VIVO RB Leipzig vs. Eintracht Frankfurt por la jornada 5 de la Bundesliga: TV y streaming online | dónde ver
 - Bolavip | Dónde ver EN VIVO Union Berlin vs. Elversberg por la jornada 5 de la Bundesliga: TV y streaming online | dónde ver
@@ -273,8 +272,13 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - TyC Sports | Mainz vs. Bayer Leverkusen, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - TyC Sports | Hoffenheim vs. Hamburgo SV, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - Diario AS | PSG - Le Mans: canal TV, horario, cómo y dónde ver hoy la Ligue 1 online | dónde ver
+- La Vanguardia | Mónaco – Toulouse: horario y dónde ver hoy por TV el partido de fútbol de la Ligue 1 | dónde ver
+- La Vanguardia | PSG – Le Mans: horario y dónde ver hoy por TV el partido de fútbol de la Ligue 1 | dónde ver
 - TyC Sports | Mónaco vs. Toulouse, EN VIVO: dónde ver por TV y ONLINE | dónde ver
+- La Vanguardia | Lorient – Paris FC: horario y dónde ver hoy por TV el partido de fútbol de la Ligue 1 | dónde ver
 - TyC Sports | Stade Brestois vs. Angers, EN VIVO: dónde ver por TV y ONLINE | dónde ver
+- TyC Sports | PSG vs. Le Mans, EN VIVO: dónde ver por TV y ONLINE | dónde ver
+- La Vanguardia | Brest – Angers: horario y dónde ver hoy por TV el partido de fútbol de la Ligue 1 | dónde ver
 - TyC Sports | Lille vs. Le Havre AC, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - DAZN | Lens vs Olympique de Lyon: horario y dónde ver hoy por TV y online el partido de la Ligue 1 2026/27 a través d | dónde ver
 - La Vanguardia | Lille – Le Havre: horario y dónde ver hoy por TV el partido de fútbol de la Ligue 1 | dónde ver
@@ -282,6 +286,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Sporting News | Cuándo juega, cómo y dónde ver al Manchester City: Día, hora, canal de TV y streaming online del partido vs. L | dónde ver
 - Olympics | Giro de Lombardía 2026: recorrido, mapa, favoritos, horario y dónde ver por tv y streaming · Ciclismo | dónde ver
 - Noticias Caracol | Giro de Lombardía, EN VIVO; hora y dónde ver, por TV, con Evenepoel, Del Toro y Seixas | dónde ver
+- 365Scores | ¿Qué canal pasa Cerúndolo vs Alcaraz hoy? Dónde ver el ATP 1000 de Shanghai | dónde ver
 - Infobae | Gran Premio de Singapur de la Fórmula 1, hora y dónde ver en Colombia la 17° carrera de la temporada 2026 | dónde ver
 - Mundo Deportivo | Horario, canal y dónde ver por TV el Giro de Lombardía 2026 de ciclismo | dónde ver
 - Grupo Animal | Fórmula 1: Horarios, dónde ver en vivo y fechas del GP de Singapur 2026 en México | dónde ver
@@ -297,7 +302,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Colombiano | ¿Está temblando más en este 2026? Este es el promedio histórico de terremotos en el mundo | El Colombiano | 3 pts: pregunta retórica; superlativos: histórico
 - Semana | El video de este nuevo tipo de paraguas se volvió viral en internet: vuela y no se lleva en la mano | 3 pts: frase de gancho
 - Crunchyroll Noticias | ¿Qué es Firefly Wedding? Todo lo que debes saber sobre el anime histórico de romance | 3 pts: pregunta retórica; superlativos: histórico
-### sin_tema (701)
+### sin_tema (709)
 - BBC Mundo | Especial BBC Mundo: Isla Coiba, la brutal prisión a cielo abierto que se convirtió en paraíso natural y a la q
 - BBC Mundo | Congelaron tejido de mis óvulos por un cáncer cuando tenía 17 años y ahora con 44 soy madre de un hermoso bebé
 - BBC Mundo | Documental BBC Mundo: la historia de violencia que esconde Isla Coiba, un paraíso natural en Panamá
@@ -345,13 +350,12 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Xataka | Se sigue buscando al vecino de Salamanca que colocó una piscina de 2 metros cúbicos en el patio de luces de su
 - Xataka | El nuevo LG Gallery TV con panel QNED MiniLED y marcos intercambiables ya es oficial en España
 - Xataka | Lidl tiene (por 17,99 euros) este espumador con acabado pastel que prepara leche cremosa para café y cacao
+- El Tiempo | La venta de bebidas alcohólicas durante la madrugada en Bucaramanga tiene nuevas condiciones tras desórdenes p
 - El Tiempo | No les 'dé papaya' a los ladrones
 - El Tiempo | Asesinan a Oliver Sánchez, líder social que acompañaba a jóvenes en condición de vulnerabilidad en el Catatumb
 - El Tiempo | Las estrategias que ha implementado la UNAB para ahora hacer parte de las 200 mejores universidades de América
-- El Tiempo | Interpol ya tiene oficina en Barranquilla: así trabajará contra el crimen organizado, los ciberdelitos y la co
 - El Tiempo Economía | BTS movió cerca de 99.000 millones en Bogotá: así se distribuyó el gasto de sus conciertos
 - El Tiempo Mundo | Pakistán refuerza su presencia militar en Arabia Saudita tras una nueva jornada de ataques hutíes a Riad
-- El Tiempo Mundo | Influencer español reacciona al pollo Frisby lanzado en Europa tras disputa legal con la marca colombiana: ‘Es
 - El Espectador | Acueducto terminó de reparar tubería matriz en la carrera séptima
 - El Espectador | Rock al Parque 2026: a qué hora toca cada banda este sábado 10 de octubre
 - El Espectador | María José Marín defenderá su título en el WALA 2026 en Guatemala
@@ -359,6 +363,12 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Espectador | ¿Por qué los rockeros se visten de negro?
 - El Espectador | La producción cinematográfica se consolidó como el gran motor de contratación en Bogotá
 - El Espectador | Una guía para hacerte vegetariano (o comer más cereales y verduras)
+- Semana | “Pasé por el momento más oscuro”: la dura confesión de Emmanuel Restrepo en MasterChef Celebrity que conmovió 
+- Semana | Unos hechos con tres interpretaciones
+- Semana | El costo de vivir en Colombia: alimentos, pasajes aéreos y cuotas de administración golpean el bolsillo
+- Semana | La Orquesta Filarmónica de Berlín al fin tocará en Colombia: “Podemos contribuir a un mundo mejor”
+- Semana | Tres ficciones demasiado cercanas: ‘Digger’ es imperdible; ‘Carrie’, inquietante; ‘Furia’, esencial
+- Semana | ‘La joven del té’, de Lisa See, o el aroma de la memoria
 - Semana | Los descuidos de los conductores que reveló un ladrón de autos: “Se vuelve fácil”
 - Semana | De víctimas del conflicto a madres emprendedoras: así buscan reconstruir sus vidas decenas de colombianos
 - Semana | Maisak estrena ‘Vallenatico Pa La Disco’ con colaboraciones de Feid, Maluma y Pipe Peláez
@@ -396,6 +406,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Semana | Tres de cada diez micronegocios en Colombia funcionan desde una vivienda: así crece esta modalidad
 - Semana | El cálido pueblo de Cundinamarca donde el viudo de bocachico es una delicia, un destino poco conocido e ideal 
 - Semana | La caña ya no es solo azúcar: así evoluciona una agroindustria en Colombia
+- Infobae Colombia | Resultado Super Astro Luna HOY: número ganador del viernes 9 de octubre
 - Infobae Colombia | Prepare creativas galletas de Halloween con esta económica receta que le rinde para toda la familia
 - Infobae Colombia | Hugo Rodallega se vio molesto por la noticia de su supuesta salida de Santa Fe: “No sé de dónde salió”
 - Infobae Colombia | Rock al Parque 2026: horarios del domingo 11 de octubre, con Mon Laferte, Seru Girán y Esteman
@@ -420,6 +431,7 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Infobae Colombia | Super Astro Luna hoy, jueves 8 de octubre de 2026: revisa el número y signo ganador
 - Infobae Colombia | Récord mundial de ilusionismo: colombianos superan marca Guinness de levitación en espacio público
 - Infobae Colombia | ¿Cómo estará el clima en Cartagena de Indias este 9 de octubre?
+- Infobae Colombia | Adiós a la incertidumbre, conoce las condiciones climáticas en Barranquilla este 9 de octubre
 - Caracol Radio | Primer fusilamiento militar en EE. UU. desde 1945: Organismos internacionales rechazan transmisión
 - Caracol Radio | La-33 celebra 25 años con una ruta por los lugares emblemáticos de la salsa en Bogotá
 - Caracol Radio | Después de 24 horas, finalizó reparación en tubería matriz en la Av. Carrera Séptima
@@ -441,25 +453,19 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Caracol Radio | SOFA 2026: ¿Cuánto cuestan las boletas y quiénes entran GRATIS? Consulte horarios y actividades
 - El Nuevo Siglo | Así será la segunda fase del desmonte del puente de la Séptima con 100
 - Caracol Radio | Liga colombiana 2026-II: cayó el décimo entrenador en lo que va del semestre
-- Caracol Radio | DPS anunció cuándo pagan Renta Joven 2026 quinta transferencia: ¿Cómo saber si es beneficiario?
-- Caracol Radio | Conozca el nuevo monumento de Bogotá: “La Rockera”, un homenaje al icónico Rock al Parque
-- Caracol Radio | Borrador de MinAmbiente cambiaría reglas de licencias ambientales: podría o no incluir a comunidades
-- Caracol Radio | El Ernesto Cortissoz, entre los aeropuertos habilitados para recibir aviones desviados desde Panamá
-- Caracol Radio | Aeronáutica Civil habilita siete aeropuertos como alternos por emergencia sísmica en Panamá
-- Caracol Radio | Más de 1.200 soldados reforzarán la seguridad vial en Santander durante el receso escolar
-- Caracol Radio | Cartagena ofrece $50 millones de recompensa por cuatro sospechosos de atracos en manada
-- … y 551 más
-### tema_apagado (51)
-- Procuraduria General de la Nación | Cargos a agente de tránsito de Girón (Santander) por presunto abuso del cargo
+- … y 559 más
+### tema_apagado (50)
+- La FM | Procuraduría designa agentes especiales por agresión contra bebé en Itagüí, Antioquia
+- Procuraduria General de la Nación | Cargos a rector de colegio de Coello, Tolima, por presunto acceso carnal violento
 - Vanguardia | Procuraduría inhabilitó y sancionó a exfuncionario de la Gobernación de Mauricio Aguilar
 - El Frente | Procuraduría pide levantar suspensión del empréstito para ‘La Ciudad Bonita’
-- Procuraduria General de la Nación | Cargos a rector de colegio de Coello, Tolima, por presunto acceso carnal violento
+- Procuraduria General de la Nación | Cargos a agente de tránsito de Girón (Santander) por presunto abuso del cargo
 - Procuraduria General de la Nación | Destituido e inhabilitado exsecretario de Infraestructura de Santander
 - Caracol Radio | Procuraduría formuló cargos a concejal de Sabaneta porque habría acusado a funcionario de robar
 - Procuraduria General de la Nación | Procuraduría solicita a la Alcaldía de Malambo habilitar de inmediato la PTAR
-- Procuraduria General de la Nación | Procuraduría abrió investigación a funcionaria de la Gobernación de Atlántico por posibles irregularidades en 
 - Procuraduria General de la Nación | Para proteger la Reserva de Biosfera Seaflower, Procuraduría fortalece vigilancia al saneamiento de San Andrés
 - Procuraduria General de la Nación | Por presunta extralimitación en sus funciones, cargos a concejal en Sabaneta, Antioquia
+- Procuraduria General de la Nación | Procuraduría abrió investigación a funcionaria de la Gobernación de Atlántico por posibles irregularidades en 
 - Procuraduria General de la Nación | Cargos a exdirector de IDDERVAUPÉS, por presuntas irregularidades contractuales
 - Procuraduria General de la Nación | Procuraduría confirmó destitución e inhabilidad por 10 años a expersonero de Altamira, Huila
 - Vanguardia | Procuraduría pide levantar parcialmente la suspensión del empréstito aprobado a la Alcaldía de Bucaramanga
@@ -469,29 +475,27 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Hora 13 Noticias | ¿Extralimitación de funciones? Procuraduría investiga al concejal Iván de Sabaneta
 - Infobae | Contraloría abrió investigación a Emcali por presuntas irregularidades en la licitación del alumbrado público
 - Infobae | Contraloría revisó posible doble pago en contrato de $75 millones del Concejo de Bogotá por limpieza de camion
-- Blu Radio | Procuraduría destituyó e inhabilitó a exsecretario de Infraestructura de Santander
 - El Tiempo | Emcali reitera disposición al control fiscal tras requerimiento de la Contraloría sobre modernización del alum
+- Blu Radio | Procuraduría destituyó e inhabilitó a exsecretario de Infraestructura de Santander
 - El Tiempo | Contraloría advierte baja capacidad en 27 plantas de aguas residuales de Cundinamarca y la CAR ya respondió: '
 - Caracol Radio | Contraloría de Bogotá verificó contrato de mantenimiento de vehículos del Concejo
 - CAMBIO Colombia | Lavar las camionetas blindadas de los concejales: el gasto del Concejo de Bogotá que la Contraloría quiere rev
-- Diario del Huila | Contraloría pone bajo la lupa la estación de Bomberos de Neiva
 - El País | Emcali responderá a requerimientos de la Contraloría General sobre proceso de modernización de alumbrado públi
-- Revista Semana | Polémica por contrato para lavar camionetas provoca verificación de la Contraloría al Concejo de Bogotá
+- Diario del Huila | Contraloría pone bajo la lupa la estación de Bomberos de Neiva
 - Noticias RCN | Contraloría requirió a Emcali por licitación de alumbrado público en Cali por $452.711 millones
 - Revista Semana | Tras solicitud de Red de Veedurías, Contraloría requirió a Emcali por licitación de alumbrado público; la empr
-- EL INFORMADOR - Santa Marta, Colombia | Contraloría distrital aclara que no dejó sin efecto el proceso contra Martínez - EL INFORMADOR
 - Blu Radio | Procuraduría formuló cargos contra personero de Apartadó por presunta inhabilidad
-- La FM | Contraloría de Bogotá pone lupa a polémico contrato del Concejo que incluye lavado de camionetas blindadas
+- EL INFORMADOR - Santa Marta, Colombia | Contraloría distrital aclara que no dejó sin efecto el proceso contra Martínez - EL INFORMADOR
 - Prensa Latina | Procuraduría de Guatemala firmó convenio para protección de menores
-- EL INFORMADOR - Santa Marta, Colombia | Procuraduría ‘pone la lupa’ sobre manejo de residuos sólidos en Riohacha - EL INFORMADOR
 - Crónica del Quindio | Procuraduría hace seguimiento a empréstito de $145.000 millones en Puerto Gaitán
+- EL INFORMADOR - Santa Marta, Colombia | Procuraduría ‘pone la lupa’ sobre manejo de residuos sólidos en Riohacha - EL INFORMADOR
 - Pulzo | Procuraduría formula cargos a exsecretario de Hacienda de Chiriguaná por presunta apropiación irregular de rec
 - Alerta | Contralor General del Quindío denunció faltante sistemático en la entidad por más de $170 millones
-- Agencia Andina | El Niño: Contraloría advierte demora para ejecutar plan de S/205 millones en red vial
-- La Razón Digital Bolivia | Contraloría capacita a 97 profesionales de entidades fiscalizadoras de la región
-- El Pilón | Procuraduría formuló cargos contra exsecretario de Chiriguaná por el presunto traslado de $3.083 millones
-- AS Chile | Piden disolver a un equipo del fútbol chileno por financiamiento ilegal
 - Hoy Digital | ¿Qué encontró la Contraloría en las auditorías realizadas a entidades militares?
+- Agencia Andina | El Niño: Contraloría advierte demora para ejecutar plan de S/205 millones en red vial
+- El Pilón | Procuraduría formuló cargos contra exsecretario de Chiriguaná por el presunto traslado de $3.083 millones
+- La Razón Digital Bolivia | Contraloría capacita a 97 profesionales de entidades fiscalizadoras de la región
+- AS Chile | Piden disolver a un equipo del fútbol chileno por financiamiento ilegal
 - El Dínamo | Contraloría advierte entrega irregular de cédulas de identidad a extranjeros en O’Higgins
 - Infobae | Enorme cocodrilo de la Zona Diamante de Acapulco ya tiene nuevo hogar: fue reubicado por autoridades
 - contraloria.gov.py | Contraloría participó en la LXXXIII Reunión del Consejo Directivo de OLACEFS
@@ -499,12 +503,14 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Nacional — La voz de todos | Contraloría dice ha investigado 77 proyectos de construcción para examinar manejo recursos Estado
 - AGROPERÚ Informa | Contraloría alerta por alimentos vencidos y deficiencias sanitarias en comedor de la Universidad San Luis Gonz
 - contraloria.gov.py | CGR participa en la Sexta Reunión del Consejo Consultivo del Proyecto AdaptaInfra
-- La República | Contraloría advierte demoras en plan millonario para proteger carreteras ante El Niño 2026-2027
+- ADN Radio | Contraloría detecta graves irregularidades en entrega de cédulas de identidad a extranjeros
 - Diario del Huila | “Necesitamos más oferta para bajar los precios de los tiquetes aéreos”: María Lucía Villalba
 
 ## Descartadas LOCALES
-### baja_importancia (482)
-- Win Sports | Dimayor sancionó a Medellín tras la agresión sobre Daniel Torres | prefiltro 6/10
+### baja_importancia (474)
+- Chica Noticias | Nuevo sismo de magnitud 6,6 sacude Panamá tras devastador terremoto de 7,7 | prefiltro 7/10
+- Río Noticias (Rionoticiasco) | Dos aviones que iban hacia Panamá aterrizaron en Montería tras el terremoto | prefiltro 7/10
+- Minuto30 | ¡No se salvó «el poderoso»! Dimayor sancionó al Medellín por agresión a Daniel Torres | prefiltro 6/10
 - Infobae | Fuertes lluvias desbordaron quebradas en Medellín y el Valle de Aburrá: se reportan más de 400 llamadas de eme | prefiltro 6/10
 - Infobae | Vuelo Medellín-Nueva York fue desviado a Miami por fuerte turbulencia: 9 pasajeros debieron ser remitidos a ho | prefiltro 6/10
 - El Colombiano | Vuelo de Avianca que salió de Medellín a Nueva York fue desviado por fuertes turbulencias: ocho personas fuero | prefiltro 6/10
@@ -512,7 +518,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - La Razón (Córdoba) | Envían a centro carcelario al segundo implicado en el asesinato del exalcalde de Yopal, Jhon Jairo Torres | prefiltro 6/10
 - La Razón (Córdoba) | Siete aeropuertos colombianos, entre ellos el de Montería activan contingencia y reciben vuelos desviados por  | prefiltro 6/10
 - La Razón (Córdoba) | Contratos de la emergencia por frente frío en Montería pueden consultarse en el SECOP: Kerguelén | prefiltro 6/10
-- El Colombiano Medellín | Por evitar robo de $25 millones, agente del CTI mató a dos presuntos ladrones en el centro de Medellín | prefiltro 6/10
 - El Colombiano Medellín | Por lo menos cuatro viviendas averiadas y diez árboles caídos dejó el temporal que azotó a Medellín y el Valle | prefiltro 6/10
 - El Colombiano Medellín | Festival Medellín para Todas: más de 1.000 apoyos para emprendedoras y desempleadas; y 600 becas para mujeres | prefiltro 6/10
 - El Colombiano Medellín | El 65% de casos de violencia sexual en Medellín afecta a población indígena, alerta la Personería | prefiltro 6/10
@@ -524,7 +529,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Minuto30 | Toque de queda ilegal en Segovia y Remedios: restringen la movilidad y escasea el combustible | prefiltro 6/10
 - Minuto30 | El Aeropuerto Internacional de Tocumen suspende vuelos y evacúa pasajeros tras el terremoto en Panamá | prefiltro 6/10
 - Minuto30 | ‘¡Panamá no está sola!’: el mensaje de De la Espriella tras el fuerte terremoto en el país vecino | prefiltro 6/10
-- Minuto30 | ¡Los vidrios «bailaban»! Impresionantes videos revelan la fuerza del terremoto de magnitud 8.0 en Panamá | prefiltro 6/10
 - Chica Noticias | Falleció José de Arimatea, una voz que dejó huella en el periodismo cordobés | prefiltro 6/10
 - Chica Noticias | “El salario mínimo sigue vigente”: ministra del Trabajo aclara que no se ha ordenado una reducción | prefiltro 6/10
 - Chica Noticias | Casa del expresidente de Panamá queda parcialmente destruida tras terremoto | prefiltro 6/10
@@ -535,8 +539,8 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Chica Noticias | Terremoto en Panamá obliga al cierre del aeropuerto de Tocumen y desvía vuelos hacia Colombia | prefiltro 6/10
 - Chica Noticias | Panamá descarta por ahora ayuda internacional tras fuerte terremoto | prefiltro 6/10
 - Río Noticias (Rionoticiasco) | Así quedaron las vías de Panamá tras el fuerte sismo de magnitud 8,0 registrado este viernes | prefiltro 6/10
+- El Tiempo | Pasajera del vuelo Medellín - Nueva York contó detalles sobre la angustia y el susto ante las fuertes turbulen | prefiltro 5/10
 - Revista Semana | Evalúan daños en más de 200 viviendas en el sector de La Iguaná, en Medellín, tras la emergencia de este viern | prefiltro 5/10
-- Revista Semana | Fuertes lluvias en Medellín dejan vías inundadas y árboles caídos: estos son los corredores afectados | prefiltro 5/10
 - LaRepublica.co | Bintec 2026 reunirá en Bogotá y Medellín a expertos en IA, ciberseguridad y banca digital | prefiltro 5/10
 - El Colombiano Negocios | La bandeja paisa en Medellín se encareció 14,3% en un año por cuenta de la inflación | prefiltro 5/10
 - El Colombiano Antioquia | Procuraduría investiga a expersonero de Apartadó por posesionarse pese a presunta inhabilidad | prefiltro 5/10
@@ -559,7 +563,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - LA RAZÓN.CO | Dos vuelos de Copa Airlines aterrizarán en Montería tras el sismo en Panamá | prefiltro 5/10
 - Chica Noticias | Unisinú reunió a rectores de Colombia y Perú durante encuentro internacional de investigación | prefiltro 5/10
 - Chica Noticias | ¡Plan en familia! Amal y Nicke pondrán la música en la Ronda del Sinú | prefiltro 5/10
-- Noticias RCN | Emergencia por fuertes lluvias colapsó la movilidad en el sur de Medellín y provocó afectaciones en el Valle d | prefiltro 5/10
 - Chica Noticias | MinTrabajo desmiente rumores sobre eliminación del incremento del 23 % del salario mínimo | prefiltro 5/10
 - Chica Noticias | ¡Impactante! La quebrada La Iguaná se desborda tras fuerte tormenta en Medellín | prefiltro 5/10
 - Chica Noticias | Desgarrador llanto de una familia que perdió su casa tras un incendio en Moñitos | prefiltro 5/10
@@ -569,11 +572,10 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Chica Noticias | Más de 13.000 deportistas llenan de fútbol, béisbol y turismo a Córdoba durante el receso escolar | prefiltro 5/10
 - Río Noticias (Rionoticiasco) | Veolia fortalece el aprendizaje práctico de estudiantes de Ingeniería Ambiental en Montería | prefiltro 5/10
 - Río Noticias (Rionoticiasco) | ¿Buscas capacitarte? ExpoComfacor ofrecerá opciones de formación este 16 y 17 de octubre | prefiltro 5/10
-- El Tiempo | Con imágenes satelitales e inteligencia artificial previenen la construcción ilegal en Medellín: así funciona  | prefiltro 4/10
+- El Tiempo | Tres quebradas desbordadas, alrededor de 200 viviendas afectadas, árboles caídos y caos vehicular tras fuertes | prefiltro 4/10
 - Revista Semana | Impresionantes imágenes: desbordamiento de una quebrada en el occidente de Medellín, por cuenta de las lluvias | prefiltro 4/10
-- Infobae | Adiós a la incertidumbre, conoce las condiciones climáticas en Medellín este 9 de octubre | prefiltro 4/10
+- Revista Semana | Fuertes lluvias en Medellín dejan vías inundadas y árboles caídos: estos son los corredores afectados | prefiltro 4/10
 - Valora Analitik | Pepsi y Gatorlit estarán en el Festival EDC en Medellín con experiencias y dinámicas para los asistentes | prefiltro 4/10
-- Minuto60 | Terremoto en Panamá se sintió en Bogotá, Medellín, Cali y Cartagena, donde evacuaron edificios | prefiltro 4/10
 - Crónica del Quindio | Procuraduría formula cargos por presunto acoso laboral a registradora de Montería | prefiltro 4/10
 - Claro Sports | Lluvia de sanciones para Independiente Medellín tras la agresión a Daniel Torres en Itagüí | prefiltro 4/10
 - Q'hubo Medellín | Se fue el Flaco Vilarete: luto en el Verde y la Selección Colombia | prefiltro 4/10
@@ -601,8 +603,8 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - NotiPregonar | Renuncia secretario de Gobierno de Lorica y surgen dudas sobre alianzas políticas | prefiltro 4/10
 - Chica Noticias | Más de $148.000 millones para atender la emergencia y recuperar las zonas afectadas por el frente frío | prefiltro 4/10
 - Chica Noticias | Atención agricultores en Córdoba: la decisión que protegerá la efectividad del maíz en esta temporada de siemb | prefiltro 4/10
+- Noticias Caracol | Dimayor confirmó la sanción para Independiente Medellín, tras la agresión a Daniel Torres | prefiltro 4/10
 - Noticiero 90 Minutos | Medellín recibió 1,2 millones de turistas extranjeros en 2025 | prefiltro 4/10
-- El Colombiano | ¡Atención! Agente de la Fiscalía frustró robo en la avenida La Playa, centro de Medellín: dos presuntos fleter | prefiltro 4/10
 - Hora 13 Noticias | Medellín no reporta afectaciones tras sismo de magnitud 8,0 con epicentro en Panamá | prefiltro 4/10
 - La FM | Rescatan a hombre de la quebrada La Iguaná y 420 personas llamaron al 123 durante emergencias por lluvias en M | prefiltro 4/10
 - Win Sports | El Pascual Guerrero tendrá importante novedad para América vs. Medellín | prefiltro 4/10
@@ -614,15 +616,14 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - La FM | Nuevo aguacero desató emergencias en Medellín: árboles caídos, cierres viales y alertas en quebradas | prefiltro 4/10
 - Alerta | Ni en puente festivo se salvan: EPM confirma racionamiento de agua en Medellín | prefiltro 4/10
 - Blu Radio | Lluvias en Medellín dejaron creciente en quebrada La Iguaná y más de 400 llamadas de emergencia | prefiltro 4/10
+- Noticias RCN | Emergencia por fuertes lluvias colapsó la movilidad en el sur de Medellín y provocó afectaciones en el Valle d | prefiltro 4/10
 - Minuto60 | Desbordamiento de la quebrada La Iguaná en Medellín: alerta por inundaciones, videos | prefiltro 4/10
-- Telemedellín | Vuelo de Avianca entre Medellín y Nueva York aterriza de emergencia en Miami por severa turbulencia: hay lesio | prefiltro 4/10
 - El Tiempo | Aquí queda Pitaloza Arriba, el sitio exacto del terremoto de magnitud 7,6 en Panamá; se sintió en Bogotá y Med | prefiltro 4/10
 - Caracol Radio | Un hombre fue arrastrado por la quebrada La Iguaná y varias casas se inundaron | prefiltro 3/10
 - Caracol Radio | Aguaceros en Medellín generan la caída de varios árboles con riesgo eléctrico por redes afectadas | prefiltro 3/10
 - Caracol Radio | Medellín se viste de talento femenino con una nueva edición del “Festival para Todas” | prefiltro 3/10
 - Valora Analitik | Medellín convocó a más de 1.000 personas para conversar sobre el significado de liderar el aprendizaje hoy | prefiltro 3/10
 - El Colombiano Negocios | ¿Muy caro echarle papa al caldo? El kilo subió 78% en el último año: esto vale en Medellín y Bogotá | prefiltro 3/10
-- RED+ Noticias | IMPACTANTES VIDEOS | Terremoto en Panamá se sintió en Bogotá, Medellín y más ciudades de Colombia | prefiltro 3/10
 - ESPN Colombia | Cuándo juegan América vs. Medellín por Liga BetPlay: equipo, fecha, hora y TV en vivo | prefiltro 3/10
 - Gainblers | Pronósticos América de Cali vs. Independiente Medellín: ¿triunfo escarlata en el Pascual Guerrero? | prefiltro 3/10
 - El Meridiano | Coveñas fue sede de encuentro internacional de líderes destacados en educación | prefiltro 3/10
@@ -631,7 +632,6 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - El Meridiano | Secretaría de Salud municipal intensifica inspecciones sanitarias en IPS y EPS de Sincelejo | prefiltro 3/10
 - El Meridiano | Sincelejo destaca a los 10 estudiantes con mejores puntajes en las Pruebas Saber 2026 | prefiltro 3/10
 - El Meridiano | Reencuentro en La Picota de viejos conocidos | prefiltro 3/10
-- Q'hubo Medellín | A Leidys le salieron en el camino y la mataron cuando iba a trabajar | prefiltro 3/10
 - Q'hubo Medellín | Abelardo de la Espriella firmó 9 autorizaciones de extradición | prefiltro 3/10
 - Q'hubo Medellín | Repartidor fue a cargar su celular al puente de la 4 sur y casi lo matan | prefiltro 3/10
 - Q'hubo Medellín | EN VIDEO: Belén y Guayabal sufrieron con el aguacero de este viernes | prefiltro 3/10
@@ -647,27 +647,33 @@ Página: 217 KB (+ 163 KB de 'Ver más') · 42 destacadas + 243 en 'Ver más' ·
 - Minuto30 | De «origen humilde» a cobrarle al pueblo | prefiltro 3/10
 - Minuto30 | La menor Sara Sarith Martínez desapareció en Medellín | prefiltro 3/10
 - UNIMINUTO Radio | ​UNIMINUTO Ibagué destaca en el Encuentro de Investigación de RedCOLSI en Montería y posiciona su talento a ni | prefiltro 3/10
-- Caracol Radio | “Hacemos pública nuestra solidaridad con Jairo Torres”: Ademacor por pronunciamiento del presidente | prefiltro 3/10
 - ELHERALDO.CO | Pasajeros denuncian que llevan más de siete horas dentro de avión en Montería | prefiltro 3/10
 - LA RAZÓN.CO | Mercado de los Cuatro Patios busca convertirse en atractivo turístico de Montería | prefiltro 3/10
 - LA RAZÓN.CO | Alcaldía cerró la Boca del Tigre, punto por donde ingresó el agua que inundó a Montería | prefiltro 3/10
 - ELHERALDO.CO | De la Espriella confirma recursos por $46.000 millones para el Hospital de la Comuna 9 y el Mercado de los Cua | prefiltro 3/10
 - Chica Noticias | Agustina Bazterrica llegará a Montería para compartir su universo literario en Un Río de Libros | prefiltro 3/10
 - NotiPregonar | Ordosgoitia, Negrete y Degiovanni suenan para la Alcaldía de Montería en 2027 | prefiltro 3/10
-- … y 332 más
-### fuera_de_interes (12)
+- Chica Noticias | ¡Los papás también juegan! Este sábado será la gran final del Torneo de Padres de la Copa Ciudad Montería | prefiltro 3/10
+- Chica Noticias | ¡Por desacato! Juzgado de Montería sanciona a representante de Afinia con tres días de arresto y multa | prefiltro 3/10
+- Alcaldía de Medellín | Con una participación histórica de 68 bandas, el Festival Internacional Altavoz 2026 latirá fuerte en Medellín | prefiltro 3/10
+- Indeportes Antioquia | De los 17 títulos puestos en disputa Medellín ganó doce. Los otros cinco trofeos quedaron en poder de equipos  | prefiltro 3/10
+- La Patria | Identifican a motociclista víctima de accidente en vía Manizales-Medellín | prefiltro 3/10
+- … y 324 más
+### fuera_de_interes (14)
 - Q'hubo Medellín | ¡Cayó MiLoto! Resultados de las loterias del jueves, 8 de octubre | lotería
 - Caracol Radio | Lotería de Medellín: resultados del viernes 9 de octubre de 2026 | lotería
-- El Tiempo | Conozca acá los resultados del último sorteo de la Lotería de Medellín del viernes 9 de octubre de 2026 | lotería
 - Blu Radio | Resultado de la Lotería de Medellín: último sorteo hoy viernes 9 de octubre de 2026 | lotería
-- El Nuevo Siglo | Estos son los resultados de la Lotería de Medellín del viernes 9 de octubre de 2026 | lotería
-- Caracol Radio | Resultados Lotería de Medellín, Santander, Risaralda y MiLoto HOY 9 de octubre de 2026 | lotería
-- El Nuevo Siglo | Resultados de las loterías de Medellín, Santander y Risaralda, hoy 9 de octubre de 2026 | lotería
 - Vanguardia | Lotería de Medellín: resultado del sorteo del viernes 9 de octubre de 2026 | lotería
-- La FM | Último sorteo de la Lotería de Medellín: resultado premio mayor hoy 9 de octubre | lotería
+- Colombia.com | Lotería de Medellín: Resultado del sorteo del viernes 9 de octubre de 2026 | lotería
+- El Nuevo Siglo | Estos son los resultados de la Lotería de Medellín del viernes 9 de octubre de 2026 | lotería
 - Noticias RCN | Resultado Lotería de Medellín hoy viernes 9 de octubre de 2026: último sorteo | lotería
+- La FM | Último sorteo de la Lotería de Medellín: resultado premio mayor hoy 9 de octubre | lotería
+- El País | América de Cali Vs. Independiente Medellín: hora y por dónde ver el juego de la fecha 14 de la Liga BetPlay Di | dónde ver
+- Caracol Radio | Resultados Lotería de Medellín, Santander, Risaralda y MiLoto HOY 9 de octubre de 2026 | lotería
+- El Tiempo | Conozca acá los resultados del último sorteo de la Lotería de Medellín del viernes 9 de octubre de 2026 | lotería
+- El Nuevo Siglo | Resultados de las loterías de Medellín, Santander y Risaralda, hoy 9 de octubre de 2026 | lotería
+- El Comercio Perú | Lotería Medellín HOY viernes 9 de octubre EN VIVO: últimos resultados y ganadores del sorteo | lotería
 - Publimetro Colombia | Loterías de Santander, Medellín y Risaralda: Resultados de los sorteos realizados hoy viernes 9 de octubre del | lotería
-- Centro de Información – Alcaldía de Manizales | Se acerca el sorteo extraordinario de las Loterías de Manizales y Medellín | lotería
 ### sensacionalismo (2)
 - El Tiempo | Atención: fuerte terremoto de magnitud 8,0 con epicentro en Panamá se sintió en Medellín y otros municipios de | 3 pts: frase de gancho
 - El Colombiano Antioquia | Atención: cierre total en variante Las Palmas, sector Sajonia, por un camión que se volcó en la vía | 3 pts: frase de gancho
