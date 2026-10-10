@@ -66,11 +66,19 @@ seleccion:
   max_ocio: 7
   max_local: 8               # lo local tiene su propio tope, aparte de serias y ocio
   max_fe: 4                  # noticias de la pestaña Fe (aparte de "Para el alma")
-  minimo_fe: 5
+  minimo_fe: 4
+  max_deportes: 8            # pestaña Deportes
+  minimo_deportes: 5
+  hoy_max_deportes: 3        # cuántas deportivas pueden aparecer en Hoy
+  max_ia: 4                  # pestaña IA (inteligencia artificial y ciberseguridad)
+  minimo_ia: 5
+  max_historia: 3            # pestaña Historia
+  minimo_historia: 4
   # "Ver N noticias más": el resto, sin IA, solo de medios aprobados. Máximo por pestaña:
   ver_mas_por_pestana: 40
   ver_mas_por_medio: 3       # variedad: máximo de noticias de un mismo medio en "Ver más" de cada pestaña
   ver_mas_por_tema: 12
+  ver_mas_por_tema_deportes: 30   # en Deportes casi todo es fútbol: se permite más de un mismo tema
   cupo_por_tema: 3           # máximo de noticias de un mismo tema
   horas_maximas: 36          # ignora noticias más viejas que esto
   similitud_duplicados: 0.55 # 0 a 1; más alto = solo elimina títulos casi idénticos
@@ -157,7 +165,7 @@ temas:
     palabras: [economía, económico, inflación, desempleo, pib, impuestos, "reforma tributaria", dian, presupuesto, "salario mínimo", exportaciones, importaciones, aranceles, recesión, crecimiento, "banco de la república", minhacienda, "regla fiscal", déficit, deuda, empleo, pensiones]
   inteligencia_artificial:
     nombre: "Inteligencia artificial"
-    grupo: serias
+    grupo: ia
     activo: true
     peso: 1.0
     color: "#5B3FD9"
@@ -214,7 +222,7 @@ temas:
     solo_colombia: true        # noticias de otros países van a Geopolítica
   ciberseguridad:
     nombre: "Ciberseguridad"
-    grupo: serias
+    grupo: ia
     activo: true
     peso: 1.0
     color: "#1D9E75"
@@ -238,7 +246,7 @@ temas:
     palabras: [salud, eps, "nueva eps", supersalud, minsalud, epidemia, pandemia, brote, vacuna, vacunación, dengue, hospital, hospitales, medicamentos, "reforma a la salud", oms, ops, "virus", "sarampión", who]
   tecnologia:
     nombre: "Tecnología"
-    grupo: serias
+    grupo: ocio
     activo: true
     peso: 0.9
     color: "#1D9E75"
@@ -266,18 +274,22 @@ temas:
     palabras_impacto: [estreno, "nueva temporada", "segunda temporada", "tercera temporada", anuncia, anuncio, película, adaptación, "fecha de estreno", tráiler, "season", announced, "anime adaptation", premiere]
   futbol:
     nombre: "Fútbol"
-    grupo: ocio
+    grupo: deportes
     activo: true
     peso: 1.0
     color: "#E8752F"
-    descripcion: "fútbol: SOLO Liga BetPlay (Colombia), Selección Colombia y Champions League"
+    descripcion: "fútbol: Liga BetPlay, Copa Colombia, Selección Colombia, Premier League, LaLiga, Serie A, Bundesliga, Ligue 1, Champions League, Libertadores y Sudamericana"
     palabras: ["liga betplay", "selección colombia", "champions league", "liga de campeones", "tricolor", "néstor lorenzo", "james rodríguez", "luis díaz", nacional, millonarios, "américa de cali", "junior", "santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares", "uefa", "dimayor"]
-    requiere: ["liga betplay", "betplay", "selección colombia", "selección de colombia", "champions", "liga de campeones", "tricolor", "lorenzo", "dimayor", "atlético nacional", millonarios, "américa de cali", "junior de barranquilla", "independiente santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares de córdoba", "uefa"]
-    excluir: ["femenino sub", "fútbol sala", "futsal"]
+    requiere: ["liga betplay", "betplay", "copa colombia", "selección colombia", "selección de colombia", "champions", "liga de campeones",
+      "premier league", "laliga", "la liga", "serie a", "bundesliga", "ligue 1", libertadores, sudamericana, conmebol,
+      "real madrid", "fc barcelona", "barça", "atlético de madrid", "manchester city", "manchester united", liverpool, arsenal, chelsea, tottenham,
+      "bayern", dortmund, juventus, "inter de milán", "ac milan", napoli, psg, "paris saint-germain", "boca juniors", "river plate", flamengo, palmeiras,
+      "luis díaz", "james rodríguez", "jhon durán", "richard ríos", "daniel muñoz", "jhon arias", "tricolor", "lorenzo", "dimayor", "atlético nacional", millonarios, "américa de cali", "junior de barranquilla", "independiente santa fe", "deportes tolima", "independiente medellín", "deportivo cali", "once caldas", "jaguares de córdoba", "uefa"]
+    excluir: ["fútbol sala", "futsal", "fútbol americano", "nfl"]
     palabras_impacto: [final, clasificación, clasificó, campeón, eliminado, convocatoria, convocados, lesión, fichaje, derrota, victoria, semifinal, cuartos de final, "líder", goleada, "director técnico", destituido]
   baloncesto:
     nombre: "Básquet"
-    grupo: ocio
+    grupo: deportes
     activo: true
     peso: 1.0
     color: "#E8752F"
@@ -286,6 +298,16 @@ temas:
     requiere: [nba, wnba]
     excluir: [euroliga, euroleague, acb, ncaa, "liga endesa", fiba, "baloncesto colombiano"]
     palabras_impacto: [final, finals, playoffs, campeón, champion, trade, traspaso, lesión, injury, récord, record, semifinal, semifinals, mvp, "game 1", "game 2", "game 3", "game 4", "game 5", contrato, firma, signs]
+  otros_deportes:
+    nombre: "Otros deportes"
+    grupo: deportes
+    activo: true
+    peso: 1.0
+    color: "#0E7490"
+    descripcion: "otros deportes: ciclismo, Fórmula 1 y tenis"
+    palabras: [ciclismo, ciclista, "tour de francia", "giro de italia", "vuelta a españa", "egan bernal", nairo, "fórmula 1", "formula 1", f1, "gran premio", verstappen, hamilton, leclerc, norris, piastri, tenis, atp, wta, "roland garros", wimbledon, "us open", "abierto de australia", "camila osorio", djokovic, alcaraz, sinner, sabalenka]
+    requiere: [ciclismo, ciclista, "tour de francia", "giro de italia", "vuelta a españa", "egan bernal", nairo, "fórmula 1", "formula 1", f1, "gran premio", verstappen, hamilton, leclerc, norris, tenis, atp, wta, "roland garros", wimbledon, "us open", "abierto de australia", "camila osorio", djokovic, alcaraz, sinner, sabalenka]
+    palabras_impacto: [campeón, gana, ganó, victoria, etapa, podio, pole, título, final, semifinal, récord]
   freestyle:
     nombre: "Freestyle"
     grupo: ocio
@@ -298,7 +320,7 @@ temas:
     palabras_impacto: [final, semifinal, campeón, campeona, "red bull batalla", fms, internacional, nacional, "world cup", mundial, jornada, "world series"]
   historia_antigua:
     nombre: "Historia antigua"
-    grupo: ocio
+    grupo: historia
     activo: true
     peso: 1.0
     color: "#BA7517"
@@ -430,8 +452,16 @@ google_news_temas:
   politica: {activo: true, alcance: nacional, consulta: 'Congreso Colombia OR "Gobierno nacional" OR Registraduría'}
   tecnologia: {activo: true, alcance: internacional, consulta: 'tecnología'}
   anime: {activo: true, alcance: internacional, consulta: 'anime'}
-  futbol: {activo: true, alcance: nacional, consulta: '"Liga BetPlay" OR "Selección Colombia" OR "Champions League"'}
-  baloncesto: {activo: true, alcance: internacional, consulta: 'NBA OR WNBA'}
+  futbol: {activo: true, sub: colombia, alcance: nacional, consulta: '"Liga BetPlay" OR "Copa Colombia" OR "Selección Colombia"'}
+  futbol_premier: {activo: true, pista_fuerte: true, tema: futbol, sub: premier, alcance: internacional, consulta: '"Premier League"'}
+  futbol_laliga: {activo: true, pista_fuerte: true, tema: futbol, sub: laliga, alcance: internacional, consulta: 'LaLiga fútbol'}
+  futbol_seriea: {activo: true, pista_fuerte: true, tema: futbol, sub: seriea, alcance: internacional, consulta: '"Serie A" fútbol Italia'}
+  futbol_bundesliga: {activo: true, pista_fuerte: true, tema: futbol, sub: bundesliga, alcance: internacional, consulta: 'Bundesliga'}
+  futbol_ligue1: {activo: true, pista_fuerte: true, tema: futbol, sub: ligue1, alcance: internacional, consulta: '"Ligue 1"'}
+  futbol_champions: {activo: true, pista_fuerte: true, tema: futbol, sub: champions, alcance: internacional, consulta: '"Champions League" OR "Liga de Campeones"'}
+  futbol_conmebol: {activo: true, pista_fuerte: true, tema: futbol, sub: conmebol, alcance: internacional, consulta: 'Libertadores OR Sudamericana'}
+  otros_deportes: {activo: true, alcance: internacional, consulta: '"Fórmula 1" OR ciclismo OR tenis'}
+  baloncesto: {activo: true, pista_fuerte: true, alcance: internacional, consulta: 'NBA OR WNBA'}
   freestyle: {activo: true, alcance: internacional, consulta: '"Red Bull Batalla" OR FMS freestyle'}
   historia_antigua: {activo: true, alcance: internacional, consulta: 'arqueología OR "hallazgo arqueológico" OR excavación'}
   espiritualidad: {activo: true, alcance: internacional, consulta: 'Vaticano OR "papa León" OR "Iglesia católica" OR espiritualidad'}

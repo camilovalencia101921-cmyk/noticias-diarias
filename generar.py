@@ -4,6 +4,7 @@ Uso:  python generar.py            (genera sitio/index.html)
       python generar.py --sin-ia   (fuerza el modo de respaldo)
 """
 import argparse
+import json
 import re
 import shutil
 import sys
@@ -11,14 +12,14 @@ import traceback
 from collections import Counter
 from datetime import date, datetime, timedelta
 
-from noticias import agenda, alma, aprobados, cine, humor, medios, mercados, notificar
+from noticias import agenda, alma, aprobados, cine, deportes, humor, medios, mercados, notificar
 from noticias import filtros as FL
 from noticias import proceso as P
 from noticias.fuentes import descargar_todas, filtrar_por_edad, fuentes_activas, url_google_news
 from noticias.gemini import Gemini, GeminiError
 from noticias.historial import Historial
 from noticias.pagina import Pagina, fecha_larga
-from noticias.pestanas import pestana_de, subfiltros_de
+from noticias.pestanas import es_favorito, pestana_de, subfiltros_de
 from noticias.utils import RAIZ, ahora_utc, cargar_config, zona
 
 SITIO = RAIZ / "sitio"
@@ -152,14 +153,22 @@ def guardar_log(hoy, reg, errores):
     (LOGS / f"{hoy.isoformat()}.log").write_text("\n".join(lineas) + "\n", encoding="utf-8")
 
 
+def cargar_favoritos():
+    try:
+        return json.loads((RAIZ / "config" / "equipos_favoritos.json").read_text(encoding="utf-8")).get("equipos", [])
+    except (OSError, ValueError):
+        return []
+
+
 def fuentes_google_news(cfg):
     """Una búsqueda de Google News por tema (español, Colombia y mundo)."""
     out = []
     for tema, g in (cfg.get("google_news_temas") or {}).items():
         if g and g.get("activo", True) and g.get("consulta"):
             out.append({"nombre": f"Google News · {tema}", "url": url_google_news(g["consulta"]),
-                        "alcance": g.get("alcance", "nacional"), "filtro": "estricto", "temas": [tema],
-                        "pista_debil": True})
+                        "alcance": g.get("alcance", "nacional"), "filtro": "estricto", "temas": [g.get("tema", tema)],
+                        "sub": g.get("sub", ""),
+                        "pista_debil": not g.get("pista_fuerte", False)})
     return out
 
 
@@ -225,6 +234,9 @@ def main():
     if modo_respaldo:                    # sin la revisión de la IA, solo medios aprobados (falla cerrado)
         candidatos = [n for n in base if n.aprobado]
 
+    favoritos = cargar_favoritos()
+    for n in base:
+        n.favorito = n.tema in ("futbol", "baloncesto", "otros_deportes") and es_favorito(n, favoritos)
     elegidas, _ = P.seleccionar(candidatos, cfg, reg)
     if not any(n.seccion == "local" for n in elegidas):
         extra = P.completar_departamento(cfg, False, reg, procesar)
@@ -265,12 +277,12 @@ def main():
     por_fuente = int(sel.get("ver_mas_por_medio", 4))      # variedad: máximo de un mismo medio por pestaña
     por_tema = int(sel.get("ver_mas_por_tema", 12))        # y de un mismo tema
     ver_mas, cuenta = {}, Counter()
-    for n in sorted(base, key=lambda n: (n.puntaje, n.fecha), reverse=True):
+    for n in sorted(base, key=lambda n: (n.favorito, n.puntaje, n.fecha), reverse=True):
         if n.id in ids_dest or not n.aprobado or n.sexual_ia:
             continue
         pest = pestana_de(n)
         if (len(ver_mas.get(pest, [])) >= maximo or cuenta[(pest, "f", n.fuente)] >= por_fuente
-                or cuenta[(pest, "t", n.tema or n.categoria_local)] >= por_tema):
+                or cuenta[(pest, "t", n.tema or n.categoria_local)] >= int(sel.get(f"ver_mas_por_tema_{pest}", por_tema))):
             continue
         cuenta[(pest, "f", n.fuente)] += 1
         cuenta[(pest, "t", n.tema or n.categoria_local)] += 1
@@ -283,7 +295,9 @@ def main():
     videos, aviso_humor = humor.construir(cfg, reg.info)
     estrenos = cine.construir(cfg, ia, hoy, reg.info)
     tarjetas_mercado = mercados.actualizar(cfg, hist, reg.info)
-    items_agenda = agenda.construir(cfg, hoy, tz, reg.info)
+    items_agenda = agenda.construir(cfg, hoy, tz, reg.info, estrenos=(estrenos or (None, ""))[0])
+    res_deportes = deportes.resultados(tz, reg.info) if (cfg.get("deportes", {}) or {}).get("resultados", True) else []
+    tablas_dep = deportes.tablas(reg.info) if (cfg.get("deportes", {}) or {}).get("tablas", True) else []
 
     # 7. página, datos de "Ver más" y archivo
     SITIO.mkdir(exist_ok=True)
@@ -311,6 +325,7 @@ def main():
         "elegidas": elegidas, "ver_mas": ver_mas, "mercados": tarjetas_mercado, "agenda": items_agenda,
         "contador": contador, "instagram": botones_instagram(loc) if loc.get("activo", True) else [],
         "alma": temas_alma, "cine": estrenos, "humor": videos, "aviso_humor": aviso_humor,
+        "resultados": res_deportes, "tablas": tablas_dep, "errores": errores,
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
         "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes,
         "imagenes_categoria": imagenes_categoria(), "colores": colores,

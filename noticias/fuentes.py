@@ -42,6 +42,7 @@ class Noticia:
     vigilada: bool = False
     seguimiento_dia: int = 0
     penal_sensacionalismo: int = 0
+    pista_sub: str = ""                # subfiltro sugerido por la búsqueda (p. ej. "premier")
     pista_debil: bool = False          # el tema sugerido viene de una búsqueda general (Google News)
     dominio_medio: str = ""
     aprobado: bool = False
@@ -261,6 +262,7 @@ def descargar_todas(fuentes, hilos=12):
                 n.zona_prioridad = f.get("zona_prioridad", 0)
                 n.aprobado = bool(f.get("aprobada"))
                 n.pista_debil = bool(f.get("pista_debil"))
+                n.pista_sub = f.get("sub", "")
             noticias.extend(items)
     return noticias, errores
 

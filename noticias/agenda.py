@@ -11,7 +11,15 @@ from .utils import http_get, http_post
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/{}/scoreboard"
 LIGAS = [
     ("liga_betplay", "soccer/col.1", "Liga BetPlay", "futbol", None),
+    ("copa_colombia", "soccer/col.copa", "Copa Colombia", "futbol", None),
     ("champions", "soccer/uefa.champions", "Champions League", "futbol", None),
+    ("premier", "soccer/eng.1", "Premier League", "futbol", None),
+    ("laliga", "soccer/esp.1", "LaLiga", "futbol", None),
+    ("seriea", "soccer/ita.1", "Serie A", "futbol", None),
+    ("bundesliga", "soccer/ger.1", "Bundesliga", "futbol", None),
+    ("ligue1", "soccer/fra.1", "Ligue 1", "futbol", None),
+    ("libertadores", "soccer/conmebol.libertadores", "Libertadores", "futbol", None),
+    ("sudamericana", "soccer/conmebol.sudamericana", "Sudamericana", "futbol", None),
     ("nba", "basketball/nba", "NBA", "baloncesto", None),
     ("wnba", "basketball/wnba", "WNBA", "baloncesto", None),
     ("seleccion_colombia", "soccer/fifa.friendly", "Selección Colombia", "futbol", "Colombia"),
@@ -73,8 +81,8 @@ def _anime(dias, tz, cfg_anime):
     return [(t, txt, url) for _, t, txt, url in out[: int(cfg_anime.get("maximo", 6))]]
 
 
-def construir(cfg, hoy, tz, log=print):
-    """Devuelve lista de dicts {dia, hora, categoria, tema, texto, enlace} ordenada."""
+def construir(cfg, hoy, tz, log=print, estrenos=None):
+    """Devuelve lista de dicts {dia, hora, categoria, tema, sub, texto, enlace} ordenada por hora de Colombia."""
     a = (cfg.get("mejoras", {}) or {}).get("agenda", {}) or {}
     if not a.get("activo", True):
         return []
@@ -85,14 +93,16 @@ def construir(cfg, hoy, tz, log=print):
             continue
         try:
             for inicio, texto, enlace in _espn(ruta, dias, tz, equipo):
-                items.append({"fecha": inicio, "categoria": nombre, "tema": tema, "texto": texto, "enlace": enlace})
+                items.append({"fecha": inicio, "categoria": nombre, "tema": tema, "texto": texto, "enlace": enlace,
+                              "sub": "nba" if tema == "baloncesto" else "futbol"})
         except Exception as ex:  # noqa: BLE001
             log(f"Agenda: {nombre} no disponible ({type(ex).__name__})")
     ca = a.get("anime", {}) or {}
     if ca.get("activo", True):
         try:
             for inicio, texto, enlace in _anime(dias, tz, ca):
-                items.append({"fecha": inicio, "categoria": "Estreno anime", "tema": "anime", "texto": texto, "enlace": enlace})
+                items.append({"fecha": inicio, "categoria": "Estreno anime", "tema": "anime", "texto": texto, "enlace": enlace,
+                              "sub": "estrenos"})
         except Exception as ex:  # noqa: BLE001
             log(f"Agenda: AniList no disponible ({type(ex).__name__})")
     for ev in a.get("eventos_manuales", []) or []:
@@ -103,7 +113,12 @@ def construir(cfg, hoy, tz, log=print):
         if f in dias:
             items.append({"fecha": datetime.combine(f, time(0, 0), tz), "categoria": ev.get("categoria", "Evento"),
                           "tema": "freestyle" if "freestyle" in str(ev.get("categoria", "")).lower() else "general",
-                          "texto": ev.get("nombre", ""), "enlace": ev.get("enlace", ""), "sin_hora": True})
+                          "texto": ev.get("nombre", ""), "enlace": ev.get("enlace", ""), "sin_hora": True, "sub": "eventos"})
+    for p in estrenos or []:                     # estrenos de cine de hoy y mañana (Cinemark)
+        if p.get("fecha") in dias:
+            items.append({"fecha": datetime.combine(p["fecha"], time(0, 0), tz), "categoria": "Estreno de cine",
+                          "tema": "cine", "texto": f'{p["titulo"]} ({p["genero"]})', "enlace": p.get("enlace", ""),
+                          "sin_hora": True, "sub": "estrenos"})
     items.sort(key=lambda x: x["fecha"])
     for it in items:
         it["dia"] = "Hoy" if it["fecha"].date() == hoy else "Mañana"

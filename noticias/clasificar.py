@@ -137,8 +137,8 @@ def puntaje_final(n, cfg):
 def asignar_seccion(n, cfg):
     temas = cfg.get("temas") or {}
     grupo = (temas.get(n.tema or "", {}) or {}).get("grupo")
-    if grupo == "ocio":
-        return "ocio"
+    if grupo in ("ocio", "deportes"):
+        return grupo
     if n.alcance == "local":
         return "local"
     texto = normalizar(n.titulo + " " + n.descripcion[:300])

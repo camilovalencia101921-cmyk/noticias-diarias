@@ -136,10 +136,10 @@ def clasificar_ia(noticias, cfg, ia, reg):
 def seleccionar(noticias, cfg, reg):
     sel = cfg.get("seleccion", {}) or {}
     temas = cfg.get("temas") or {}
-    minimos = {"serias": sel.get("minimo_serias", 6), "ocio": sel.get("minimo_ocio", 5),
-               "local": sel.get("minimo_local", 5), "fe": sel.get("minimo_fe", 5)}
-    maximos = {"serias": sel.get("max_serias", 10), "ocio": sel.get("max_ocio", 7),
-               "local": sel.get("max_local", 8), "fe": sel.get("max_fe", 4)}
+    grupos = {(v or {}).get("grupo", "serias") for v in temas.values()} | {"local"}
+    # cada grupo (pestaña) tiene su mínimo y su tope: minimo_<grupo> y max_<grupo> en config.yaml
+    minimos = {g: sel.get(f"minimo_{g}", 6 if g == "serias" else 5) for g in grupos}
+    maximos = {g: sel.get(f"max_{g}", 10 if g == "serias" else 4) for g in grupos}
     cupo = sel.get("cupo_por_tema", 3)
 
     def grupo(n):
@@ -148,7 +148,7 @@ def seleccionar(noticias, cfg, reg):
         return (temas.get(n.tema or "", {}) or {}).get("grupo", "serias")
 
     elegidas, sobrantes, cuenta, por_tema = [], [], Counter(), Counter()
-    orden = sorted(noticias, key=lambda n: (n.puntaje, -n.zona_prioridad if n.zona_prioridad else 0,
+    orden = sorted(noticias, key=lambda n: (getattr(n, "favorito", False), n.puntaje, -n.zona_prioridad if n.zona_prioridad else 0,
                                             len(n.fuentes_cluster), bool(n.imagen)), reverse=True)
     for n in orden:
         g = grupo(n)

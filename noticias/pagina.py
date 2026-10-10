@@ -11,13 +11,12 @@ from html import escape
 
 from .ilustraciones import DIBUJOS, simbolos
 from .mercados import sparkline
-from .pestanas import PESTANAS, SUBFILTROS
+from .pestanas import FONDOS, PESTANAS, SUBFILTROS
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
          "octubre", "noviembre", "diciembre"]
 ORDEN_LOCAL = ["seguridad", "orden_publico", "movilidad_servicios", "otros"]
-FONDOS = {"mundo": "linear-gradient(135deg,#1E2F5C,#3A5BA8)", "humor": "linear-gradient(135deg,#7C2A0A,#C25E14)"}
 FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E"
            "%3Crect width='100' height='100' rx='24' fill='%23D85A30'/%3E"
            "%3Cpath d='M30 74V26h10l20 31V26h10v48H60L40 43v31z' fill='%23fff'/%3E%3C/svg%3E")
@@ -155,10 +154,33 @@ class Pagina:
             texto = e(it["texto"])
             if it.get("enlace"):
                 texto = f'<a href="{e(it["enlace"])}" target="_blank" rel="noopener noreferrer">{texto}</a>'
-            filas.append(f'<li><span class="hr">{e(it["hora"]) or "—"}</span><span class="tx"><span class="chip-t" style="--c:{color}">'
-                         f'{e(it["categoria"])}</span><br>{texto}</span></li>')
-        return (f'<div class="bloque w" data-sub="agenda"><h3 class="bt">📅 Agenda de hoy y mañana</h3>'
-                f'<ul class="lista-s">{"".join(filas)}</ul></div>')
+            filas.append(f'<li data-sub="{it.get("sub", "eventos")}"><span class="hr">{e(it["hora"]) or "—"}</span><span class="tx">'
+                         f'<span class="chip-t" style="--c:{color}">{e(it["categoria"])}</span><br>{texto}</span></li>')
+        return f'<div class="bloque"><ul class="lista-s">{"".join(filas)}</ul><p class="nota">Horas de Colombia.</p></div>'
+
+    def resultados(self):
+        rs = self.ctx.get("resultados") or []
+        if not rs:
+            return ""
+        tarj = "".join(
+            f'<a class="res-p w" data-sub="{r["sub"]}" href="{e(r["enlace"])}" target="_blank" rel="noopener noreferrer">'
+            f'<span class="rl">{e(r["liga"])} · {"🔴 en juego" if r["en_juego"] else e(r["detalle"])}</span>'
+            f'<span class="re"><b>{e(r["gl"])}</b> {e(r["local"])}</span><span class="re"><b>{e(r["gv"])}</b> {e(r["visita"])}</span></a>'
+            for r in rs)
+        return f'<h3 class="bt">Resultados recientes</h3><div class="franja">{tarj}</div>'
+
+    def tablas(self):
+        ts = self.ctx.get("tablas") or []
+        if not ts:
+            return ""
+        out = []
+        for t in ts:
+            filas = "".join(f'<tr><td>{f["pos"]}</td><td>{e(f["equipo"])}</td><td>{e(f["pj"])}</td><td><b>{e(f["pts"])}</b></td></tr>'
+                            for f in t["filas"])
+            out.append(f'<details class="tabla w" data-sub="{t["sub"]}"><summary>📊 {e(t["liga"])}: tabla de posiciones</summary>'
+                       f'<table><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>Pts</th></tr></thead><tbody>{filas}</tbody></table>'
+                       f'<p class="nota">{e(t["titulo"])} · primeros {len(t["filas"])} · datos: ESPN</p></details>')
+        return "".join(out)
 
     def cine(self):
         pelis, origen = self.ctx.get("cine") or (None, "")
@@ -220,54 +242,105 @@ class Pagina:
     # ------------------------------------------------------------ pestañas
     def destacadas_de(self, clave):
         el = self.ctx["elegidas"]
-        if clave == "hoy":                  # las "clave" del día: todas las serias (Colombia, mundo, IA)
+        if clave == "hoy":                  # las clave del día (serias) + hasta 3 deportivas
             lista = [n for n in el if n.seccion in ("nacional", "internacional")
                      and (self.temas.get(n.tema or "", {}) or {}).get("grupo", "serias") == "serias"]
-        else:
-            lista = [n for n in el if getattr(n, "pestana", "") == clave]
+            dep = sorted((n for n in el if getattr(n, "pestana", "") == "deportes"),
+                         key=lambda n: (-getattr(n, "favorito", False), -n.puntaje))
+            dep = dep[: int((self.cfg.get("seleccion", {}) or {}).get("hoy_max_deportes", 3))]
+            for n in dep:
+                if "deportes" not in n.subs:
+                    n.subs = n.subs + ["deportes"]
+            return sorted(lista, key=lambda n: (-n.puntaje, -bool(n.imagen))) + dep
+        lista = [n for n in el if getattr(n, "pestana", "") == clave]
         if clave == "local":
             return sorted(lista, key=lambda n: (ORDEN_LOCAL.index(n.categoria_local) if n.categoria_local in ORDEN_LOCAL else 9, -n.puntaje))
-        return sorted(lista, key=lambda n: (-n.puntaje, -bool(n.imagen)))
+        return sorted(lista, key=lambda n: (-getattr(n, "favorito", False), -n.puntaje, -bool(n.imagen)))
 
-    def panel(self, clave, icono, nombre, prefijo, archivo):
-        subs = SUBFILTROS.get(clave, [])
+    def contenido(self, clave, prefijo):
+        """(antes, cuerpo, despues, ids_destacadas, subs_con_contenido) de una pestaña."""
+        antes = cuerpo = despues = ""
+        ids, subs = [], set()
+        if clave == "videos":
+            videos = self.ctx.get("humor") or []
+            cuerpo = self.humor() if videos else ""
+            ids = [v["id"] for v in videos]
+            subs |= {v["sub"] for v in videos} | ({"humor"} if videos else set())
+        elif clave == "agenda":
+            cuerpo = self.agenda()
+            subs |= {it.get("sub", "eventos") for it in self.ctx["agenda"]}
+        else:
+            lista = self.destacadas_de(clave)
+            ids = [n.id for n in lista]
+            for n in lista:
+                subs |= set(n.subs)
+            cuerpo = (self.tarjeta_grande(lista[0], prefijo) + "".join(self.tarjeta(n, prefijo) for n in lista[1:])) if lista else ""
+        if clave == "hoy":
+            antes = self.mercados() + self.nota_respaldo()
+            if self.ctx["mercados"]:
+                subs.add("economia")
+            k = self.ctx["contador"]
+            despues = (f'<p class="nota">🛡️ Filtro de hoy: {k["revisados"]} titulares revisados · {k["sexual"]} descartados por '
+                       f'contenido sexual · {k["sensacionalismo"]} por sensacionalismo · {k["publicidad"]} por publicidad.</p>')
+        elif clave == "deportes":
+            antes = self.resultados() + self.tablas()
+            subs |= {r["sub"] for r in self.ctx.get("resultados") or []} | {t["sub"] for t in self.ctx.get("tablas") or []}
+        elif clave == "ocio":
+            despues = self.cine()
+            if (self.ctx.get("cine") or (None, ""))[0]:
+                subs.add("cine")
+        elif clave == "fe":
+            antes = self.alma()
+            if self.ctx.get("alma"):
+                subs.add("alma")
+        elif clave == "local":
+            despues = self.instagram()
+        for n in self.ctx["ver_mas"].get(clave, []):
+            subs |= set(getattr(n, "subs", []))
+        return antes, cuerpo, despues, ids, subs
+
+    def tiene_contenido(self, clave, archivo):
+        antes, cuerpo, despues, ids, _ = self.contenido(clave, "")
+        n_mas = 0 if archivo else len(self.ctx["ver_mas"].get(clave, []))
+        if clave == "local":                      # los botones de Instagram solos no cuentan como contenido
+            despues = ""
+        if clave == "hoy":
+            return True
+        return bool(ids or n_mas or cuerpo or (antes and clave in ("fe", "deportes")) or (despues and clave == "ocio"))
+
+    def panel(self, clave, icono, nombre, prefijo, archivo, primera):
+        antes, cuerpo, despues, _, subs_ok = self.contenido(clave, prefijo)
+        subs = [(k, ic, t) for k, ic, t in SUBFILTROS.get(clave, []) if k == "todo" or k in subs_ok]
         chips = "".join(f'<button type="button" class="sf{" on" if k == "todo" else ""}" data-sf="{k}" '
                         f'aria-pressed="{"true" if k == "todo" else "false"}">{ic} {t}</button>' for k, ic, t in subs)
         fondo = FONDOS.get(clave)
         estilo = f' style="background:{fondo}"' if fondo else ""
         cab = (f'<div class="ph{" grad" if fondo else ""}"{estilo}>'
                f'<h2>{icono} {nombre}</h2><p class="nuevas" data-nuevas></p></div>')
-        oculto = "" if clave == "hoy" else " hidden"
-        if clave == "guardado":
-            return (f'<section class="panel" id="p-guardado" data-tab="guardado" hidden>{cab}'
-                    f'<div class="lista" id="lista-guardadas"></div><p class="aldia">Estás al día en Guardado</p></section>')
-        antes, despues = "", ""
-        if clave == "humor":
-            cuerpo = self.humor()
-        else:
-            lista = self.destacadas_de(clave)
-            cuerpo = (self.tarjeta_grande(lista[0], prefijo) + "".join(self.tarjeta(n, prefijo) for n in lista[1:])) if lista else ""
-        if clave == "hoy":
-            antes = self.mercados() + self.nota_respaldo()
-            k = self.ctx["contador"]
-            despues = (f'<p class="nota">🛡️ Filtro de hoy: {k["revisados"]} titulares revisados · {k["sexual"]} descartados por '
-                       f'contenido sexual · {k["sensacionalismo"]} por sensacionalismo · {k["publicidad"]} por publicidad.</p>')
-        elif clave == "ocio":
-            despues = self.agenda() + self.cine()
-        elif clave == "fe":
-            antes = self.alma()
-        elif clave == "local":
-            despues = self.instagram()
         n_mas = len(self.ctx["ver_mas"].get(clave, []))
         vermas = ""
         if n_mas and not archivo:
             vermas = (f'<button type="button" class="vermas" data-tab="{clave}">Ver {n_mas} noticias más</button>'
                       f'<div class="masl" id="mas-{clave}"></div>')
-        vacio = "" if (cuerpo or antes or despues or n_mas) else '<p class="aviso">Por ahora no hay noticias en esta pestaña.</p>'
-        filtros = f'<div class="subs">{chips}</div>' if chips else ""
+        filtros = f'<div class="subs">{chips}</div>' if len(subs) > 1 else ""
+        oculto = "" if primera else " hidden"
         return (f'<section class="panel" id="p-{clave}" data-tab="{clave}"{oculto}>{cab}{filtros}{antes}'
-                f'<div class="lista">{cuerpo}</div>{despues}{vacio}{vermas}'
+                f'<div class="lista">{cuerpo}</div>{despues}{vermas}'
                 f'<p class="aldia">Estás al día en {nombre}</p></section>')
+
+    def panel_guardadas(self):
+        return ('<section class="panel" id="p-guardado" data-tab="guardado" hidden><div class="ph"><h2>🔖 Guardadas</h2>'
+                '<p class="nuevas" data-nuevas></p></div><div class="lista" id="lista-guardadas"></div>'
+                '<p class="aldia">Estás al día en Guardadas</p></section>')
+
+    def estado_fuentes(self):
+        errores = self.ctx.get("errores") or {}
+        hora = e(self.ctx.get("hora", ""))
+        if not errores:
+            return f'<p>Última actualización: <b>{hora}</b>. Todas las fuentes respondieron.</p>'
+        lista = "".join(f"<li>{e(k)}: {e(v)}</li>" for k, v in sorted(errores.items()))
+        return (f'<p>Última actualización: <b>{hora}</b>. Fuentes que fallaron en esta actualización '
+                f'({len(errores)}):</p><ul class="aj-l">{lista}</ul>')
 
     def nota_respaldo(self):
         if self.ctx["modo_respaldo"]:
@@ -299,14 +372,15 @@ class Pagina:
         c = self.ctx
         titulo = (self.cfg.get("pagina", {}) or {}).get("titulo", "Noticias Diarias")
         repo = (self.cfg.get("pagina", {}) or {}).get("repositorio", "")
-        tabs = "".join(f'<button type="button" class="tab{" on" if k == "hoy" else ""}" data-tab="{k}" role="tab" '
-                       f'aria-selected="{"true" if k == "hoy" else "false"}">{ic} {t}<span class="bd" data-bd="{k}"></span></button>'
-                       for k, ic, t in PESTANAS)
-        paneles = "".join(self.panel(k, ic, t, prefijo, archivo) for k, ic, t in PESTANAS)
+        visibles = [(k, ic, t) for k, ic, t in PESTANAS if self.tiene_contenido(k, archivo)]   # nunca una pestaña vacía
+        tabs = "".join(f'<button type="button" class="tab{" on" if i == 0 else ""}" data-tab="{k}" role="tab" '
+                       f'aria-selected="{"true" if i == 0 else "false"}">{ic} {t}<span class="bd" data-bd="{k}"></span></button>'
+                       for i, (k, ic, t) in enumerate(visibles))
+        paneles = "".join(self.panel(k, ic, t, prefijo, archivo, i == 0) for i, (k, ic, t) in enumerate(visibles))
+        paneles += self.panel_guardadas()
         meta = {"ids": {} if archivo else {k: [n.id for n in v] for k, v in c["ver_mas"].items()},
-                "dest": {k: [n.id for n in self.destacadas_de(k)] for k, _, _ in PESTANAS if k not in ("guardado", "humor")},
+                "dest": {k: self.contenido(k, prefijo)[3] for k, _, _ in visibles},
                 "mas": "" if archivo else f"{prefijo}mas.json"}
-        meta["dest"]["humor"] = [v["id"] for v in (c.get("humor") or [])]
         k = c["contador"]
         contador = (f'<p>Revisamos <b>{k["revisados"]}</b> titulares. Destacadas: <b>{k["entraron"]}</b>; en "Ver más": <b>{k["ver_mas"]}</b>.<br>'
                     f'Descartadas por contenido sexual: <b>{k["sexual"]}</b> · sensacionalismo (fuera de destacadas): <b>{k["sensacionalismo"]}</b> · '
@@ -377,6 +451,7 @@ class Pagina:
   <div class="aj"><span>Noticias ocultas: <b id="aj-ocultas">0</b></span><button type="button" id="aj-mostrar">Mostrar</button></div>
   <div class="aj"><span>Historial de leídas</span><button type="button" id="aj-leidas">Borrar</button></div>
   <h3>🛡️ Filtro de hoy</h3>{contador}<p class="nota">{filtro_link}</p>
+  <h3>📡 Estado de las fuentes</h3>{self.estado_fuentes()}
   <h3>Días anteriores</h3><ul class="aj-l">{dias or "<li>Aún no hay.</li>"}</ul>
   <button value="cerrar" class="cerrar">Cerrar</button>
 </form></dialog>
@@ -531,6 +606,14 @@ dialog button{min-height:44px;border:1px solid var(--ln);border-radius:12px;back
 .aj-l{margin:0;padding-left:18px;font-size:.9rem}.aj-l li{margin:4px 0}.aj-l button{min-height:36px;margin-left:6px;padding:0 10px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
 .toast.on{opacity:1}
+.franja{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.franja::-webkit-scrollbar{display:none}
+.res-p{flex:none;min-width:150px;max-width:190px;background:var(--card);border-radius:14px;box-shadow:var(--sh);padding:10px 12px;text-decoration:none;display:flex;flex-direction:column;gap:3px;font-size:.85rem}
+.rl{font-size:.7rem;color:var(--mu);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.re{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.re b{display:inline-block;min-width:18px}
+.tabla{background:var(--card);border-radius:14px;box-shadow:var(--sh);margin:0 0 8px;padding:0 12px}
+.tabla summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700;font-size:.9rem}
+.tabla table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:4px}
+.tabla th,.tabla td{text-align:left;padding:5px 4px;border-top:1px solid var(--ln)}.tabla td:nth-child(n+3),.tabla th:nth-child(n+3){text-align:right}
 """
 
 JS = r"""
@@ -561,7 +644,7 @@ function refrescar(){
 function contar(){document.querySelectorAll('.tab').forEach(function(tb){var k=tb.dataset.tab,ids=((M.dest||{})[k]||[]).concat((M.ids||{})[k]||[]),vistos={},n=0;
  ids.forEach(function(id){if(!vistos[id]&&S.leidas.indexOf(id)<0&&S.ocultas.indexOf(id)<0)n++;vistos[id]=1});
  if(k==='guardado')n=0;tb.querySelector('.bd').textContent=n?n:'';
- var p=document.querySelector('#p-'+k+' [data-nuevas]');var ng=Object.keys(S.guardadas).length;if(p)p.textContent=k==='guardado'?(ng===1?'1 guardada':ng+' guardadas'):(n?n+' nuevas':(ids.length?'Todo leído':''))})}
+ var p=document.querySelector('#p-'+k+' [data-nuevas]');if(p)p.textContent=n?n+' nuevas':(ids.length?'Todo leído':'')});var ng=Object.keys(S.guardadas).length,pg=document.querySelector('#p-guardado [data-nuevas]');if(pg)pg.textContent=ng===1?'1 guardada':ng+' guardadas'}
 function irA(k,arriba){if(k==='ajustes'){abrirAjustes();return}
  document.querySelectorAll('.tab').forEach(function(b){var on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.tab!==k});
