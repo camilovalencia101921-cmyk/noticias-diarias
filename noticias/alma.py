@@ -11,6 +11,7 @@ from .gemini import GeminiError
 from .utils import RAIZ, normalizar
 
 ARCHIVO = RAIZ / "temas-publicados.json"
+HOY = RAIZ / "data" / "alma-hoy.json"      # temas completos del día (se reutilizan en las demás actualizaciones)
 
 
 def cargar_historial():
@@ -77,6 +78,13 @@ def generar(cfg, ia, hoy: date, log=print):
     ca = cfg.get("para_el_alma", {}) or {}
     if not ca.get("activo", True):
         return None, "apagado"
+    try:
+        guardado = json.loads(HOY.read_text(encoding="utf-8"))
+        if guardado.get("fecha") == hoy.isoformat() and guardado.get("temas"):
+            log("Para el alma: se reutilizan los temas de hoy (sin llamar a Gemini)")
+            return guardado["temas"], ""
+    except (OSError, ValueError):
+        pass
     historial = cargar_historial()
     previos = [d for d in historial if d.get("fecha") != hoy.isoformat()]   # una nueva ejecución hoy reemplaza las de hoy
     cats = categorias_del_dia(ca, previos, hoy)
@@ -104,5 +112,7 @@ def generar(cfg, ia, hoy: date, log=print):
         return [], "respuesta no válida"
     nuevos = [{"fecha": hoy.isoformat(), "categoria": t["categoria"], "titulo": t["titulo"]} for t in temas]
     guardar_historial(previos + nuevos, int(ca.get("historial_maximo", 120)))
+    HOY.parent.mkdir(exist_ok=True)
+    HOY.write_text(json.dumps({"fecha": hoy.isoformat(), "temas": temas}, ensure_ascii=False, indent=1), encoding="utf-8")
     log(f"Para el alma: {len(temas)} temas ({', '.join(t['categoria'] for t in temas)})")
     return temas, ""

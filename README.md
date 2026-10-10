@@ -1,12 +1,24 @@
 # Noticias diarias
 
-Cada mañana, alrededor de las **6:30 a. m. (hora de Colombia)**, este proyecto arma una página web de noticias tipo "feed de tarjetas" (como Google Discover en el celular) y la publica gratis con **GitHub Pages**.
+Cuatro veces al día (hacia las **5:47 a. m., 11:17 a. m., 4:37 p. m. y 8:53 p. m.**, hora de Colombia), este proyecto arma una página de noticias pensada para el celular y la publica gratis con **GitHub Pages**.
 
 - Costo: **cero**. Usa GitHub Actions, GitHub Pages y el nivel gratuito de Gemini (Google AI Studio).
 - Si Gemini falla o se acaba la cuota, la página se genera igual en **modo de respaldo (sin IA)**.
 - Todo lo que se puede cambiar está en **`config.yaml`**, con interruptores `activo: true` / `activo: false`.
 
 > ⚠️ **ADVERTENCIA: el repositorio es PÚBLICO.** Cualquier persona puede ver `config.yaml` (tus temas, ciudades, palabras vigiladas, medios) y la carpeta `data/` (historial y registros). **No escribas datos personales en ningún archivo.** Las claves (Gemini, Telegram, correo) van SOLO como *Secrets* de GitHub, nunca en los archivos.
+
+## Cómo se usa la página (Fase 1)
+
+- **Pestañas:** 📰 Hoy · 📍 Local · 🌎 Mundo · 🧠 IA · 🎮 Ocio · 😂 Humor · 🏛️ Historia · 🙏 Fe · 🔖 Guardado. Cada una tiene **subfiltros** (por ejemplo, en Mundo: ✨ Todo, ⚔️ Guerras, 🌐 Geopolítica, ⛽ Energía, 🤝 Diplomacia).
+- **Dos niveles:** primero vienen las **destacadas**, las de mayor impacto y con resumen corto. Al final de cada pestaña, el botón **"Ver N noticias más"** carga el resto: titular, medio, hora y enlace, sin IA y solo de **medios aprobados**. Las que parecen exageradas llevan la etiqueta "Posible sensacionalismo", pero no se ocultan.
+- **"N medios cubren esto":** cuando varios medios publican la misma noticia, sale una sola tarjeta con la lista de enlaces.
+- **Interruptor ⚡ Rápido · 2 min / 📚 Completo:** el modo Rápido muestra solo las noticias clave, sin "Ver más".
+- **Barra inferior:** Inicio, Guardadas y Ajustes. En Ajustes está el tamaño de letra (A- / A+), los medios y palabras que bloqueaste, las noticias ocultas, el resumen del filtro del día y los días anteriores.
+- **Tu información se queda en tu celular:** lo que lees, guardas o bloqueas se guarda solo en tu navegador, no en un servidor. Si cambias de celular o de navegador, empiezas de cero.
+- **Escudo verde:** indica que el filtro de contenido sexual está activo. Ver [FILTRO.md](FILTRO.md).
+- **Humor:** solo videos de YouTube de canales que tú apruebes. Agrégalos con el workflow **Agregar fuente**, eligiendo el alcance "humor", o en `config/humor_canales.json`.
+- **Medios aprobados:** están en `config/medios_aprobados.json`. Para agregar uno, pega el link de su página en el workflow **Agregar fuente**. Los medios marcados `"sin_rss": true` no tienen RSS; sus noticias llegan por las búsquedas de Google News.
 
 ---
 
@@ -49,7 +61,7 @@ Cada mañana, alrededor de las **6:30 a. m. (hora de Colombia)**, este proyecto 
 2. A la izquierda elige **Noticias diarias** → botón **Run workflow** → **Run workflow**.
 3. Espera 2–4 minutos. Si sale ✅ verde, la página quedó publicada. Si sale ❌ rojo, mira la sección [Problemas frecuentes](#8-problemas-frecuentes).
 
-Desde ese momento se ejecuta sola todos los días a las 11:30 UTC (6:30 a. m. en Colombia). GitHub a veces arranca las tareas programadas con 5–30 minutos de retraso; es normal. La página muestra la hora real de actualización.
+Desde ese momento se ejecuta sola **4 veces al día**. GitHub a veces arranca las tareas programadas con retraso, incluso de horas, cuando sus servidores están muy ocupados; por eso los horarios usan minutos "no redondos", que se retrasan menos. La página siempre muestra la hora real de actualización.
 
 Si una ejecución falla, GitHub te envía un correo automáticamente (a la cuenta dueña del repositorio).
 
@@ -105,11 +117,11 @@ Temas de ocio: anime, fútbol, básquet (solo NBA/WNBA), freestyle e historia an
 ### 4.2 Cuántas noticias entran
 Sección `seleccion:`:
 - `minimo_serias: 6`, `minimo_ocio: 5`, `minimo_local: 5`: puntaje mínimo (de 1 a 10) para entrar.
-- `max_serias: 14`, `max_ocio: 10`, `max_local: 8`: topes (lo local tiene su propio tope, aparte). **No son metas**: si pocas noticias superan el mínimo, la página trae menos. Para cambiarlos, edita el número.
+- `max_serias: 10`, `max_ocio: 7`, `max_local: 8`, `max_fe: 4`: topes de **destacadas**. Lo local tiene su propio tope, aparte. **No son metas**: si pocas noticias superan el mínimo, la página trae menos. Para cambiarlos, edita el número.
 - `cupo_por_tema: 3`: para que ningún tema acapare la página.
-- `ver_mas_por_seccion: 6`: cuántas noticias extra caben en el bloque plegable **"Ver más"** al final de Internacional, Nacional, Local y Ocio.
+- `ver_mas_por_pestana: 40`: cuántas noticias carga "Ver N noticias más" en cada pestaña. `ver_mas_por_medio: 3` y `ver_mas_por_tema: 12` evitan que un solo medio o un solo tema llene la lista.
 
-**"Ver más"**: son las siguientes mejores noticias de la sección, que pasaron todos los filtros y el puntaje mínimo pero quedaron fuera por los topes. No cuentan para los topes. En el celular, toca "Ver más (N)" para desplegarlas (funciona sin JavaScript). Para quitar el bloque: `ver_mas_por_seccion: 0`.
+**"Ver N noticias más"**: es el resto de noticias de la pestaña, sin IA y solo de medios aprobados. Pasan los filtros de contenido sexual y de publicidad. No cuentan para los topes.
 
 ### 4.3 Encender o apagar mejoras
 Sección `mejoras:`

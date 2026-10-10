@@ -2,6 +2,7 @@
 from collections import Counter, defaultdict
 
 from . import clasificar as C
+from . import filtro_sexual as FS
 from . import filtros as FL
 from .fuentes import consultas_departamento, descargar_todas, filtrar_por_edad, url_google_news
 from .gemini import GeminiError, prompt_clasificar, prompt_resumir
@@ -26,9 +27,19 @@ class Registro:
 
 
 def filtrar(noticias, cfg, reg):
-    """Publicidad -> palabras prohibidas -> sensacionalismo."""
+    """Contenido sexual -> publicidad -> palabras prohibidas -> marca de sensacionalismo.
+
+    El sensacionalismo ya no descarta aquí: marca la noticia. Las marcadas no pueden ser
+    destacadas, pero sí aparecen en "Ver más" con la etiqueta "Posible sensacionalismo"."""
+    fsens = cfg.get("filtro_sensacionalismo", {}) or {}
+    limite = fsens.get("limite", 3)
+    etiqueta_desde = fsens.get("etiqueta_desde", 2)
     out = []
     for n in noticias:
+        sexo = FS.revisar(cfg, n.titulo, n.descripcion, " ".join(n.etiquetas), n.enlace.replace("-", " "))
+        if sexo:
+            reg.descarte("contenido_sexual", n, ", ".join(sexo[:3]))
+            continue
         p = FL.revisar_publicidad(n, cfg)
         if p == "descartar":
             reg.descarte("publicidad", n)
@@ -39,11 +50,11 @@ def filtrar(noticias, cfg, reg):
             reg.descarte("fuera_de_interes", n, ", ".join(malas))
             continue
         pen, señales = FL.sensacionalismo(n.titulo, n.filtro, cfg)
-        limite = (cfg.get("filtro_sensacionalismo", {}) or {}).get("limite", 3)
-        if pen >= limite:
-            reg.descarte("sensacionalismo", n, f"{pen} pts: " + "; ".join(señales))
-            continue
         n.penal_sensacionalismo = pen
+        n.sensacional = pen >= limite
+        n.senales_sensacionalismo = señales
+        pen_estricto, _ = FL.sensacionalismo(n.titulo, "estricto", cfg)
+        n.posible_sensacionalismo = pen_estricto >= etiqueta_desde
         out.append(n)
     return out
 
@@ -91,8 +102,12 @@ def clasificar_ia(noticias, cfg, ia, reg):
     out = []
     for n in enviados:
         x = por_id.get(n.id)
-        if not x:
-            out.append(n)              # se queda con el puntaje por reglas
+        if not x:                      # sin revisión de la IA: no puede ser destacada (falla cerrado)
+            reg.descarte("sin_revision_ia", n)
+            continue
+        if str(x.get("s", "2")) != "0":   # 1 = sexual o sugerente, 2 = dudoso -> fuera
+            n.sexual_ia = True
+            reg.descarte("contenido_sexual", n, "revisión IA")
             continue
         tema = x.get("tema")
         c = x.get("c") or []
@@ -122,9 +137,9 @@ def seleccionar(noticias, cfg, reg):
     sel = cfg.get("seleccion", {}) or {}
     temas = cfg.get("temas") or {}
     minimos = {"serias": sel.get("minimo_serias", 6), "ocio": sel.get("minimo_ocio", 5),
-               "local": sel.get("minimo_local", 5)}
+               "local": sel.get("minimo_local", 5), "fe": sel.get("minimo_fe", 5)}
     maximos = {"serias": sel.get("max_serias", 10), "ocio": sel.get("max_ocio", 7),
-               "local": sel.get("max_local", 8)}
+               "local": sel.get("max_local", 8), "fe": sel.get("max_fe", 4)}
     cupo = sel.get("cupo_por_tema", 3)
 
     def grupo(n):
@@ -137,14 +152,17 @@ def seleccionar(noticias, cfg, reg):
                                             len(n.fuentes_cluster), bool(n.imagen)), reverse=True)
     for n in orden:
         g = grupo(n)
-        if n.puntaje < minimos[g]:
-            reg.descarte("baja_importancia", n, f"{n.puntaje}/10 < {minimos[g]}")
+        if getattr(n, "sensacional", False):
+            reg.descarte("sensacionalismo", n, f"{n.penal_sensacionalismo} pts: " + "; ".join(getattr(n, "senales_sensacionalismo", [])))
+            continue
+        if n.puntaje < minimos.get(g, 5):
+            reg.descarte("baja_importancia", n, f"{n.puntaje}/10 < {minimos.get(g, 5)}")
             continue
         clave_tema = (g, n.categoria_local if g == "local" else n.tema)
         if por_tema[clave_tema] >= (cupo + 1 if g == "local" else cupo):
             sobrantes.append((n, "cupo_tema"))
             continue
-        if cuenta[g] >= maximos[g]:
+        if cuenta[g] >= maximos.get(g, 4):
             sobrantes.append((n, "cupo_seccion"))
             continue
         cuenta[g] += 1
@@ -196,8 +214,13 @@ def resumir(elegidas, cfg, ia, usar_ia, reg):
         try:
             r = ia.generar_json(prompt_resumir(elegidas, pq.get("perfil_lector", "un lector en Colombia"), con_pq))
             por_id = {str(x.get("id")): x for x in r if isinstance(x, dict)}
-            for n in elegidas:
+            for n in list(elegidas):
                 x = por_id.get(n.id, {})
+                if x and str(x.get("s", "0")) != "0":
+                    n.sexual_ia = True
+                    reg.descarte("contenido_sexual", n, "revisión IA (destacadas)")
+                    elegidas.remove(n)
+                    continue
                 n.resumen = (x.get("r") or "").strip() if con_resumen else ""
                 n.por_que = (x.get("pq") or "").strip() if con_pq else ""
                 if con_resumen and not n.resumen:

@@ -75,7 +75,7 @@ def palabras_descartadas(n, cfg):
 def agrupar_duplicados(noticias, umbral=0.55):
     """Agrupa por similitud de título. Devuelve (representantes, n_duplicados)."""
     def calidad(n):
-        return (n.oficial, n.alcance == "local", bool(n.imagen), len(n.descripcion), not n.google_news)
+        return (n.aprobado, n.oficial, n.alcance == "local", bool(n.imagen), len(n.descripcion), not n.google_news)
 
     grupos = []           # [(tokens_union, [noticias])]
     for n in noticias:
@@ -96,6 +96,12 @@ def agrupar_duplicados(noticias, umbral=0.55):
         lista.sort(key=calidad, reverse=True)
         r = lista[0]
         r.fuentes_cluster = {x.fuente for x in lista}
+        vistos_f, r.cluster = set(), []
+        for x in lista:                 # "N medios cubren esto": un enlace por medio
+            if x.fuente not in vistos_f:
+                vistos_f.add(x.fuente)
+                r.cluster.append((x.fuente, x.enlace))
+        r.cluster = r.cluster[:8]
         if not r.imagen:
             r.imagen = next((x.imagen for x in lista if x.imagen), "")
         if not r.descripcion:

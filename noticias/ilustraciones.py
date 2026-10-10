@@ -28,6 +28,8 @@ DIBUJOS = {
     "baloncesto": '<circle cx="50" cy="50" r="32"/><path d="M18 50 H82 M50 18 V82"/><path d="M27 27 C40 40 40 60 27 73 M73 27 C60 40 60 60 73 73"/>',
     "freestyle": '<rect x="38" y="14" width="24" height="40" rx="12"/><path d="M28 44 C28 70 72 70 72 44"/><path d="M50 66 V84 M38 84 H62"/>',
     "historia_antigua": '<path d="M18 30 H82 L50 14 Z"/><path d="M18 84 H82 M22 76 H78"/><path d="M28 34 V74 M42 34 V74 M58 34 V74 M72 34 V74"/>',
+    "espiritualidad": '<path d="M50 18 C44 28 44 34 50 38 C56 34 56 28 50 18 Z"/><rect x="40" y="42" width="20" height="40" rx="3"/><path d="M30 86 H70"/>',
+    "cine": '<rect x="18" y="40" width="64" height="42" rx="4"/><path d="M18 40 L76 24 L80 36 M30 37 L36 28 M46 33 L52 24 M62 28 L68 20"/>',
     # --- local ---
     "local_seguridad": '<path d="M50 16 L76 26 V48 C76 66 64 78 50 84 C36 78 24 66 24 48 V26 Z"/><path d="M50 34 V56 M50 64 V66"/>',
     "local_orden_publico": '<path d="M14 50 H86 M14 66 H86"/><path d="M22 50 L30 66 M38 50 L46 66 M54 50 L62 66 M70 50 L78 66"/><path d="M22 66 V82 M78 66 V82 M22 50 V40 M78 50 V40"/>',

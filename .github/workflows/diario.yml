@@ -2,7 +2,12 @@ name: Noticias diarias
 
 on:
   schedule:
-    - cron: "30 11 * * *"     # 11:30 UTC = 6:30 a. m. hora de Colombia
+    # 4 actualizaciones al día (hora de Colombia = UTC-5). Minutos "no redondos" a propósito:
+    # GitHub retrasa mucho las tareas programadas a la hora en punto o a la media hora.
+    - cron: "47 10 * * *"     # 5:47 a. m.
+    - cron: "17 16 * * *"     # 11:17 a. m.
+    - cron: "37 21 * * *"     # 4:37 p. m.
+    - cron: "53 1 * * *"      # 8:53 p. m.
   workflow_dispatch:           # botón "Run workflow" para ejecutarlo a mano
 
 permissions:
@@ -44,12 +49,12 @@ jobs:
           CORREO_DESTINO: ${{ secrets.CORREO_DESTINO }}
         run: python generar.py
 
-      - name: Guardar historial, logs y archivo (commit diario)
+      - name: Guardar historial, logs y archivo (commit)
         if: ${{ !cancelled() }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data sitio temas-publicados.json 2>/dev/null || git add data sitio
+          git add data sitio/archivo temas-publicados.json
           if git diff --cached --quiet; then
             echo "Sin cambios que guardar"
           else

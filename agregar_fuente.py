@@ -10,6 +10,7 @@ Ejemplos:
   python agregar_fuente.py --eliminar "instagram.com/medio"   (quita un botón de Instagram)
 """
 import argparse
+import json
 import re
 import sys
 from datetime import datetime, timedelta, timezone
@@ -22,6 +23,8 @@ from noticias.fuentes import leer_rss, leer_sitemap
 from noticias.utils import RAIZ, dominio, http_get, normalizar
 
 CONFIG = RAIZ / "config.yaml"
+MEDIOS = RAIZ / "config" / "medios_aprobados.json"
+HUMOR = RAIZ / "config" / "humor_canales.json"
 RUTAS_FEED = ["/feed", "/feed/", "/rss", "/rss.xml", "/feeds/all.rss", "/index.xml", "/atom.xml"]
 
 
@@ -256,6 +259,58 @@ def agregar_instagram(cfg, link, nombre=None):
     return 0
 
 
+def aprobar_medio(link, nombre, alcance, rss, tipo="rss"):
+    """Agrega el medio a config/medios_aprobados.json (capa 1 del filtro), sin duplicar."""
+    dom = dominio(link)
+    if not dom or "youtube.com" in dom or "news.google.com" in dom:
+        return
+    datos = json.loads(MEDIOS.read_text(encoding="utf-8")) if MEDIOS.exists() else {"medios": []}
+    for m in datos["medios"]:
+        if m.get("dominio") == dom:
+            say(f"El medio {dom} ya estaba en la lista de medios aprobados.")
+            return
+    m = {"nombre": nombre, "dominio": dom, "alcance": alcance}
+    if rss:
+        m["rss"] = rss
+        if tipo == "sitemap":
+            m["tipo"] = "sitemap"
+    else:
+        m["sin_rss"] = True
+        m["nota"] = "sin RSS; sus noticias llegan por Google News"
+    datos["medios"].append(m)
+    MEDIOS.write_text(json.dumps(datos, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    say(f"✔ {dom} quedó en la lista de medios aprobados{'' if rss else ' (sin RSS)'}.")
+
+
+def agregar_humor(link, nombre=None):
+    """Canal de YouTube aprobado para la pestaña Humor (config/humor_canales.json)."""
+    if "youtube.com" not in link and "youtu.be" not in link:
+        say("No se guardó nada. Motivo: Humor solo acepta canales de YouTube (youtube.com/@canal).")
+        return 1
+    feed = canal_youtube(link)
+    if not feed:
+        say("No se guardó nada. Motivo: no pude encontrar ese canal de YouTube.")
+        return 1
+    items, titulo = probar_feed(feed)
+    if not items:     # el canal existe (se encontró su ID); YouTube a veces no responde un rato
+        say("Aviso: el canal existe, pero YouTube no entregó su lista de videos en este momento. Se guarda igual.")
+    datos = json.loads(HUMOR.read_text(encoding="utf-8")) if HUMOR.exists() else {"canales": []}
+    cid = feed.rsplit("=", 1)[-1]
+    for c in datos["canales"]:
+        if cid in str(c.get("link", "")) or str(c.get("link", "")).rstrip("/") == link.rstrip("/"):
+            c["activo"] = True
+            HUMOR.write_text(json.dumps(datos, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+            say("Ese canal ya estaba en la lista de Humor; quedó activo.")
+            return 0
+    datos["canales"].append({"nombre": nombre or (titulo or "Canal").strip(), "link": f"https://www.youtube.com/channel/{cid}",
+                             "activo": True})
+    HUMOR.write_text(json.dumps(datos, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    say("✔ Canal agregado a Humor. Últimos videos:")
+    for n in items[:3]:
+        say(f"   • {n.titulo}")
+    return 0
+
+
 def agregar(link, alcance, filtro, nombre=None):
     link = link.strip()
     if not re.match(r"^https?://", link):
@@ -280,15 +335,16 @@ def agregar(link, alcance, filtro, nombre=None):
     for n in sorted(items, key=lambda n: n.fecha or datetime.min.replace(tzinfo=timezone.utc), reverse=True)[:3]:
         say(f"   • {n.titulo}")
 
+    if not nombre:
+        nombre = titulo if titulo and len(titulo) < 50 and "google" not in titulo.lower() else dominio(link)
+    aprobar_medio(link, nombre, alcance, None if "PLAN B" in nota else url, tipo)
+    if "PLAN B" in nota:
+        nombre = f"{dominio(link)} (Google News)"
+
     for _, _, f in todas_las_fuentes(cfg):
         if str(f.get("url", "")).rstrip("/") == url.rstrip("/"):
             say(f"Esa fuente ya existe en config.yaml como '{f.get('nombre')}'. No se duplicó.")
             return 0
-
-    if not nombre:
-        nombre = titulo if titulo and len(titulo) < 50 and "google" not in titulo.lower() else dominio(link)
-        if "PLAN B" in nota:
-            nombre = f"{dominio(link)} (Google News)"
     nueva = CommentedMap()
     nueva["nombre"] = nombre
     nueva["url"] = url
@@ -310,7 +366,7 @@ def agregar(link, alcance, filtro, nombre=None):
 def main():
     ap = argparse.ArgumentParser(description="Agregar, listar o eliminar fuentes de noticias.")
     ap.add_argument("link", nargs="?", help="link del medio, feed, canal de YouTube o perfil de Instagram")
-    ap.add_argument("--alcance", choices=["local", "nacional", "internacional"])
+    ap.add_argument("--alcance", choices=["local", "nacional", "internacional", "humor"])
     ap.add_argument("--filtro", choices=["estricto", "flexible"])
     ap.add_argument("--nombre", help="nombre a mostrar (opcional)")
     ap.add_argument("--listar", action="store_true", help="muestra todas las fuentes")
@@ -328,11 +384,13 @@ def main():
         return 1
     alcance = a.alcance
     if not alcance and "instagram.com" not in a.link:
-        while alcance not in ("local", "nacional", "internacional"):
-            alcance = input("¿Alcance de esta fuente? (local / nacional / internacional): ").strip().lower()
+        while alcance not in ("local", "nacional", "internacional", "humor"):
+            alcance = input("¿Alcance de esta fuente? (local / nacional / internacional / humor): ").strip().lower()
     filtro = a.filtro or ("flexible" if alcance == "local" else "estricto")
     if "instagram.com" in a.link:
         return agregar_instagram(cargar(), a.link, a.nombre)
+    if alcance == "humor":
+        return agregar_humor(a.link.strip(), a.nombre)
     return agregar(a.link, alcance, filtro, a.nombre)
 
 

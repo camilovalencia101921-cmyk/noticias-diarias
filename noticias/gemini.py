@@ -196,10 +196,13 @@ Criterios, cada uno de 0 a 2:
  conf = confirmación (fuente oficial of=1 o varias fuentes nf>1), prof = profundidad (información concreta, no rumor).
 Sé exigente: entretenimiento, farándula, opinión, rumores, guías de compra, horóscopos y notas de servicio valen poco.
 
+Revisión obligatoria "s": ¿la noticia tiene contenido sexual o sugerente (desnudos, poses o fotos sugerentes, erotismo,
+pornografía, detalles explícitos)? s = 0 no; s = 1 sí; s = 2 dudoso. Ante la duda, usa 2.
+
 Noticias (id, t=titular, d=descripción, f=fuente, a=alcance, nf=n.º de fuentes, of=oficial):
 {json.dumps(datos, ensure_ascii=False)}
 
-Responde SOLO un JSON: lista de objetos {{"id": "...", "tema": "clave", "c": [alc, con, nov, conf, prof]}} para todas las noticias."""
+Responde SOLO un JSON: lista de objetos {{"id": "...", "tema": "clave", "c": [alc, con, nov, conf, prof], "s": 0}} para todas las noticias."""
 
 
 def prompt_resumir(items, perfil, con_por_que=True):
@@ -211,6 +214,8 @@ def prompt_resumir(items, perfil, con_por_que=True):
 "r": resumen de máximo 2 líneas (máx. 35 palabras) solo con hechos verificables del titular y la descripción, sin adjetivos emocionales ni opiniones, sin inventar datos.
 {extra}
 
+"s": revisión obligatoria: 0 si NO tiene contenido sexual o sugerente; 1 si lo tiene; 2 si es dudoso.
+
 Noticias: {json.dumps(datos, ensure_ascii=False)}
 
-Responde SOLO un JSON: lista de objetos {{"id": "...", "r": "...", "pq": "..."}}."""
+Responde SOLO un JSON: lista de objetos {{"id": "...", "r": "...", "pq": "...", "s": 0}}."""

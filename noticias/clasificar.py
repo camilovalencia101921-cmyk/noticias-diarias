@@ -30,7 +30,8 @@ def tema_valido(n, clave, tema, texto=None):
     if tema.get("solo_colombia") and n.alcance == "internacional" and not contar_palabras(texto, PAISES_CO):
         return False
     req = tema.get("requiere")
-    if req and clave not in n.temas_pista and not contar_palabras(texto, req):
+    pista_fuerte = clave in n.temas_pista and not n.pista_debil and not tema.get("requiere_siempre")
+    if req and not pista_fuerte and not contar_palabras(texto, req):
         return False
     return True
 
@@ -42,7 +43,7 @@ def clasificar_tema(n, temas):
         if not tema_valido(n, clave, t, texto):
             continue
         p = contar_palabras(texto, t.get("palabras")) + contar_palabras(titulo, t.get("palabras"))
-        if clave in n.temas_pista:
+        if clave in n.temas_pista and (p > 0 or not n.pista_debil):
             p += 1.5
         if p > 0:
             puntos[clave] = p

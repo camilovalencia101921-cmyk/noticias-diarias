@@ -42,6 +42,13 @@ class Noticia:
     vigilada: bool = False
     seguimiento_dia: int = 0
     penal_sensacionalismo: int = 0
+    pista_debil: bool = False          # el tema sugerido viene de una búsqueda general (Google News)
+    dominio_medio: str = ""
+    aprobado: bool = False
+    sensacional: bool = False
+    posible_sensacionalismo: bool = False
+    sexual_ia: bool = False
+    cluster: list = field(default_factory=list)
 
     @property
     def id(self):
@@ -115,7 +122,9 @@ def leer_rss(fuente, contenido):
             continue
         nombre = fuente["nombre"]
         desc = limpiar_html(e.get("summary") or "")
+        dom_medio = dominio(enlace)
         if es_gn:
+            dom_medio = dominio((e.get("source") or {}).get("href") or "")
             src = (e.get("source") or {}).get("title") or ""
             titulo = GN_SUFIJO.sub("", titulo) if src else titulo
             nombre = src or nombre
@@ -130,7 +139,7 @@ def leer_rss(fuente, contenido):
             etiquetas=[t.get("term", "") for t in e.get("tags", []) or []],
             temas_pista=list(fuente.get("temas") or []),
             oficial=bool(fuente.get("oficial")) or es_dominio_oficial(enlace),
-            google_news=es_gn, youtube=es_yt,
+            google_news=es_gn, youtube=es_yt, dominio_medio=dom_medio,
         )
         if es_yt:
             n.video = enlace
@@ -167,7 +176,7 @@ def leer_sitemap(fuente, contenido):
             fecha=fecha, imagen=img.group(1).strip() if img else "",
             etiquetas=[k.strip() for k in (kw.group(1).split(",") if kw else [])],
             temas_pista=list(fuente.get("temas") or []),
-            oficial=bool(fuente.get("oficial")),
+            oficial=bool(fuente.get("oficial")), dominio_medio=dominio(url),
         ))
     return salida
 
@@ -250,6 +259,8 @@ def descargar_todas(fuentes, hilos=12):
                 errores[f["nombre"]] = err
             for n in items:
                 n.zona_prioridad = f.get("zona_prioridad", 0)
+                n.aprobado = bool(f.get("aprobada"))
+                n.pista_debil = bool(f.get("pista_debil"))
             noticias.extend(items)
     return noticias, errores
 

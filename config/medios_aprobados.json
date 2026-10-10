@@ -1,0 +1,791 @@
+{
+ "_nota": "Medios aprobados: solo ellos aparecen en 'Ver más' y solo ellos muestran imágenes. Agrega medios con: python agregar_fuente.py LINK (o el workflow 'Agregar fuente'). 'sin_rss': true = el medio no tiene RSS y sus noticias llegan por Google News.",
+ "medios": [
+  {
+   "nombre": "El Meridiano",
+   "dominio": "elmeridiano.co",
+   "alcance": "local",
+   "tipo": "sitemap",
+   "rss": "https://elmeridiano.co/cordoba/sitemap-news.xml",
+   "nota": "sin RSS; se lee su sitemap de noticias"
+  },
+  {
+   "nombre": "Chica Noticias",
+   "dominio": "chicanoticias.com",
+   "alcance": "local",
+   "rss": "https://www.chicanoticias.com/feed/"
+  },
+  {
+   "nombre": "Río Noticias (Rionoticiasco)",
+   "dominio": "rionoticias.co",
+   "alcance": "local",
+   "rss": "https://rionoticias.co/feed/"
+  },
+  {
+   "nombre": "Q'hubo Medellín",
+   "dominio": "qhubomedellin.com",
+   "alcance": "local",
+   "tipo": "sitemap",
+   "rss": "https://qhubomedellin.com/sitemapforgoogle.xml",
+   "nota": "sin RSS; se lee su sitemap de noticias"
+  },
+  {
+   "nombre": "El Tiempo",
+   "dominio": "eltiempo.com",
+   "alcance": "nacional",
+   "rss": "https://www.eltiempo.com/rss/colombia.xml"
+  },
+  {
+   "nombre": "Lo que sale en Lorica",
+   "dominio": "",
+   "alcance": "local",
+   "sin_rss": true,
+   "nota": "solo Instagram (instagram.com/loquesaenlorica); no tiene sitio web ni RSS"
+  },
+  {
+   "nombre": "El Propio",
+   "dominio": "",
+   "alcance": "local",
+   "sin_rss": true,
+   "nota": "no se encontró sitio web; agrega su link cuando lo tengas"
+  },
+  {
+   "nombre": "BBC Mundo",
+   "dominio": "bbci.co.uk",
+   "alcance": "internacional",
+   "rss": "https://feeds.bbci.co.uk/mundo/rss.xml"
+  },
+  {
+   "nombre": "DW Español",
+   "dominio": "dw.com",
+   "alcance": "internacional",
+   "rss": "https://rss.dw.com/rdf/rss-sp-all"
+  },
+  {
+   "nombre": "France 24",
+   "dominio": "france24.com",
+   "alcance": "internacional",
+   "rss": "https://www.france24.com/es/rss"
+  },
+  {
+   "nombre": "El País Internacional",
+   "dominio": "elpais.com",
+   "alcance": "internacional",
+   "rss": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada"
+  },
+  {
+   "nombre": "Europa Press",
+   "dominio": "europapress.es",
+   "alcance": "internacional",
+   "rss": "https://www.europapress.es/rss/rss.aspx?ch=00069"
+  },
+  {
+   "nombre": "Noticias ONU",
+   "dominio": "news.un.org",
+   "alcance": "internacional",
+   "rss": "https://news.un.org/feed/subscribe/es/news/all/rss.xml"
+  },
+  {
+   "nombre": "USGS Sismos",
+   "dominio": "earthquake.usgs.gov",
+   "alcance": "internacional",
+   "rss": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.atom"
+  },
+  {
+   "nombre": "GDACS Alertas",
+   "dominio": "gdacs.org",
+   "alcance": "internacional",
+   "rss": "https://www.gdacs.org/xml/rss.xml"
+  },
+  {
+   "nombre": "NOAA Huracanes",
+   "dominio": "nhc.noaa.gov",
+   "alcance": "internacional",
+   "rss": "https://www.nhc.noaa.gov/index-at.xml"
+  },
+  {
+   "nombre": "OPS/PAHO",
+   "dominio": "paho.org",
+   "alcance": "internacional",
+   "rss": "https://www.paho.org/es/rss.xml"
+  },
+  {
+   "nombre": "Investing.com",
+   "dominio": "es.investing.com",
+   "alcance": "internacional",
+   "rss": "https://es.investing.com/rss/news.rss"
+  },
+  {
+   "nombre": "Expansión Mercados",
+   "dominio": "expansion.com",
+   "alcance": "internacional",
+   "rss": "https://e00-expansion.uecdn.es/rss/mercados.xml"
+  },
+  {
+   "nombre": "Bloomberg Línea",
+   "dominio": "bloomberglinea.com",
+   "alcance": "internacional",
+   "rss": "https://www.bloomberglinea.com/arc/outboundfeeds/rss/?outputType=xml"
+  },
+  {
+   "nombre": "OilPrice",
+   "dominio": "oilprice.com",
+   "alcance": "internacional",
+   "rss": "https://oilprice.com/rss/main"
+  },
+  {
+   "nombre": "EIA Today in Energy",
+   "dominio": "eia.gov",
+   "alcance": "internacional",
+   "rss": "https://www.eia.gov/rss/todayinenergy.xml"
+  },
+  {
+   "nombre": "pv magazine Latam",
+   "dominio": "pv-magazine-latam.com",
+   "alcance": "internacional",
+   "rss": "https://www.pv-magazine-latam.com/feed/"
+  },
+  {
+   "nombre": "Xataka",
+   "dominio": "xataka.com",
+   "alcance": "internacional",
+   "rss": "https://feeds.weblogssl.com/xataka2"
+  },
+  {
+   "nombre": "MIT Technology Review",
+   "dominio": "technologyreview.com",
+   "alcance": "internacional",
+   "rss": "https://www.technologyreview.com/feed/"
+  },
+  {
+   "nombre": "The Verge IA",
+   "dominio": "theverge.com",
+   "alcance": "internacional",
+   "rss": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+  },
+  {
+   "nombre": "Una al Día",
+   "dominio": "unaaldia.hispasec.com",
+   "alcance": "internacional",
+   "rss": "https://unaaldia.hispasec.com/feed"
+  },
+  {
+   "nombre": "WeLiveSecurity",
+   "dominio": "welivesecurity.com",
+   "alcance": "internacional",
+   "rss": "https://www.welivesecurity.com/es/rss/feed/"
+  },
+  {
+   "nombre": "BleepingComputer",
+   "dominio": "bleepingcomputer.com",
+   "alcance": "internacional",
+   "rss": "https://www.bleepingcomputer.com/feed/"
+  },
+  {
+   "nombre": "The Hacker News",
+   "dominio": "thehackernews.com",
+   "alcance": "internacional",
+   "rss": "https://feeds.feedburner.com/TheHackersNews"
+  },
+  {
+   "nombre": "El Espectador",
+   "dominio": "elespectador.com",
+   "alcance": "nacional",
+   "rss": "https://www.elespectador.com/arc/outboundfeeds/discover/"
+  },
+  {
+   "nombre": "Semana",
+   "dominio": "semana.com",
+   "alcance": "nacional",
+   "rss": "https://www.semana.com/arc/outboundfeeds/rss/?outputType=xml"
+  },
+  {
+   "nombre": "Infobae Colombia",
+   "dominio": "infobae.com",
+   "alcance": "nacional",
+   "rss": "https://www.infobae.com/arc/outboundfeeds/rss/category/colombia/?outputType=xml"
+  },
+  {
+   "nombre": "La Silla Vacía",
+   "dominio": "lasillavacia.com",
+   "alcance": "nacional",
+   "rss": "https://www.lasillavacia.com/feed/"
+  },
+  {
+   "nombre": "Caracol Radio",
+   "dominio": "caracol.com.co",
+   "alcance": "nacional",
+   "rss": "https://caracol.com.co/arc/outboundfeeds/rss/?outputType=xml"
+  },
+  {
+   "nombre": "La República",
+   "dominio": "larepublica.co",
+   "alcance": "nacional",
+   "rss": "https://www.larepublica.co/rss/"
+  },
+  {
+   "nombre": "Portafolio",
+   "dominio": "portafolio.co",
+   "alcance": "nacional",
+   "rss": "https://www.portafolio.co/rss/economia.xml"
+  },
+  {
+   "nombre": "Valora Analitik",
+   "dominio": "valoraanalitik.com",
+   "alcance": "nacional",
+   "rss": "https://www.valoraanalitik.com/feed/"
+  },
+  {
+   "nombre": "Asuntos Legales",
+   "dominio": "asuntoslegales.com.co",
+   "alcance": "nacional",
+   "rss": "https://www.asuntoslegales.com.co/rss"
+  },
+  {
+   "nombre": "El Colombiano",
+   "dominio": "elcolombiano.com",
+   "alcance": "nacional",
+   "rss": "https://www.elcolombiano.com/rss/colombia.xml"
+  },
+  {
+   "nombre": "Anime News Network",
+   "dominio": "animenewsnetwork.com",
+   "alcance": "internacional",
+   "rss": "https://www.animenewsnetwork.com/all/rss.xml?ann-edition=w"
+  },
+  {
+   "nombre": "Crunchyroll Noticias",
+   "dominio": "crunchyroll.com",
+   "alcance": "internacional",
+   "rss": "https://cr-news-api-service.prd.crunchyrollsvc.com/v1/es-ES/rss"
+  },
+  {
+   "nombre": "SomosKudasai",
+   "dominio": "somoskudasai.com",
+   "alcance": "internacional",
+   "rss": "https://somoskudasai.com/noticias/anime/feed/"
+  },
+  {
+   "nombre": "Ramen Para Dos",
+   "dominio": "ramenparados.com",
+   "alcance": "internacional",
+   "rss": "https://ramenparados.com/feed/"
+  },
+  {
+   "nombre": "Marca Champions",
+   "dominio": "marca.com",
+   "alcance": "internacional",
+   "rss": "https://e00-marca.uecdn.es/rss/futbol/champions-league.xml"
+  },
+  {
+   "nombre": "ESPN NBA",
+   "dominio": "espn.com",
+   "alcance": "internacional",
+   "rss": "https://www.espn.com/espn/rss/nba/news"
+  },
+  {
+   "nombre": "Archaeology Magazine",
+   "dominio": "archaeology.org",
+   "alcance": "internacional",
+   "rss": "https://www.archaeology.org/feed"
+  },
+  {
+   "nombre": "ScienceDaily Civilizaciones antiguas",
+   "dominio": "sciencedaily.com",
+   "alcance": "internacional",
+   "rss": "https://www.sciencedaily.com/rss/fossils_ruins/ancient_civilizations.xml"
+  },
+  {
+   "nombre": "Phys.org Arqueología",
+   "dominio": "phys.org",
+   "alcance": "internacional",
+   "rss": "https://phys.org/rss-feed/science-news/archaeology/"
+  },
+  {
+   "nombre": "La Brújula Verde",
+   "dominio": "labrujulaverde.com",
+   "alcance": "internacional",
+   "rss": "https://www.labrujulaverde.com/feed"
+  },
+  {
+   "nombre": "The History Blog",
+   "dominio": "thehistoryblog.com",
+   "alcance": "internacional",
+   "rss": "https://www.thehistoryblog.com/feed"
+  },
+  {
+   "nombre": "La Razón",
+   "dominio": "larazon.co",
+   "alcance": "local",
+   "rss": "https://larazon.co/feed/"
+  },
+  {
+   "nombre": "Minuto30",
+   "dominio": "minuto30.com",
+   "alcance": "local",
+   "rss": "https://www.minuto30.com/feed/"
+  },
+  {
+   "nombre": "Blu Radio",
+   "dominio": "bluradio.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "La FM",
+   "dominio": "lafm.com.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "RCN Radio",
+   "dominio": "rcnradio.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Noticias RCN",
+   "dominio": "noticiasrcn.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Noticias Caracol",
+   "dominio": "noticias.caracoltv.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Ámbito Jurídico",
+   "dominio": "ambitojuridico.com",
+   "alcance": "nacional",
+   "rss": "https://ambitojuridico.com/rss.xml"
+  },
+  {
+   "nombre": "El Heraldo",
+   "dominio": "elheraldo.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "El Universal",
+   "dominio": "eluniversal.com.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Vanguardia",
+   "dominio": "vanguardia.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "El País Cali",
+   "dominio": "elpais.com.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "La Opinión",
+   "dominio": "laopinion.co",
+   "alcance": "nacional",
+   "rss": "https://laopinion.co/rss.xml"
+  },
+  {
+   "nombre": "El Nuevo Siglo",
+   "dominio": "elnuevosiglo.com.co",
+   "alcance": "nacional",
+   "rss": "https://elnuevosiglo.com.co/rss.xml"
+  },
+  {
+   "nombre": "Cambio",
+   "dominio": "cambiocolombia.com",
+   "alcance": "nacional",
+   "rss": "https://cambiocolombia.com/feeds/articulos/"
+  },
+  {
+   "nombre": "Razón Pública",
+   "dominio": "razonpublica.com",
+   "alcance": "nacional",
+   "rss": "https://razonpublica.com/feed/"
+  },
+  {
+   "nombre": "Colombiacheck",
+   "dominio": "colombiacheck.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Futbolred",
+   "dominio": "futbolred.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Win Sports",
+   "dominio": "winsports.co",
+   "alcance": "nacional",
+   "rss": "https://winsports.co/rss"
+  },
+  {
+   "nombre": "Telemedellín",
+   "dominio": "telemedellin.tv",
+   "alcance": "nacional",
+   "rss": "https://telemedellin.tv/feed/"
+  },
+  {
+   "nombre": "Teleantioquia",
+   "dominio": "teleantioquia.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Corte Constitucional",
+   "dominio": "corteconstitucional.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Consejo de Estado",
+   "dominio": "consejodeestado.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Banco de la República",
+   "dominio": "banrep.gov.co",
+   "alcance": "nacional",
+   "rss": "https://banrep.gov.co/rss.xml"
+  },
+  {
+   "nombre": "IDEAM",
+   "dominio": "ideam.gov.co",
+   "alcance": "nacional",
+   "rss": "https://ideam.gov.co/rss.xml"
+  },
+  {
+   "nombre": "Servicio Geológico Colombiano",
+   "dominio": "sgc.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "UNGRD",
+   "dominio": "gestiondelriesgo.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Presidencia",
+   "dominio": "presidencia.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Fiscalía",
+   "dominio": "fiscalia.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Procuraduría",
+   "dominio": "procuraduria.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Contraloría",
+   "dominio": "contraloria.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Minsalud",
+   "dominio": "minsalud.gov.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Cinemark Colombia",
+   "dominio": "cinemark.com.co",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Cine Colombia",
+   "dominio": "cinecolombia.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Proimágenes Colombia",
+   "dominio": "proimagenescolombia.com",
+   "alcance": "nacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Conferencia Episcopal de Colombia",
+   "dominio": "cec.org.co",
+   "alcance": "nacional",
+   "rss": "https://cec.org.co/rss.xml"
+  },
+  {
+   "nombre": "BBC",
+   "dominio": "bbc.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "CNN en Español",
+   "dominio": "cnn.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "EFE",
+   "dominio": "efe.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "SwissInfo (EFE)",
+   "dominio": "swissinfo.ch",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Reuters",
+   "dominio": "reuters.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "AP News",
+   "dominio": "apnews.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "The New York Times",
+   "dominio": "nytimes.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "El Mundo",
+   "dominio": "elmundo.es",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "ABC España",
+   "dominio": "abc.es",
+   "alcance": "internacional",
+   "rss": "https://www.abc.es/rss/2.0/portada/"
+  },
+  {
+   "nombre": "La Vanguardia",
+   "dominio": "lavanguardia.com",
+   "alcance": "internacional",
+   "rss": "https://www.lavanguardia.com/rss/home.xml"
+  },
+  {
+   "nombre": "Clarín",
+   "dominio": "clarin.com",
+   "alcance": "internacional",
+   "rss": "https://clarin.com/rss"
+  },
+  {
+   "nombre": "La Nación Argentina",
+   "dominio": "lanacion.com.ar",
+   "alcance": "internacional",
+   "rss": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/"
+  },
+  {
+   "nombre": "El Universal México",
+   "dominio": "eluniversal.com.mx",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "The Guardian",
+   "dominio": "theguardian.com",
+   "alcance": "internacional",
+   "rss": "https://www.theguardian.com/international/rss"
+  },
+  {
+   "nombre": "Al Jazeera",
+   "dominio": "aljazeera.com",
+   "alcance": "internacional",
+   "rss": "https://www.aljazeera.com/xml/rss/all.xml"
+  },
+  {
+   "nombre": "Organización Mundial de la Salud",
+   "dominio": "who.int",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Genbeta",
+   "dominio": "genbeta.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Hipertextual",
+   "dominio": "hipertextual.com",
+   "alcance": "internacional",
+   "rss": "https://hipertextual.com/feed/"
+  },
+  {
+   "nombre": "Wired",
+   "dominio": "wired.com",
+   "alcance": "internacional",
+   "rss": "https://www.wired.com/feed/rss"
+  },
+  {
+   "nombre": "Ars Technica",
+   "dominio": "arstechnica.com",
+   "alcance": "internacional",
+   "rss": "https://arstechnica.com/feed"
+  },
+  {
+   "nombre": "TechCrunch",
+   "dominio": "techcrunch.com",
+   "alcance": "internacional",
+   "rss": "https://techcrunch.com/feed/"
+  },
+  {
+   "nombre": "ESPN Colombia",
+   "dominio": "espn.com.co",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "AS",
+   "dominio": "as.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Mundo Deportivo",
+   "dominio": "mundodeportivo.com",
+   "alcance": "internacional",
+   "rss": "https://www.mundodeportivo.com/feed/rss/home/"
+  },
+  {
+   "nombre": "Olé",
+   "dominio": "ole.com.ar",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "NBA",
+   "dominio": "nba.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "WNBA",
+   "dominio": "wnba.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "UEFA",
+   "dominio": "uefa.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "FIFA",
+   "dominio": "fifa.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "MyAnimeList",
+   "dominio": "myanimelist.net",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "National Geographic",
+   "dominio": "nationalgeographic.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "National Geographic en Español",
+   "dominio": "nationalgeographicla.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Historia National Geographic",
+   "dominio": "historia.nationalgeographic.com.es",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Smithsonian Magazine",
+   "dominio": "smithsonianmag.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Live Science",
+   "dominio": "livescience.com",
+   "alcance": "internacional",
+   "rss": "https://www.livescience.com/feeds.xml"
+  },
+  {
+   "nombre": "Muy Interesante",
+   "dominio": "muyinteresante.com",
+   "alcance": "internacional",
+   "rss": "https://muyinteresante.okdiario.com/feed"
+  },
+  {
+   "nombre": "Vatican News",
+   "dominio": "vaticannews.va",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "ACI Prensa",
+   "dominio": "aciprensa.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "Aleteia",
+   "dominio": "aleteia.org",
+   "alcance": "internacional",
+   "rss": "https://aleteia.org/feed"
+  },
+  {
+   "nombre": "Religión Digital",
+   "dominio": "religiondigital.org",
+   "alcance": "internacional",
+   "rss": "https://www.religiondigital.org/rss/"
+  },
+  {
+   "nombre": "SensaCine",
+   "dominio": "sensacine.com",
+   "alcance": "internacional",
+   "sin_rss": true
+  },
+  {
+   "nombre": "eCartelera",
+   "dominio": "ecartelera.com",
+   "alcance": "internacional",
+   "rss": "https://www.ecartelera.com/rss/feed.xml"
+  },
+  {
+   "nombre": "Espinof",
+   "dominio": "espinof.com",
+   "alcance": "internacional",
+   "rss": "https://espinof.com/index.xml"
+  }
+ ]
+}

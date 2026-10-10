@@ -6,12 +6,13 @@
 # =====================================================================
 
 pagina:
-  titulo: "Noticias diarias"
+  titulo: "Noticias Diarias"
   zona_horaria: "America/Bogota"
   dias_archivo: 7            # páginas anteriores que se conservan en /archivo
   # Dirección pública de la página (se usa en Telegram y correo). Ej:
   # https://TU-USUARIO.github.io/noticias-diarias/
-  url_publica: ""
+  url_publica: "https://camilovalencia101921-cmyk.github.io/noticias-diarias/"
+  repositorio: "https://github.com/camilovalencia101921-cmyk/noticias-diarias"
 
 # Logo "News" a la derecha del título. Si existe assets/logo.png (cuadrado y de menos de 50 KB),
 # se usa esa imagen en lugar del logo dibujado (y también como ícono de la pantalla de inicio).
@@ -60,10 +61,16 @@ seleccion:
   minimo_serias: 6
   minimo_ocio: 5
   minimo_local: 5
-  max_serias: 14
-  max_ocio: 10
+  # Topes de DESTACADAS (las de mayor impacto, con resumen). No son metas.
+  max_serias: 10
+  max_ocio: 7
   max_local: 8               # lo local tiene su propio tope, aparte de serias y ocio
-  ver_mas_por_seccion: 6     # bloque plegable "Ver más" en cada sección (0 = sin bloque); no cuenta para los topes
+  max_fe: 4                  # noticias de la pestaña Fe (aparte de "Para el alma")
+  minimo_fe: 5
+  # "Ver N noticias más": el resto, sin IA, solo de medios aprobados. Máximo por pestaña:
+  ver_mas_por_pestana: 40
+  ver_mas_por_medio: 3       # variedad: máximo de noticias de un mismo medio en "Ver más" de cada pestaña
+  ver_mas_por_tema: 12
   cupo_por_tema: 3           # máximo de noticias de un mismo tema
   horas_maximas: 36          # ignora noticias más viejas que esto
   similitud_duplicados: 0.55 # 0 a 1; más alto = solo elimina títulos casi idénticos
@@ -80,7 +87,8 @@ seleccion:
 filtro_sensacionalismo:
   activo: true
   limite: 3
-  frases_gancho: ["no vas a creer", "no creerás", "lo que nadie te cuenta", "esto es lo que debes saber", "se filtró", "te sorprenderá", "no lo vas a creer", "quedó en shock", "dejó a todos", "nadie esperaba", "lo que pasó después", "así reaccionó", "explota en redes", "se volvió viral", "video viral", "la razón te sorprenderá", "mira lo que", "atención:", "urgente:", "última hora:"]
+  etiqueta_desde: 2          # en "Ver más", desde estos puntos se muestra "Posible sensacionalismo"
+  frases_gancho: ["no vas a creer", "no creerás", "lo que nadie te cuenta", "esto es lo que debes saber", "se filtró", "te sorprenderá", "no lo vas a creer", "quedó en shock", "dejó a todos", "nadie esperaba", "lo que pasó después", "así reaccionó", "explota en redes", "se volvió viral", "video viral", "la razón te sorprenderá", "mira lo que", "atención:", "urgente:", "última hora:", "you won't believe", "you will not believe", "this is why", "here's why", "here is why", "what happened next", "will shock you", "shocking", "goes viral", "gone viral", "must see", "must-see", "jaw-dropping", "mind-blowing", "wait until you see", "the reason will surprise you", "nobody expected", "breaking:"]
   superlativos: [histórico, histórica, brutal, escandaloso, escandalosa, impactante, increíble, insólito, insólita, épico, épica, demoledor, demoledora, aterrador, aterradora, bochornoso, polémico]
   inicios_sin_sujeto: ["así fue", "así es", "así quedó", "esto es", "este es", "esta es", "estos son", "lo que", "mira ", "conoce ", "descubre ", "entérate", "ojo con"]
   siglas_permitidas: [NBA, WNBA, FMS, ONU, OTAN, EE.UU., EEUU, UE, FMI, DIAN, ELN, JEP, CNE, IA, AI, USGS, IDEAM, UNGRD, TRM, PIB, IPC, EPM, ESPN, FIFA, UEFA, CIA, FBI, OMS, OPS, OPEP, SGC, BCE, FED]
@@ -91,6 +99,19 @@ filtro_sensacionalismo:
     exceso_exclamaciones: 2
     superlativo: 1
     sin_sujeto: 2
+
+# ---------------------------------------------------------------------
+#  FILTRO DE CONTENIDO SEXUAL (OBLIGATORIO, no se puede apagar). Ver FILTRO.md
+#  "porn*" = cualquier palabra que empiece así; "sexy" = solo la palabra completa.
+#  Se detectan variantes disfrazadas (p0rn0, s.e.x.y, P O R N O, sexxxy).
+# ---------------------------------------------------------------------
+filtro_sexual:
+  palabras_es: ["porn*", "xxx", "erotic*", "erotism*", "desnud*", "semidesnud*", "topless", "lenceria*", "sensual*", "sexy", "sexi", "onlyfans", "only fans", "contenido para adultos", "solo para adultos", "mayores de 18 anos", "striptease", "stripper*", "prostitu*", "escort*", "orgia*", "masturb*", "eyacul*", "pene", "penes", "vagin*", "sexting", "nudes", "fotos intimas", "foto intima", "video intimo", "videos intimos", "contenido intimo", "contenido explicito", "sexo oral", "sexo explicito", "video de sexo", "videos de sexo", "escena de sexo", "escenas de sexo", "tener sexo", "teniendo sexo", "hacer el amor", "relaciones sexuales", "posiciones sexuales", "juguete sexual", "juguetes sexuales", "sex shop", "kamasutra", "fetich*", "burdel*", "bikini*", "ropa interior", "en tanga", "fotos sugerentes", "foto sugerente", "poses sugerentes", "modelo webcam", "modelos webcam", "webcamer*", "cuerpazo", "nalgas", "partes intimas"]
+  palabras_en: ["porn*", "nsfw", "nude", "nudes", "nudity", "naked", "topless", "lingerie", "sexy", "erotic*", "onlyfans", "stripper*", "striptease", "escort*", "hookup*", "sex tape", "sex scene", "sex scenes", "sex toy*", "orgy", "orgies", "fetish*", "adult content", "adult film*", "playboy", "camgirl*", "thirst trap", "boobs", "booty", "twerk*"]
+  # Noticias de delitos sexuales (abuso, violación, acoso). Son información judicial, no contenido sexual,
+  # por eso NO se ocultan por defecto (las destacadas igual las revisa Gemini). Cambia a true para ocultarlas.
+  ocultar_delitos_sexuales: false
+  delitos_sexuales: ["abuso sexual", "abusos sexuales", "acoso sexual", "agresion sexual", "violencia sexual", "explotacion sexual", "violacion", "violada", "violador*", "proxenet*", "pedofil*", "sexual assault", "sexual abuse", "rape", "raped"]
 
 # ---------------------------------------------------------------------
 #  FILTRO ANTI-PUBLICIDAD (siempre estricto, va antes de clasificar)
@@ -115,7 +136,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#E24B4A"
+    color: "#B42318"
     descripcion: "crimen organizado, homicidios, grupos armados, terrorismo, Fuerza Pública"
     palabras: [homicidio, asesinato, asesinado, masacre, secuestro, extorsión, narcotráfico, cartel, "clan del golfo", eln, disidencias, "grupo armado", sicario, atentado, terrorismo, policía, ejército, "fuerza pública", fiscalía, capturado, capturados, "fuerzas militares", explosivo, dron, minas antipersonal]
   orden_publico:
@@ -131,7 +152,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#2E7D32"
+    color: "#1D5FA3"
     descripcion: "economía colombiana y mundial: inflación, empleo, PIB, impuestos, presupuesto"
     palabras: [economía, económico, inflación, desempleo, pib, impuestos, "reforma tributaria", dian, presupuesto, "salario mínimo", exportaciones, importaciones, aranceles, recesión, crecimiento, "banco de la república", minhacienda, "regla fiscal", déficit, deuda, empleo, pensiones]
   inteligencia_artificial:
@@ -139,15 +160,15 @@ temas:
     grupo: serias
     activo: true
     peso: 1.0
-    color: "#1D9E75"
+    color: "#5B3FD9"
     descripcion: "inteligencia artificial: modelos, regulación, empresas de IA, impacto laboral"
-    palabras: ["inteligencia artificial", " ia ", "ia generativa", chatgpt, openai, gemini, anthropic, claude, "modelo de lenguaje", llm, deepmind, "machine learning", "aprendizaje automático", "artificial intelligence", " ai ", nvidia, copilot, "agentes de ia", deepseek, mistral, grok]
+    palabras: ["inteligencia artificial", " ia ", "ia generativa", chatgpt, openai, gemini, anthropic, claude, "modelo de lenguaje", llm, deepmind, "machine learning", "aprendizaje automático", "microsoft copilot", "github copilot", "artificial intelligence", " ai ", nvidia, "agentes de ia", deepseek, mistral, grok]
   fenomenos_naturales:
     nombre: "Fenómenos naturales"
     grupo: serias
     activo: true
     peso: 1.1
-    color: "#D9443F"
+    color: "#0F766E"
     descripcion: "sismos, volcanes, lluvias, inundaciones, huracanes, sequías, alertas del IDEAM/UNGRD/SGC"
     palabras: [sismo, temblor, terremoto, volcán, erupción, huracán, tormenta, ciclón, tsunami, inundación, inundaciones, deslizamiento, avalancha, "ola invernal", lluvias, sequía, "fenómeno de el niño", "la niña", ideam, ungrd, "servicio geológico", "gestión del riesgo", magnitud, earthquake, incendio forestal, "alerta roja"]
   geopolitica:
@@ -155,7 +176,7 @@ temas:
     grupo: serias
     activo: true
     peso: 1.0
-    color: "#1565C0"
+    color: "#1D5FA3"
     descripcion: "relaciones internacionales, diplomacia, elecciones en otros países, cumbres, sanciones"
     palabras: [diplomacia, diplomático, cancillería, canciller, embajada, embajador, sanciones, onu, otan, "unión europea", cumbre, "casa blanca", trump, putin, "xi jinping", kremlin, elecciones, "relaciones bilaterales", migración, migrantes, frontera, venezuela, maduro, "consejo de seguridad"]
   guerras:
@@ -198,13 +219,13 @@ temas:
     peso: 1.0
     color: "#1D9E75"
     descripcion: "ciberataques, vulnerabilidades, filtraciones de datos, ransomware, fraudes digitales"
-    palabras: [ciberataque, hackeo, hacker, hackers, ransomware, malware, vulnerabilidad, "filtración de datos", phishing, ciberseguridad, "fuga de datos", exploit, "día cero", "zero-day", breach, cve, botnet, "robo de datos", ciberdelincuentes, cybersecurity, "data breach"]
+    palabras: [ciberataque, hackeo, hacker, hackers, ransomware, malware, "vulnerabilidad informatica", "vulnerabilidad de seguridad", "vulnerabilidad critica", vulnerability, "fallo de seguridad", "filtración de datos", phishing, ciberseguridad, "fuga de datos", exploit, "día cero", "zero-day", breach, cve, botnet, "robo de datos", ciberdelincuentes, cybersecurity, "data breach"]
   energia:
     nombre: "Energía"
     grupo: serias
     activo: true
     peso: 1.0
-    color: "#F9A825"
+    color: "#A15C07"
     descripcion: "energía: electricidad, gas, tarifas, renovables, minería e hidrocarburos"
     palabras: [energía, eléctrica, electricidad, gas, tarifas, "energías renovables", solar, eólica, hidroeléctrica, embalses, apagón, racionamiento, creg, afinia, air-e, enel, isagen, "transición energética", hidrocarburos, fracking, gasolina, acpm, oil, "natural gas", lng]
   salud:
@@ -240,7 +261,8 @@ temas:
     peso: 1.0
     color: "#D4537E"
     descripcion: "anime: estrenos, nuevas temporadas, anuncios de la industria, estudios"
-    palabras: [anime, manga, temporada, "season", crunchyroll, "estudio", tráiler, estreno, "one piece", "attack on titan", "demon slayer", "kimetsu", "jujutsu", "chainsaw man", "dragon ball", "my hero academia", "light novel", otaku, "toei", "mappa", "ufotable"]
+    palabras: [anime, manga, crunchyroll, "nueva temporada del anime", "one piece", "attack on titan", "demon slayer", "kimetsu", "jujutsu", "chainsaw man", "dragon ball", "my hero academia", "light novel", "novela ligera", otaku, toei, mappa, ufotable, isekai, shonen, seinen, ghibli]
+    requiere: [anime, manga, crunchyroll, otaku, "light novel", "novela ligera", toei, mappa, ufotable, "one piece", "dragon ball", kimetsu, "demon slayer", jujutsu, "chainsaw man", "attack on titan", "my hero academia", isekai, shonen, seinen, ghibli]
     palabras_impacto: [estreno, "nueva temporada", "segunda temporada", "tercera temporada", anuncia, anuncio, película, adaptación, "fecha de estreno", tráiler, "season", announced, "anime adaptation", premiere]
   futbol:
     nombre: "Fútbol"
@@ -282,8 +304,30 @@ temas:
     color: "#BA7517"
     descripcion: "historia antigua: Roma, Egipto, Grecia, Mesopotamia, Persia, Cartago, mayas, aztecas, incas; hallazgos arqueológicos, excavaciones, estudios, museos. Excluir pseudociencia."
     palabras: [arqueología, arqueológico, arqueólogos, excavación, hallazgo, yacimiento, roma, romano, romana, egipto, egipcio, faraón, grecia, griego, mesopotamia, babilonia, persia, persa, cartago, maya, mayas, azteca, aztecas, mexica, inca, incas, momia, tumba, necrópolis, "edad de bronce", museo, ancient, archaeolog, roman, egypt, greek, tomb, excavation, pharaoh, etrusco, etruscan]
-    excluir: [alien, aliens, extraterrestre, extraterrestres, ovni, ovnis, anunnaki, atlántida, atlantis, "civilización perdida", gigantes, "antiguos astronautas", nibiru, "ancient aliens"]
+    requiere_siempre: true     # aunque la fuente sea de arqueología, debe hablar de historia antigua
+    requiere: [arqueolog, archaeolog, excavacion, excavation, yacimiento, "hallazgo arqueologico", antigua, antiguo, ancient, roma, romano, roman, egipto, egypt, faraon, pharaoh, grecia, griego, greek, mesopotamia, babilonia, persia, cartago, maya, azteca, aztec, inca, momia, tumba, tomb, necropolis, "edad de bronce", "bronze age", neolitic, neolithic, prehistor, imperio, empire, etrusco, etruscan, vikingo, viking, medieval, papiro, inscripcion, mosaico]
+    excluir: [futbol, football, soccer, "world cup", "copa del mundo", "copa mundial", partido, goles, gol, liga, nba, tenis, seleccion, playoff, alien, aliens, extraterrestre, extraterrestres, ovni, ovnis, anunnaki, atlántida, atlantis, "civilización perdida", gigantes, "antiguos astronautas", nibiru, "ancient aliens"]
     palabras_impacto: [hallazgo, descubren, descubrimiento, descubierto, excavación, revela, tumba, estudio, adn, inscripción, papiro, mosaico, discovered, discovery, reveals, unearthed, study, dna]
+
+  espiritualidad:
+    nombre: "Fe"
+    grupo: fe
+    activo: true
+    peso: 1.0
+    color: "#C98A1B"
+    descripcion: "religión y espiritualidad: Iglesia católica, Vaticano, otras tradiciones religiosas, peregrinaciones, fiestas religiosas"
+    palabras: [vaticano, "el papa", "papa leon", pontifice, iglesia, catolic, obispo, arzobispo, sacerdote, cardenal, misa, espiritualidad, religio, peregrin, santuario, budis, islam, judaismo, sinodo, evangel, pastoral, conferencia episcopal, oracion, biblia, beatific, canoniz]
+    excluir: ["santa fe", "independiente santa fe"]
+  cine:
+    nombre: "Cine"
+    grupo: ocio
+    activo: true
+    peso: 1.0
+    color: "#D64550"
+    descripcion: "cine: estrenos de películas, taquilla, festivales y premios de cine (no música)"
+    palabras: [pelicula, peliculas, estreno, taquilla, cartelera, cine, film, director de cine, festival de cine, oscar, "premios oscar", cannes, trailer, saga, secuela, netflix, "box office", movie]
+    requiere: [pelicula, peliculas, cine, film, taquilla, cartelera, movie, "box office", oscar]
+    excluir: [concierto, album, cancion, gira musical, reggaeton, "premios latin grammy", "grammy"]
 
 # ---------------------------------------------------------------------
 #  FUENTES (nacionales e internacionales). Las locales están en "local".
@@ -314,7 +358,7 @@ fuentes:
   - {nombre: "OilPrice", url: "https://oilprice.com/rss/main", alcance: internacional, filtro: estricto, activo: true, temas: [energia]}
   - {nombre: "EIA Today in Energy", url: "https://www.eia.gov/rss/todayinenergy.xml", alcance: internacional, filtro: estricto, activo: true, oficial: true, temas: [energia]}
   - {nombre: "pv magazine Latam", url: "https://www.pv-magazine-latam.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [energia]}
-  - {nombre: "Xataka", url: "https://feeds.weblogssl.com/xataka2", alcance: internacional, filtro: estricto, activo: true, temas: [tecnologia, inteligencia_artificial]}
+  - {nombre: "Xataka", url: "https://feeds.weblogssl.com/xataka2", alcance: internacional, filtro: estricto, activo: true, temas: [tecnologia, inteligencia_artificial], pista_debil: true}
   - {nombre: "El País Tecnología", url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada", alcance: internacional, filtro: estricto, activo: true, temas: [tecnologia]}
   - {nombre: "MIT Technology Review", url: "https://www.technologyreview.com/feed/", alcance: internacional, filtro: estricto, activo: true, temas: [inteligencia_artificial, tecnologia]}
   - {nombre: "The Verge IA", url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", alcance: internacional, filtro: estricto, activo: true, temas: [inteligencia_artificial]}
@@ -368,6 +412,41 @@ fuentes:
   - {nombre: "The History Blog", url: "https://www.thehistoryblog.com/feed", alcance: internacional, filtro: estricto, activo: true, temas: [historia_antigua]}
 
 # ---------------------------------------------------------------------
+#  BÚSQUEDAS DE GOOGLE NEWS POR TEMA (una consulta por tema, en español,
+#  Colombia y mundo). Traen volumen; en "Ver más" solo entran las de medios
+#  aprobados (config/medios_aprobados.json).
+# ---------------------------------------------------------------------
+google_news_temas:
+  seguridad: {activo: true, alcance: nacional, consulta: 'Colombia (homicidio OR atentado OR capturado OR disidencias OR "Clan del Golfo")'}
+  economia: {activo: true, alcance: nacional, consulta: 'economía Colombia'}
+  inteligencia_artificial: {activo: true, alcance: internacional, consulta: '"inteligencia artificial"'}
+  fenomenos_naturales: {activo: true, alcance: internacional, consulta: 'sismo OR terremoto OR huracán OR inundaciones OR volcán OR IDEAM'}
+  geopolitica: {activo: true, alcance: internacional, consulta: 'geopolítica OR diplomacia OR cumbre OR sanciones OR cancillería'}
+  guerras: {activo: true, alcance: internacional, consulta: 'guerra Ucrania OR Gaza OR Israel OR "conflicto armado"'}
+  ciberseguridad: {activo: true, alcance: internacional, consulta: 'ciberseguridad OR ciberataque OR hackeo OR ransomware'}
+  energia: {activo: true, alcance: internacional, consulta: 'energía OR petróleo OR "transición energética" OR gas natural'}
+  salud: {activo: true, alcance: nacional, consulta: '"salud pública" OR EPS OR epidemia OR vacunación Colombia'}
+  justicia: {activo: true, alcance: nacional, consulta: '"Corte Constitucional" OR "Consejo de Estado" OR "Corte Suprema" OR sentencia'}
+  politica: {activo: true, alcance: nacional, consulta: 'Congreso Colombia OR "Gobierno nacional" OR Registraduría'}
+  tecnologia: {activo: true, alcance: internacional, consulta: 'tecnología'}
+  anime: {activo: true, alcance: internacional, consulta: 'anime'}
+  futbol: {activo: true, alcance: nacional, consulta: '"Liga BetPlay" OR "Selección Colombia" OR "Champions League"'}
+  baloncesto: {activo: true, alcance: internacional, consulta: 'NBA OR WNBA'}
+  freestyle: {activo: true, alcance: internacional, consulta: '"Red Bull Batalla" OR FMS freestyle'}
+  historia_antigua: {activo: true, alcance: internacional, consulta: 'arqueología OR "hallazgo arqueológico" OR excavación'}
+  espiritualidad: {activo: true, alcance: internacional, consulta: 'Vaticano OR "papa León" OR "Iglesia católica" OR espiritualidad'}
+  cine: {activo: true, alcance: nacional, consulta: '"estrenos de cine" OR cartelera OR taquilla película'}
+
+# ---------------------------------------------------------------------
+#  HUMOR: videos de YouTube SOLO de canales aprobados (config/humor_canales.json)
+# ---------------------------------------------------------------------
+humor:
+  maximo_por_dia: 10
+  horas_maximas: 72
+  # Palabras extra que ocultan un video (además del filtro de contenido sexual)
+  palabras_bloqueadas: ["broma pesada", "prank sexual", "+18", "solo adultos"]
+
+# ---------------------------------------------------------------------
 #  NOTICIAS LOCALES
 #  modo: "ciudad" | "zonas" | "personalizado"
 #  Los datos de los tres modos se guardan a la vez; solo se usa el elegido.
@@ -408,7 +487,7 @@ local:
   categorias:
     seguridad:
       nombre: "Seguridad"
-      color: "#E24B4A"
+      color: "#B42318"
       peso: 1.2
       palabras: [homicidio, asesinado, asesinato, sicario, sicarios, robo, hurto, capturado, capturados, policía, extorsión, balacera, ataque, muerto, muertos, cadáver, cuerpo, crimen, riña, herido, heridos, judicial, fiscalía, cárcel, condenado, secuestro, desaparecido, "a bala", disparos, "arma blanca", violencia, feminicidio]
     orden_publico:

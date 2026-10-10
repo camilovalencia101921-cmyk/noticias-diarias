@@ -8,15 +8,17 @@ import re
 import shutil
 import sys
 import traceback
+from collections import Counter
 from datetime import date, datetime, timedelta
 
-from noticias import agenda, alma, cine, medios, mercados, notificar
+from noticias import agenda, alma, aprobados, cine, humor, medios, mercados, notificar
 from noticias import filtros as FL
 from noticias import proceso as P
-from noticias.fuentes import descargar_todas, fuentes_activas, filtrar_por_edad
+from noticias.fuentes import descargar_todas, filtrar_por_edad, fuentes_activas, url_google_news
 from noticias.gemini import Gemini, GeminiError
 from noticias.historial import Historial
 from noticias.pagina import Pagina, fecha_larga
+from noticias.pestanas import pestana_de, subfiltros_de
 from noticias.utils import RAIZ, ahora_utc, cargar_config, zona
 
 SITIO = RAIZ / "sitio"
@@ -150,6 +152,17 @@ def guardar_log(hoy, reg, errores):
     (LOGS / f"{hoy.isoformat()}.log").write_text("\n".join(lineas) + "\n", encoding="utf-8")
 
 
+def fuentes_google_news(cfg):
+    """Una búsqueda de Google News por tema (español, Colombia y mundo)."""
+    out = []
+    for tema, g in (cfg.get("google_news_temas") or {}).items():
+        if g and g.get("activo", True) and g.get("consulta"):
+            out.append({"nombre": f"Google News · {tema}", "url": url_google_news(g["consulta"]),
+                        "alcance": g.get("alcance", "nacional"), "filtro": "estricto", "temas": [tema],
+                        "pista_debil": True})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sin-ia", action="store_true", help="usar solo el modo de respaldo")
@@ -167,9 +180,18 @@ def main():
     sel = cfg.get("seleccion", {}) or {}
     reg.info(f"Inicio {ahora:%Y-%m-%d %H:%M} ({tz.key})")
 
-    # 1. descargar
+    # 1. descargar: config.yaml + medios aprobados con RSS + Google News por tema
+    medios_ok = aprobados.cargar()
+    dominios_ok = aprobados.dominios(medios_ok)
     fuentes = fuentes_activas(cfg)
+    for f in fuentes:                    # las fuentes que el usuario configuró cuentan como aprobadas
+        if "news.google.com" not in f["url"]:
+            f["aprobada"] = True
+    fuentes += aprobados.fuentes_rss(medios_ok, [f["url"] for f in fuentes])
+    fuentes += fuentes_google_news(cfg)
     crudas, errores = descargar_todas(fuentes)
+    for n in crudas:
+        n.aprobado = n.aprobado or aprobados.es_aprobado(n.dominio_medio, dominios_ok)
     reg.info(f"Fuentes: {len(fuentes)} · con errores: {len(errores)} · titulares: {len(crudas)}")
     if not crudas or len(errores) > 0.7 * len(fuentes):
         guardar_log(hoy, reg, errores)
@@ -178,102 +200,101 @@ def main():
     revisados = len(recientes)
     reg.info(f"Recientes: {revisados} (más viejas de {sel.get('horas_maximas', 36)} h: {viejas})")
 
-    # 2. filtros y duplicados (sin IA)
+    # 2. filtros sin IA (contenido sexual, publicidad, palabras), duplicados y temas
     def procesar(items):
         items = P.filtrar(items, cfg, reg)
         items, dups = FL.agrupar_duplicados(items, sel.get("similitud_duplicados", 0.55))
         reg.contador["duplicados"] += dups
         return P.clasificar_reglas(items, cfg, reg)
 
-    candidatos = procesar(recientes)
-    # ya publicadas en días anteriores
-    seg = (cfg.get("mejoras", {}) or {}).get("seguimiento", {}) or {}
-    nuevos = []
-    for n in candidatos:
-        if hist.enviado_antes(n.enlace, hoy):
-            reg.descarte("ya_publicada", n)
-            continue
-        nuevos.append(n)
-    candidatos = nuevos
-    reg.info(f"Candidatas tras filtros: {len(candidatos)}")
+    base = [n for n in procesar(recientes) if not hist.enviado_antes(n.enlace, hoy)]
+    reg.info(f"Noticias tras filtros: {len(base)} (de medios aprobados: {sum(n.aprobado for n in base)})")
 
-    # 3. clasificación con IA (lote 1) o respaldo
+    # 3. destacadas: lote 1 de Gemini (temas, importancia y revisión de contenido sexual)
     modo_respaldo = True
+    candidatos = list(base)
     if ia.activo:
         try:
-            candidatos = P.clasificar_ia(candidatos, cfg, ia, reg)
+            candidatos = P.clasificar_ia([n for n in base if not n.sensacional], cfg, ia, reg)
             modo_respaldo = False
             reg.info(f"Gemini lote 1 OK (modelo {ia.modelo})")
         except GeminiError as ex:
             reg.info(f"Gemini no disponible ({ex}); se usa el modo de respaldo")
     else:
         reg.info("Gemini apagado o sin clave: modo de respaldo")
+    if modo_respaldo:                    # sin la revisión de la IA, solo medios aprobados (falla cerrado)
+        candidatos = [n for n in base if n.aprobado]
 
-    # 4. selección
-    elegidas, sobrantes = P.seleccionar(candidatos, cfg, reg)
+    elegidas, _ = P.seleccionar(candidatos, cfg, reg)
     if not any(n.seccion == "local" for n in elegidas):
         extra = P.completar_departamento(cfg, False, reg, procesar)
-        extra = [n for n in extra if not hist.enviado_antes(n.enlace, hoy)]
+        extra = [n for n in extra if not hist.enviado_antes(n.enlace, hoy) and (n.aprobado or not modo_respaldo)]
         for n in extra:
             n.seccion, n.alcance = "local", "local"
-        extra_elegidas, extra_sobrantes = P.seleccionar(extra, cfg, reg)
-        elegidas += [n for n in extra_elegidas if n.seccion == "local"]
-        sobrantes += [(n, m) for n, m in extra_sobrantes if n.seccion == "local"]
+        elegidas += [n for n in P.seleccionar(extra, cfg, reg)[0] if n.seccion == "local"]
 
-    # 5. seguimiento de historias
-    def es_nueva(n, registrar=True):
-        if not seg.get("activo", True):
-            return True
-        h = hist.buscar_historia(n.tokens, hoy, seg.get("dias_memoria", 14), seg.get("similitud", 0.45))
-        if h:
-            if n.fecha.astimezone(tz).date() < hoy:
-                if registrar:
+    # seguimiento de historias
+    seg = (cfg.get("mejoras", {}) or {}).get("seguimiento", {}) or {}
+    if seg.get("activo", True):
+        finales = []
+        for n in elegidas:
+            h = hist.buscar_historia(n.tokens, hoy, seg.get("dias_memoria", 14), seg.get("similitud", 0.45))
+            if h:
+                if n.fecha.astimezone(tz).date() < hoy:
                     reg.descarte("ya_publicada", n, "sin novedad")
-                return False
-            n.seguimiento_dia = (hoy - h[1]).days + 1
-            n._historia = h[0]
-        return True
+                    continue
+                n.seguimiento_dia = (hoy - h[1]).days + 1
+                n._historia = h[0]
+            finales.append(n)
+        elegidas = finales
 
-    elegidas = [n for n in elegidas if es_nueva(n)]
-    # "Ver más": siguientes mejores de cada sección (no cuentan para los topes)
-    ver_mas = {}
-    for n in P.elegir_ver_mas(sobrantes, cfg, reg, aceptar=lambda n: es_nueva(n, registrar=False)):
-        ver_mas.setdefault(n.seccion, []).append(n)
-
-    # 6. resúmenes (lote 2) y medios
+    # 4. lote 2 de Gemini: resumen, "por qué importa" y segunda revisión de contenido sexual
     ok_resumen = P.resumir(elegidas, cfg, ia, not modo_respaldo, reg)
     respaldo_resumenes = not ok_resumen and not modo_respaldo
-    medios.enriquecer(elegidas, cfg)
-
-    # 7. destacada y secciones
-    serias = [n for n in elegidas if n.seccion in ("nacional", "internacional")]
-    destacada = None
-    if serias:
-        tope = max(n.puntaje for n in serias)
-        destacada = next((n for n in serias if n.puntaje == tope and n.imagen), None) or \
-            next(n for n in serias if n.puntaje == tope)
-    secciones = {}
+    for n in elegidas:                   # capa 4: imagen solo si el medio está aprobado
+        if not n.aprobado:
+            n.imagen = ""
+    medios.enriquecer([n for n in elegidas if n.aprobado], cfg)
     for n in elegidas:
-        if n is not destacada:
-            secciones.setdefault(n.seccion, []).append(n)
-    for lista in secciones.values():
-        lista.sort(key=lambda n: -n.puntaje)
+        n.pestana = pestana_de(n)
+        n.subs = subfiltros_de(n, n.pestana)
 
+    # 5. "Ver más": el resto, sin IA, solo de medios aprobados
+    ids_dest = {n.id for n in elegidas}
+    maximo = int(sel.get("ver_mas_por_pestana", 40))
+    por_fuente = int(sel.get("ver_mas_por_medio", 4))      # variedad: máximo de un mismo medio por pestaña
+    por_tema = int(sel.get("ver_mas_por_tema", 12))        # y de un mismo tema
+    ver_mas, cuenta = {}, Counter()
+    for n in sorted(base, key=lambda n: (n.puntaje, n.fecha), reverse=True):
+        if n.id in ids_dest or not n.aprobado or n.sexual_ia:
+            continue
+        pest = pestana_de(n)
+        if (len(ver_mas.get(pest, [])) >= maximo or cuenta[(pest, "f", n.fuente)] >= por_fuente
+                or cuenta[(pest, "t", n.tema or n.categoria_local)] >= por_tema):
+            continue
+        cuenta[(pest, "f", n.fuente)] += 1
+        cuenta[(pest, "t", n.tema or n.categoria_local)] += 1
+        n.pestana, n.subs = pest, subfiltros_de(n, pest)
+        ver_mas.setdefault(pest, []).append(n)
+    reg.info("Ver más: " + ", ".join(f"{k} {len(v)}" for k, v in ver_mas.items()))
+
+    # 6. secciones especiales
     temas_alma, _ = alma.generar(cfg, ia, hoy, reg.info)
+    videos, aviso_humor = humor.construir(cfg, reg.info)
     estrenos = cine.construir(cfg, ia, hoy, reg.info)
     tarjetas_mercado = mercados.actualizar(cfg, hist, reg.info)
     items_agenda = agenda.construir(cfg, hoy, tz, reg.info)
 
-    # 8. página y archivo
+    # 7. página, datos de "Ver más" y archivo
     SITIO.mkdir(exist_ok=True)
     (SITIO / "archivo").mkdir(exist_ok=True)
     k = reg.contador
-    contador = None
-    if ((cfg.get("mejoras", {}) or {}).get("contador_descartes", {}) or {}).get("activo", True):
-        contador = {"revisados": revisados, "entraron": len(elegidas), "sensacionalismo": k["sensacionalismo"],
-                    "publicidad": k["publicidad"], "duplicados": k["duplicados"],
-                    "baja_importancia": sum(k[m] for m in ("baja_importancia", "cupo_tema", "cupo_seccion",
-                                                           "sin_tema", "fuera_de_interes", "tema_apagado", "ya_publicada"))}
+    contador = {"revisados": revisados, "entraron": len(elegidas), "sensacionalismo": k["sensacionalismo"],
+                "publicidad": k["publicidad"], "sexual": k["contenido_sexual"], "duplicados": k["duplicados"],
+                "ver_mas": sum(len(v) for v in ver_mas.values()),
+                "baja_importancia": sum(k[m] for m in ("baja_importancia", "cupo_tema", "cupo_seccion", "sin_tema",
+                                                       "fuera_de_interes", "tema_apagado", "ya_publicada",
+                                                       "sin_revision_ia"))}
     dias_archivo = int((cfg.get("pagina", {}) or {}).get("dias_archivo", 7))
     anteriores = sorted((f.stem for f in (SITIO / "archivo").glob("*.html") if f.stem != hoy.isoformat()), reverse=True)
     for viejo in anteriores[dias_archivo:]:
@@ -285,27 +306,32 @@ def main():
     loc = cfg.get("local", {}) or {}
     usar_logo_png, hay_iconos = preparar_logo_e_iconos(cfg, reg)
     ctx = {
-        "ahora_utc": ahora_utc(), "fecha_larga": fecha_larga(hoy), "fecha_corta": hoy.strftime("%d/%m/%Y"),
-        "actualizado": f"Actualizado hoy {ahora.hour}:{ahora.minute:02d} (hora de Colombia)",
-        "destacada": destacada, "secciones": secciones, "mercados": tarjetas_mercado, "agenda": items_agenda,
+        "ahora_utc": ahora_utc(), "hoy": hoy, "fecha_larga": fecha_larga(hoy), "fecha_corta": hoy.strftime("%d/%m/%Y"),
+        "hora": f"{ahora.hour}:{ahora.minute:02d}",
+        "elegidas": elegidas, "ver_mas": ver_mas, "mercados": tarjetas_mercado, "agenda": items_agenda,
         "contador": contador, "instagram": botones_instagram(loc) if loc.get("activo", True) else [],
-        "ver_mas": ver_mas, "alma": temas_alma, "cine": estrenos,
+        "alma": temas_alma, "cine": estrenos, "humor": videos, "aviso_humor": aviso_humor,
         "archivo": [(d, fecha_larga(date.fromisoformat(d)).capitalize()) for d in anteriores],
-        "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes, "portada": preparar_portada(cfg, reg),
+        "modo_respaldo": modo_respaldo, "respaldo_resumenes": respaldo_resumenes,
         "imagenes_categoria": imagenes_categoria(), "colores": colores,
         "logo_png": usar_logo_png, "iconos": hay_iconos,
     }
     pagina = Pagina(cfg, ctx)
     html = pagina.html()
     (SITIO / "index.html").write_text(html, encoding="utf-8")
-    (SITIO / "archivo" / f"{hoy.isoformat()}.html").write_text(pagina.html(prefijo="../"), encoding="utf-8")
+    datos_mas = pagina.datos_ver_mas()
+    (SITIO / "mas.json").write_text(datos_mas, encoding="utf-8")
+    archivo_hoy = SITIO / "archivo" / f"{hoy.isoformat()}.html"
+    if not archivo_hoy.exists() or ahora.hour >= 20:     # máximo 2 escrituras al día (repositorio liviano)
+        archivo_hoy.write_text(pagina.html(prefijo="../", archivo=True), encoding="utf-8")
     (SITIO / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
-    reg.info(f"Página: {len(html.encode()) / 1024:.0f} KB · {len(elegidas)} noticias + "
-             f"{sum(len(v) for v in ver_mas.values())} en 'Ver más' · "
-             f"modo {'respaldo (sin IA)' if modo_respaldo else ('IA (resúmenes sin IA)' if respaldo_resumenes else 'IA')} · llamadas a Gemini: {ia.llamadas}")
+    reg.info(f"Página: {len(html.encode()) / 1024:.0f} KB (+ {len(datos_mas.encode()) / 1024:.0f} KB de 'Ver más') · "
+             f"{len(elegidas)} destacadas + {contador['ver_mas']} en 'Ver más' · "
+             f"modo {'respaldo (sin IA)' if modo_respaldo else ('IA (resúmenes sin IA)' if respaldo_resumenes else 'IA')}"
+             f" · llamadas a Gemini: {ia.llamadas}")
 
-    # 9. historial, log y canales opcionales
-    for n in elegidas + [x for v in ver_mas.values() for x in v]:
+    # 8. historial, log y canales opcionales
+    for n in elegidas:
         hist.registrar(n, hoy, getattr(n, "_historia", None))
     hist.registrar_ejecucion(hoy, "respaldo" if modo_respaldo else "ia", revisados, len(elegidas))
     hist.limpiar(hoy)
