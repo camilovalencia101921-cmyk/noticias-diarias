@@ -475,7 +475,7 @@ local:
   fuentes:
     - {nombre: "El Meridiano Córdoba", url: "https://elmeridiano.co/cordoba/sitemap-news.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true, excluir_rutas: ["/opinion/"]}
     - {nombre: "El Meridiano Sucre", url: "https://elmeridiano.co/sucre/sitemap-news.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true, excluir_rutas: ["/opinion/"]}
-    - {nombre: "El Meridiano (Google News)", url: "https://news.google.com/rss/search?q=site:elmeridiano.co+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: local, filtro: flexible, activo: false}
+    - {nombre: "El Meridiano (Google News)", url: "https://news.google.com/rss/search?q=site:elmeridiano.co+when:2d&hl=es-419&gl=CO&ceid=CO:es-419", alcance: local, filtro: flexible, activo: true}   # respaldo: su sitio bloquea a GitHub (403)
     - {nombre: "El Meridiano (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC8H6nfVV_plO1xuR6xLpyOw", alcance: local, filtro: flexible, activo: true}
     - {nombre: "Q'hubo Medellín", url: "https://qhubomedellin.com/sitemapforgoogle.xml", tipo: sitemap, alcance: local, filtro: flexible, activo: true}
     - {nombre: "La Razón (Córdoba)", url: "https://larazon.co/feed/", alcance: local, filtro: flexible, activo: true}
