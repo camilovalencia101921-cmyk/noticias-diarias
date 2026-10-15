@@ -94,13 +94,50 @@ def preparar_logo_e_iconos(cfg, reg):
         reg.info(f"Íconos: no se pudieron crear ({type(ex).__name__})")
         return logo is not None, False
     titulo = (cfg.get("pagina", {}) or {}).get("titulo", "Noticias diarias")
-    manifest = {"name": titulo, "short_name": "News", "start_url": "./", "scope": "./", "display": "browser",
+    manifest = {"name": titulo, "short_name": "News", "id": "./", "start_url": "./", "scope": "./",
+                "lang": "es", "display": "standalone", "orientation": "portrait",
                 "background_color": "#17203A", "theme_color": "#17203A",
-                "icons": [{"src": f"icono-{x}.png", "sizes": f"{x}x{x}", "type": "image/png", "purpose": "any"}
-                          for x in (192, 512)]}
+                "icons": [{"src": f"icono-{x}.png", "sizes": f"{x}x{x}", "type": "image/png", "purpose": p}
+                          for x in (192, 512) for p in ("any", "maskable")]}
     import json
     (SITIO / "manifest.webmanifest").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    (SITIO / "sw.js").write_text(SERVICE_WORKER, encoding="utf-8")
     return logo is not None, True
+
+
+SERVICE_WORKER = """// Service worker de Noticias diarias (lo genera generar.py; no editar a mano)
+const VERSION = "noticias-v1";
+const BASE = ["./", "manifest.webmanifest", "icono-192.png", "icono-512.png"];
+
+self.addEventListener("install", (ev) => {
+  ev.waitUntil(caches.open(VERSION).then((c) => c.addAll(BASE)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener("activate", (ev) => {
+  ev.waitUntil(
+    caches.keys()
+      .then((claves) => Promise.all(claves.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+// Red primero (las noticias siempre frescas); si no hay señal, se muestra la última copia guardada.
+self.addEventListener("fetch", (ev) => {
+  const req = ev.request;
+  if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
+  ev.respondWith(
+    fetch(req)
+      .then((resp) => {
+        if (resp && resp.ok) {
+          const copia = resp.clone();
+          caches.open(VERSION).then((c) => c.put(req, copia));
+        }
+        return resp;
+      })
+      .catch(() => caches.match(req).then((r) => r || caches.match("./")))
+  );
+});
+"""
 
 
 def imagenes_categoria():

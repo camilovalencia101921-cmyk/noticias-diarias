@@ -400,6 +400,9 @@ class Pagina:
         iconos = (f'<link rel="apple-touch-icon" href="{prefijo}icono-180.png">'
                   f'<link rel="manifest" href="{prefijo}manifest.webmanifest">') if c.get("iconos") else ""
         favicon = f"{prefijo}logo.png" if c.get("logo_png") else FAVICON
+        registro_sw = ('<script>if("serviceWorker"in navigator){addEventListener("load",function(){'
+                       'navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>\n') \
+            if (c.get("iconos") and not archivo) else ""
         aviso_archivo = (f'<p class="nota">Edición archivada. <a href="{prefijo}index.html">Ir a la edición de hoy</a></p>'
                          if archivo else "")
         filtro_link = (f'<a href="{e(repo)}/blob/main/FILTRO.md" target="_blank" rel="noopener noreferrer">Cómo funciona el filtro</a>'
@@ -469,7 +472,7 @@ class Pagina:
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script type="application/json" id="meta">{json.dumps(meta, separators=(",", ":"))}</script>
 <script>{JS}</script>
-</body>
+{registro_sw}</body>
 </html>"""
 
     def css_bordes(self):
