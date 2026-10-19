@@ -321,6 +321,10 @@ def main():
     for n in sorted(base, key=lambda n: (n.favorito, n.puntaje, n.fecha), reverse=True):
         if n.id in ids_dest or not n.aprobado or n.sexual_ia:
             continue
+        if seg.get("activo", True) and n.fecha.astimezone(tz).date() < hoy and hist.buscar_historia(
+                n.tokens, hoy, seg.get("dias_memoria", 14), seg.get("similitud", 0.45)):
+            reg.descarte("ya_publicada", n, "ver más: historia ya publicada")
+            continue
         pest = pestana_de(n)
         if (len(ver_mas.get(pest, [])) >= maximo or cuenta[(pest, "f", n.fuente)] >= por_fuente
                 or cuenta[(pest, "t", n.tema or n.categoria_local)] >= int(sel.get(f"ver_mas_por_tema_{pest}", por_tema))):

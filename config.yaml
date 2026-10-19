@@ -70,6 +70,7 @@ seleccion:
   max_deportes: 8            # pestaña Deportes
   minimo_deportes: 5
   hoy_max_deportes: 3        # cuántas deportivas pueden aparecer en Hoy
+  hoy_max_internacional: 3   # cuántas internacionales (las más importantes) aparecen en Hoy; el resto va solo en Mundo
   max_ia: 4                  # pestaña IA (inteligencia artificial y ciberseguridad)
   minimo_ia: 5
   max_historia: 3            # pestaña Historia
@@ -81,7 +82,7 @@ seleccion:
   ver_mas_por_tema_deportes: 30   # en Deportes casi todo es fútbol: se permite más de un mismo tema
   cupo_por_tema: 3           # máximo de noticias de un mismo tema
   horas_maximas: 36          # ignora noticias más viejas que esto
-  similitud_duplicados: 0.55 # 0 a 1; más alto = solo elimina títulos casi idénticos
+  similitud_duplicados: 0.5  # 0 a 1; más alto = solo elimina títulos casi idénticos (además se agrupan historias con nombres/lugares en común)
   # Palabras de impacto (suben "consecuencias" en el modo de respaldo)
   palabras_impacto: [ley, decreto, decisión, sentencia, fallo, tutela, reforma, sismo, terremoto, huracán, tsunami, erupción, inundación, emergencia, ataque, guerra, bombardeo, cese al fuego, elecciones, renuncia, captura, condena, imputación, masacre, tasa de interés, inflación, desempleo, aranceles, sanciones, acuerdo, crisis, apagón, racionamiento, alerta roja, vulnerabilidad, hackeo, filtración de datos, epidemia, brote, vacuna]
   # Titulares con estas palabras nunca entran (loterías, horóscopos, etc.)

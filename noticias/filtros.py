@@ -1,5 +1,6 @@
 """Filtros sin IA: publicidad, sensacionalismo, palabras prohibidas y duplicados."""
 import re
+from collections import Counter
 
 from .utils import contar_palabras, contiene_frase, encontrar_palabras, jaccard, normalizar
 
@@ -73,24 +74,52 @@ def palabras_descartadas(n, cfg):
 
 
 def agrupar_duplicados(noticias, umbral=0.55):
-    """Agrupa por similitud de título. Devuelve (representantes, n_duplicados)."""
+    """Agrupa por similitud de título (la misma historia contada por varios medios).
+    Devuelve (representantes, n_duplicados).
+
+    Dos titulares son la misma historia si: se parecen mucho (Jaccard >= umbral), o uno está casi
+    contenido en el otro, o comparten palabras poco comunes (nombres propios, lugares, cifras) y
+    algo más de texto. Cada titular se compara contra TODOS los del grupo, no solo contra el primero."""
     def calidad(n):
         return (n.aprobado, n.oficial, n.alcance == "local", bool(n.imagen), len(n.descripcion), not n.google_news)
 
-    grupos = []           # [(tokens_union, [noticias])]
+    def raiz(tk):                                        # "fracaso"/"fracasar" -> misma raíz corta
+        return {w[:6] if len(w) > 6 else w for w in tk}
+
+    df = Counter()
     for n in noticias:
-        tk = n.tokens
+        df.update(raiz(n.tokens))
+    raras_max = max(4, int(0.01 * len(noticias)))       # una palabra es "rara" si sale en pocos titulares
+
+    def misma_historia(a, b):
+        inter = a & b
+        if not inter:
+            return False
+        j = len(inter) / len(a | b)
+        if j >= umbral:
+            return True
+        if len(a) >= 4 and len(inter) >= max(4, int(0.8 * len(a))):
+            return True
+        if len(b) >= 4 and len(inter) >= max(4, int(0.8 * len(b))):
+            return True
+        raras = [w for w in inter if len(w) >= 4 and df[w] <= raras_max]
+        return (len(raras) >= 3 and j >= 0.25) or (len(raras) >= 2 and j >= 0.28)
+
+    grupos = []           # [[tokens de cada miembro], [noticias]]
+    for n in noticias:
+        tk = raiz(n.tokens)
         if not tk:
             continue
         mejor = None
         for g in grupos:
-            if jaccard(tk, g[0]) >= umbral or (len(tk) >= 4 and len(tk & g[0]) >= max(4, int(0.8 * len(tk)))):
+            if any(misma_historia(tk, m) for m in g[0]):
                 mejor = g
                 break
         if mejor:
+            mejor[0].append(tk)
             mejor[1].append(n)
         else:
-            grupos.append((tk, [n]))
+            grupos.append(([tk], [n]))
     reps, dups = [], 0
     for _, lista in grupos:
         lista.sort(key=calidad, reverse=True)

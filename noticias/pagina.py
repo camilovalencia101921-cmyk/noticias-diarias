@@ -247,11 +247,20 @@ class Pagina:
         return f'<div class="bloque"><h3 class="bt">Tus medios locales en Instagram</h3><div class="igs">{b}</div></div>'
 
     # ------------------------------------------------------------ pestañas
+    def ids_hoy(self):
+        if getattr(self, "_ids_hoy", None) is None:
+            self._ids_hoy = {n.id for n in self.destacadas_de("hoy")}
+        return self._ids_hoy
+
     def destacadas_de(self, clave):
         el = self.ctx["elegidas"]
         if clave == "hoy":                  # las clave del día (serias) + hasta 3 deportivas
-            lista = [n for n in el if n.seccion in ("nacional", "internacional")
-                     and (self.temas.get(n.tema or "", {}) or {}).get("grupo", "serias") == "serias"]
+            serias = [n for n in el if n.seccion in ("nacional", "internacional")
+                      and (self.temas.get(n.tema or "", {}) or {}).get("grupo", "serias") == "serias"]
+            # Las internacionales de Hoy son solo las más importantes; el resto vive en Mundo (sin repetirse)
+            tope_int = int((self.cfg.get("seleccion", {}) or {}).get("hoy_max_internacional", 3))
+            inter = sorted((n for n in serias if n.seccion == "internacional"), key=lambda n: -n.puntaje)[:tope_int]
+            lista = [n for n in serias if n.seccion != "internacional"] + inter
             dep = sorted((n for n in el if getattr(n, "pestana", "") == "deportes"),
                          key=lambda n: (-getattr(n, "favorito", False), -n.puntaje))
             dep = dep[: int((self.cfg.get("seleccion", {}) or {}).get("hoy_max_deportes", 3))]
@@ -259,7 +268,8 @@ class Pagina:
                 if "deportes" not in n.subs:
                     n.subs = n.subs + ["deportes"]
             return sorted(lista, key=lambda n: (-n.puntaje, -bool(n.imagen))) + dep
-        lista = [n for n in el if getattr(n, "pestana", "") == clave]
+        en_hoy = self.ids_hoy()                  # lo que ya salió en Hoy no se repite en otra pestaña
+        lista = [n for n in el if getattr(n, "pestana", "") == clave and n.id not in en_hoy]
         if clave == "local":
             return sorted(lista, key=lambda n: (ORDEN_LOCAL.index(n.categoria_local) if n.categoria_local in ORDEN_LOCAL else 9, -n.puntaje))
         return sorted(lista, key=lambda n: (-getattr(n, "favorito", False), -n.puntaje, -bool(n.imagen)))
@@ -385,7 +395,8 @@ class Pagina:
         repo = (self.cfg.get("pagina", {}) or {}).get("repositorio", "")
         visibles = [(k, ic, t) for k, ic, t in PESTANAS if self.tiene_contenido(k, archivo)]   # nunca una pestaña vacía
         tabs = "".join(f'<button type="button" class="tab{" on" if i == 0 else ""}" data-tab="{k}" role="tab" '
-                       f'aria-selected="{"true" if i == 0 else "false"}">{ic} {t}<span class="bd" data-bd="{k}"></span></button>'
+                       f'aria-selected="{"true" if i == 0 else "false"}"><span class="ic">{ic}</span><span class="lb">{t}</span>'
+                       f'<span class="bd" data-bd="{k}"></span></button>'
                        for i, (k, ic, t) in enumerate(visibles))
         paneles = "".join(self.panel(k, ic, t, prefijo, archivo, i == 0) for i, (k, ic, t) in enumerate(visibles))
         paneles += self.panel_guardadas()
@@ -432,19 +443,18 @@ class Pagina:
     <button type="button" class="ic-b escudo" id="escudo" title="Filtro de contenido activo" aria-label="Filtro de contenido activo">{ICONO_ESCUDO}</button>
   </div>
 </header>
-<nav class="tabs" role="tablist" aria-label="Pestañas">{tabs}</nav>
-<div class="modo" role="group" aria-label="Modo de lectura">
-  <button type="button" class="md" data-modo="rapido" aria-pressed="false">⚡ Rápido · 2 min</button>
-  <button type="button" class="md on" data-modo="completo" aria-pressed="true">📚 Completo</button>
-</div>
 <main>
 {aviso_archivo}
 {paneles}
 </main>
 <nav class="barra" aria-label="Navegación">
-  <button type="button" data-ir="hoy">{ICONO_INICIO}<span>Inicio</span></button>
-  <button type="button" data-ir="guardado">{ICONO_GUARDAR}<span>Guardadas</span></button>
-  <button type="button" data-ir="ajustes">{ICONO_AJUSTES}<span>Ajustes</span></button>
+  <div class="barra-in">
+    <div class="tabs" role="tablist" aria-label="Secciones">{tabs}</div>
+    <div class="fijos">
+      <button type="button" data-ir="guardado" aria-label="Guardadas">{ICONO_GUARDAR}<span>Guardadas</span></button>
+      <button type="button" data-ir="ajustes" aria-label="Ajustes">{ICONO_AJUSTES}<span>Ajustes</span></button>
+    </div>
+  </div>
 </nav>
 <dialog id="d-menu" aria-label="Opciones de la noticia"><form method="dialog">
   <p class="dm-t" id="dm-t"></p>
@@ -508,11 +518,11 @@ CSS = """
 --act:#E8EDF3;--acttx:#0B0F14;--ok:#4ADE80;--up:#4ADE80;--down:#F87171;--sh:none}}
 *{box-sizing:border-box}
 html{font-size:var(--fs);-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--tx);font:1rem/1.45 var(--sans);overflow-x:hidden;padding-bottom:84px}
+body{margin:0;background:var(--bg);color:var(--tx);font:1rem/1.45 var(--sans);overflow-x:hidden;padding-bottom:96px}
 a{color:inherit}
 button{font:inherit;color:inherit}
 [hidden]{display:none!important}
-.cab,.tabs,.modo,main{max-width:640px;margin:0 auto}
+.cab,main{max-width:640px;margin:0 auto}
 .cab{display:flex;align-items:flex-end;gap:8px;padding:18px 16px 8px}
 .cab-t{flex:1;min-width:0}
 .fecha{margin:0;font-size:.7rem;letter-spacing:.08em;color:var(--mu);font-weight:500}
@@ -521,14 +531,6 @@ button{font:inherit;color:inherit}
 .ic-b{width:44px;height:44px;border:0;border-radius:50%;background:transparent;display:grid;place-items:center;cursor:pointer}
 .ic-b:disabled{opacity:.4;cursor:default}
 .escudo{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
-.tabs{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow-x:auto;padding:8px 16px;background:var(--bg);scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;height:44px;padding:0 16px;border:0;border-radius:999px;background:var(--card);box-shadow:var(--sh);font-weight:500;font-size:.95rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
-.tab.on{background:var(--act);color:var(--acttx)}
-.bd:not(:empty){margin-left:4px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#C2410C;color:#fff;font-size:.7rem;font-weight:700;display:inline-grid;place-items:center}
-.modo{display:flex;gap:6px;padding:4px 16px 0}
-.md{flex:1;min-height:44px;border:1px solid var(--ln);background:transparent;border-radius:12px;font-size:.88rem;cursor:pointer}
-.md.on{background:var(--card);border-color:var(--tx);font-weight:700}
 main{padding:0 16px}
 .ph{margin:14px 0 8px;padding:12px 2px 2px}
 .ph h2{margin:0;font:700 1.35rem/1.2 var(--serif)}
@@ -601,12 +603,23 @@ main{padding:0 16px}
 .aviso{padding:16px;border-radius:16px;background:var(--card);color:var(--mu);font-size:.92rem}
 .aldia{text-align:center;color:var(--mu);font-size:.88rem;margin:18px 0 8px}
 .nota{font-size:.78rem;color:var(--mu);margin:6px 2px}
-body.rapido .vermas,body.rapido .masl,body.rapido .res,body.rapido .bloque{display:none}
-body.rapido #p-hoy .lista>.card:nth-child(n+11){display:none}
-.barra{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--ln)}
-.barra button{flex:1;max-width:200px;min-height:56px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.75rem;font-weight:500;cursor:pointer;border-radius:12px}
-.barra button.on{color:#C2410C}
-@media (prefers-color-scheme:dark){.barra button.on{color:#FB923C}}
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-top:1px solid var(--ln);box-shadow:0 -6px 24px rgba(15,23,32,.07)}
+.barra-in{max-width:640px;margin:0 auto;display:flex;align-items:stretch}
+.tabs{flex:1;min-width:0;display:flex;gap:2px;overflow-x:auto;padding:6px 4px 6px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{position:relative;flex:none;scroll-snap-align:center;min-width:66px;height:58px;padding:0 8px;border:0;border-radius:14px;background:transparent;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:background .18s,color .18s}
+.tab .ic{font-size:1.3rem;line-height:1;filter:grayscale(.55) opacity(.8);transition:filter .18s,transform .18s}
+.tab .lb{font-size:.7rem;font-weight:500;letter-spacing:.01em;white-space:nowrap}
+.tab.on{color:#C2410C;background:color-mix(in srgb,#C2410C 12%,transparent)}
+.tab.on .ic{filter:none;transform:translateY(-1px) scale(1.08)}
+.tab.on .lb{font-weight:700}
+.tab.on::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:#C2410C}
+.bd:not(:empty){position:absolute;top:3px;right:8px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#C2410C;color:#fff;font-size:.62rem;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 2px var(--card)}
+.fijos{flex:none;display:flex;gap:2px;padding:6px 6px 6px 4px;border-left:1px solid var(--ln)}
+.fijos button{width:58px;height:58px;border:0;border-radius:14px;background:transparent;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.7rem;font-weight:500;cursor:pointer}
+.fijos button svg{width:22px;height:22px}
+.fijos button.on{color:#C2410C;background:color-mix(in srgb,#C2410C 12%,transparent)}
+@media (prefers-color-scheme:dark){.barra{box-shadow:0 -6px 24px rgba(0,0,0,.35)}.tab.on,.fijos button.on{color:#FB923C;background:color-mix(in srgb,#FB923C 14%,transparent)}.tab.on::before{background:#FB923C}.bd:not(:empty){background:#EA580C}}
 dialog{border:0;border-radius:20px;padding:0;width:min(92vw,440px);max-height:86vh;background:var(--card);color:var(--tx);box-shadow:0 20px 60px rgba(0,0,0,.3)}
 dialog::backdrop{background:rgba(0,0,0,.45)}
 dialog form{padding:16px;display:flex;flex-direction:column;gap:6px}
@@ -618,17 +631,20 @@ dialog button{min-height:44px;border:1px solid var(--ln);border-radius:12px;back
 .aj{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
 .aj div{display:flex;gap:6px}.aj button{text-align:center;min-width:56px}
 .aj-l{margin:0;padding-left:18px;font-size:.9rem}.aj-l li{margin:4px 0}.aj-l button{min-height:36px;margin-left:6px;padding:0 10px}
-.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
 .toast.on{opacity:1}
 body.en-videos{background:#0B0F14;color:#E8EDF3}
-body.en-videos .cab,body.en-videos .modo{display:none}
-body.en-videos .tabs{background:#0B0F14}
-body.en-videos .tab:not(.on){background:#1A212B;color:#E8EDF3;box-shadow:none}
+body.en-videos .cab{display:none}
+body.en-videos .barra{background:rgba(11,15,20,.94);border-color:#1F2731;box-shadow:none}
+body.en-videos .tab,body.en-videos .fijos button{color:#A3ADBA}
+body.en-videos .tab.on{color:#FB923C}
+body.en-videos .fijos{border-color:#1F2731}
+body.en-videos .bd:not(:empty){box-shadow:0 0 0 2px #0B0F14}
 .videos-p .subs{padding-top:2px}.videos-p .sf{background:#1A212B;color:#E8EDF3;border-color:#2A3340}.videos-p .sf.on{background:#E8EDF3;color:#0B0F14}
 .vtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
 .vcont{margin:0;font-size:.8rem;color:#A3ADBA}
 .vsonido{min-height:40px;border:1px solid #2A3340;border-radius:999px;background:#1A212B;color:#E8EDF3;padding:0 14px;font-size:.85rem;cursor:pointer}
-.vfeed{height:calc(100dvh - 228px);min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:18px;background:#0B0F14;scrollbar-width:none}
+.vfeed{height:calc(100dvh - 190px);min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:18px;background:#0B0F14;scrollbar-width:none}
 .vfeed::-webkit-scrollbar{display:none}
 .vs{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;border-radius:18px;overflow:hidden;margin-bottom:6px}
 .vplayer,.vplayer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -659,16 +675,14 @@ JS = r"""
 var M=JSON.parse(document.getElementById('meta').textContent);
 function ld(k,d){try{var v=localStorage.getItem('nd_'+k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem('nd_'+k,JSON.stringify(v))}catch(e){}}
-var S={leidas:ld('leidas',[]),guardadas:ld('guardadas',{}),ocultas:ld('ocultas',[]),medios:ld('medios',[]),palabras:ld('palabras',[]),letra:ld('letra',1),modo:ld('modo','completo')};
+var S={leidas:ld('leidas',[]),guardadas:ld('guardadas',{}),ocultas:ld('ocultas',[]),medios:ld('medios',[]),palabras:ld('palabras',[]),letra:ld('letra',1)};
 function norm(t){return (t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
 var toastEl=document.getElementById('toast');
 function aviso(m){toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(aviso.t);aviso.t=setTimeout(function(){toastEl.classList.remove('on')},2400)}
 function rel(h){if(!h)return'';var s=Math.max(0,Date.now()/1000-h);return s<3600?Math.max(1,Math.floor(s/60))+' min':s<86400?Math.floor(s/3600)+' h':Math.floor(s/86400)+' d'}
 function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function aplicarLetra(){document.documentElement.style.setProperty('--fs',(16*S.letra).toFixed(1)+'px');document.documentElement.style.setProperty('--k',S.letra)}
-function aplicarModo(){document.body.classList.toggle('rapido',S.modo==='rapido');document.querySelectorAll('.md').forEach(function(b){var on=b.dataset.modo===S.modo;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
-aplicarLetra();aplicarModo();
-document.querySelectorAll('.md').forEach(function(b){b.onclick=function(){S.modo=b.dataset.modo;sv('modo',S.modo);aplicarModo()}});
+aplicarLetra();
 document.querySelectorAll('[data-letra]').forEach(function(b){b.onclick=function(){S.letra=Math.round(Math.min(1.4,Math.max(.85,S.letra+(+b.dataset.letra)*.1))*100)/100;sv('letra',S.letra);aplicarLetra()}});
 function bloqueada(el){var src=norm(el.dataset.src),dom=norm(el.dataset.dom),t=norm(el.dataset.t);
  if(S.ocultas.indexOf(el.dataset.id)>=0)return true;
@@ -686,10 +700,10 @@ function contar(){document.querySelectorAll('.tab').forEach(function(tb){var k=t
 function irA(k,arriba){if(k==='ajustes'){abrirAjustes();return}if(k!=='videos')videosSalir();
  document.querySelectorAll('.tab').forEach(function(b){var on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.tab!==k});
- document.querySelectorAll('.barra button').forEach(function(b){b.classList.toggle('on',b.dataset.ir===k)});
+ document.querySelectorAll('.fijos button').forEach(function(b){b.classList.toggle('on',b.dataset.ir===k)});
  try{history.replaceState(null,'','#'+k)}catch(e){}if(arriba!==false)window.scrollTo(0,0);if(k==='videos')setTimeout(videosEntrar,50)}
 document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){irA(b.dataset.tab)}});
-document.querySelectorAll('.barra button').forEach(function(b){b.onclick=function(){irA(b.dataset.ir)}});
+document.querySelectorAll('.fijos button').forEach(function(b){b.onclick=function(){irA(b.dataset.ir)}});
 var subs={};
 function aplicarSub(){document.querySelectorAll('.panel').forEach(function(p){var s=subs[p.dataset.tab]||'todo';
  p.querySelectorAll('[data-sub]').forEach(function(el){var ok=s==='todo'||(' '+el.dataset.sub+' ').indexOf(' '+s+' ')>=0;el.style.display=ok?'':'none'})})}
