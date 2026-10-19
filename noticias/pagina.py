@@ -188,7 +188,7 @@ class Pagina:
             return ""
         color = (self.cfg.get("cine", {}) or {}).get("color", "#D64550")
         if not pelis:
-            return '<div class="bloque w" data-sub="cine"><h3 class="bt">🎬 Estrenos en Colombia</h3><p class="aviso">Sin estrenos confirmados hoy.</p></div>'
+            return '<div class="bloque w" data-sub="cine"><h3 class="bt">Estrenos en Colombia</h3><p class="aviso">Sin estrenos confirmados hoy.</p></div>'
         filas, grupo = [], None
         for p in pelis:
             g = "Esta semana" if p["semana"] else "Próximos"
@@ -198,7 +198,7 @@ class Pagina:
             f = p["fecha"]
             filas.append(f'<li><span class="hr">{f.day} {MESES[f.month - 1][:3]}</span><span class="tx"><b>{e(p["titulo"])}</b> '
                          f'<span class="chip-t" style="--c:{color}">{e(p["genero"])}</span><br><small>{e(p["sinopsis"])}</small></span></li>')
-        return (f'<div class="bloque w" data-sub="cine" style="--c:{color}"><h3 class="bt">🎬 Estrenos en Colombia</h3>'
+        return (f'<div class="bloque w" data-sub="cine" style="--c:{color}"><h3 class="bt">Estrenos en Colombia</h3>'
                 f'<ul class="lista-s">{"".join(filas)}</ul><p class="nota">Datos: {e(origen)}. Las salas pueden cambiar las fechas.</p></div>')
 
     def alma(self):
@@ -297,7 +297,7 @@ class Pagina:
             if self.ctx["mercados"]:
                 subs.add("economia")
             k = self.ctx["contador"]
-            despues = (f'<p class="nota">🛡️ Filtro de hoy: {k["revisados"]} titulares revisados · {k["sexual"]} descartados por '
+            despues = (f'<p class="nota">Filtro de hoy: {k["revisados"]} titulares revisados · {k["sexual"]} descartados por '
                        f'contenido sexual · {k["sensacionalismo"]} por sensacionalismo · {k["publicidad"]} por publicidad.</p>')
         elif clave == "deportes":
             antes = self.resultados() + self.tablas()
@@ -328,29 +328,36 @@ class Pagina:
         return bool(ids or n_mas or cuerpo or (antes and clave in ("fe", "deportes")) or (despues and clave == "ocio"))
 
     def panel(self, clave, icono, nombre, prefijo, archivo, primera):
-        antes, cuerpo, despues, _, subs_ok = self.contenido(clave, prefijo)
-        subs = [(k, ic, t) for k, ic, t in SUBFILTROS.get(clave, []) if k == "todo" or k in subs_ok]
-        chips = "".join(f'<button type="button" class="sf{" on" if k == "todo" else ""}" data-sf="{k}" '
-                        f'aria-pressed="{"true" if k == "todo" else "false"}">{ic} {t}</button>' for k, ic, t in subs)
+        antes, cuerpo, despues, _, _ = self.contenido(clave, prefijo)
         fondo = FONDOS.get(clave)
         estilo = f' style="background:{fondo}"' if fondo else ""
         cab = (f'<div class="ph{" grad" if fondo else ""}"{estilo}>'
-               f'<h2>{icono} {nombre}</h2><p class="nuevas" data-nuevas></p></div>')
+               f'<h2>{nombre}</h2><p class="nuevas" data-nuevas></p></div>')
         n_mas = len(self.ctx["ver_mas"].get(clave, []))
         vermas = ""
         if n_mas and not archivo:
             vermas = (f'<button type="button" class="vermas" data-tab="{clave}">Ver {n_mas} noticias más</button>'
                       f'<div class="masl" id="mas-{clave}"></div>')
-        filtros = f'<div class="subs">{chips}</div>' if len(subs) > 1 else ""
         oculto = "" if primera else " hidden"
         if clave == "videos":
-            return (f'<section class="panel videos-p" id="p-{clave}" data-tab="{clave}"{oculto}>{filtros}{cuerpo}</section>')
-        return (f'<section class="panel" id="p-{clave}" data-tab="{clave}"{oculto}>{cab}{filtros}{antes}'
+            return (f'<section class="panel videos-p" id="p-{clave}" data-tab="{clave}"{oculto}>{cuerpo}</section>')
+        return (f'<section class="panel" id="p-{clave}" data-tab="{clave}"{oculto}>{cab}{antes}'
                 f'<div class="lista">{cuerpo}</div>{despues}{vermas}'
                 f'<p class="aldia">Estás al día en {nombre}</p></section>')
 
+    def chips(self, clave, activa):
+        """Sub-filtros de una pestaña para la barra inferior. Solo texto: los iconos ya están en las pestañas."""
+        subs_ok = self.contenido(clave, "")[4]
+        subs = [(k, t) for k, _ic, t in SUBFILTROS.get(clave, [])
+                if k == "todo" or (k in subs_ok and not (clave == "hoy" and k == "deportes"))]   # Deportes ya es pestaña
+        if len(subs) <= 1:
+            return ""
+        botones = "".join(f'<button type="button" class="sf{" on" if k == "todo" else ""}" data-sf="{k}" '
+                          f'aria-pressed="{"true" if k == "todo" else "false"}">{t}</button>' for k, t in subs)
+        return f'<div class="subs" data-for="{clave}"{"" if activa else " hidden"}>{botones}</div>'
+
     def panel_guardadas(self):
-        return ('<section class="panel" id="p-guardado" data-tab="guardado" hidden><div class="ph"><h2>🔖 Guardadas</h2>'
+        return ('<section class="panel" id="p-guardado" data-tab="guardado" hidden><div class="ph"><h2>Guardadas</h2>'
                 '<p class="nuevas" data-nuevas></p></div><div class="lista" id="lista-guardadas"></div>'
                 '<p class="aldia">Estás al día en Guardadas</p></section>')
 
@@ -400,6 +407,8 @@ class Pagina:
                        for i, (k, ic, t) in enumerate(visibles))
         paneles = "".join(self.panel(k, ic, t, prefijo, archivo, i == 0) for i, (k, ic, t) in enumerate(visibles))
         paneles += self.panel_guardadas()
+        grupos = "".join(self.chips(k, i == 0) for i, (k, ic, t) in enumerate(visibles))
+        sub_oculta = "" if (visibles and self.chips(visibles[0][0], True)) else " hidden"
         meta = {"ids": {} if archivo else {k: [n.id for n in v] for k, v in c["ver_mas"].items()},
                 "dest": {k: self.contenido(k, prefijo)[3] for k, _, _ in visibles},
                 "mas": "" if archivo else f"{prefijo}mas.json"}
@@ -439,7 +448,8 @@ class Pagina:
 <header class="cab">
   <div class="cab-t"><p class="fecha">{e(c["fecha_larga"]).upper()} · ACTUALIZADO {e(c["hora"])}</p><h1>{e(titulo)}</h1></div>
   <div class="cab-b">
-    <button type="button" class="ic-b" disabled aria-disabled="true" title="Buscar (llega en la Fase 2)" aria-label="Buscar (próximamente)">{ICONO_BUSCAR}</button>
+    <button type="button" class="ic-b" data-ir="guardado" title="Guardadas" aria-label="Guardadas">{ICONO_GUARDAR}</button>
+    <button type="button" class="ic-b" data-ir="ajustes" title="Ajustes" aria-label="Ajustes">{ICONO_AJUSTES}</button>
     <button type="button" class="ic-b escudo" id="escudo" title="Filtro de contenido activo" aria-label="Filtro de contenido activo">{ICONO_ESCUDO}</button>
   </div>
 </header>
@@ -448,12 +458,9 @@ class Pagina:
 {paneles}
 </main>
 <nav class="barra" aria-label="Navegación">
+  <div class="subbar" id="subbar"{sub_oculta}>{grupos}</div>
   <div class="barra-in">
     <div class="tabs" role="tablist" aria-label="Secciones">{tabs}</div>
-    <div class="fijos">
-      <button type="button" data-ir="guardado" aria-label="Guardadas">{ICONO_GUARDAR}<span>Guardadas</span></button>
-      <button type="button" data-ir="ajustes" aria-label="Ajustes">{ICONO_AJUSTES}<span>Ajustes</span></button>
-    </div>
   </div>
 </nav>
 <dialog id="d-menu" aria-label="Opciones de la noticia"><form method="dialog">
@@ -518,7 +525,7 @@ CSS = """
 --act:#E8EDF3;--acttx:#0B0F14;--ok:#4ADE80;--up:#4ADE80;--down:#F87171;--sh:none}}
 *{box-sizing:border-box}
 html{font-size:var(--fs);-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--tx);font:1rem/1.45 var(--sans);overflow-x:hidden;padding-bottom:96px}
+body{margin:0;background:var(--bg);color:var(--tx);font:1rem/1.45 var(--sans);overflow-x:hidden;padding-bottom:150px}
 a{color:inherit}
 button{font:inherit;color:inherit}
 [hidden]{display:none!important}
@@ -527,9 +534,9 @@ button{font:inherit;color:inherit}
 .cab-t{flex:1;min-width:0}
 .fecha{margin:0;font-size:.7rem;letter-spacing:.08em;color:var(--mu);font-weight:500}
 .cab h1{margin:2px 0 0;font:700 1.75rem/1.1 var(--serif);letter-spacing:-.01em}
-.cab-b{display:flex;gap:4px}
-.ic-b{width:44px;height:44px;border:0;border-radius:50%;background:transparent;display:grid;place-items:center;cursor:pointer}
-.ic-b:disabled{opacity:.4;cursor:default}
+.cab-b{display:flex;gap:2px}
+.ic-b{width:42px;height:42px;border:0;border-radius:50%;background:transparent;display:grid;place-items:center;cursor:pointer}
+.ic-b.on{background:color-mix(in srgb,#C2410C 14%,transparent);color:#C2410C}
 .escudo{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
 main{padding:0 16px}
 .ph{margin:14px 0 8px;padding:12px 2px 2px}
@@ -537,10 +544,11 @@ main{padding:0 16px}
 .ph.grad{padding:16px 16px 14px;border-radius:18px;color:#fff}
 .nuevas{margin:2px 0 0;font-size:.82rem;color:var(--mu)}
 .ph.grad .nuevas{color:rgba(255,255,255,.9)}
-.subs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.subbar{max-width:640px;margin:0 auto;padding:8px 10px 0}
+.subs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:1px 2px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
 .subs::-webkit-scrollbar{display:none}
-.sf{flex:none;min-height:44px;padding:0 14px;border:1px solid var(--ln);border-radius:999px;background:var(--card);font-size:.88rem;cursor:pointer;white-space:nowrap}
-.sf.on{background:var(--act);color:var(--acttx);border-color:var(--act)}
+.sf{flex:none;min-height:38px;padding:0 15px;border:1px solid var(--ln);border-radius:999px;background:var(--bg);color:var(--mu);font-size:.84rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.sf.on{background:var(--act);color:var(--acttx);border-color:var(--act);font-weight:700}
 .card{position:relative;background:var(--card);border-radius:18px;box-shadow:var(--sh);margin-bottom:10px}
 .grande{overflow:hidden}
 .th16{position:relative;aspect-ratio:16/9;background:var(--chip)}
@@ -605,7 +613,7 @@ main{padding:0 16px}
 .nota{font-size:.78rem;color:var(--mu);margin:6px 2px}
 .barra{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-top:1px solid var(--ln);box-shadow:0 -6px 24px rgba(15,23,32,.07)}
 .barra-in{max-width:640px;margin:0 auto;display:flex;align-items:stretch}
-.tabs{flex:1;min-width:0;display:flex;gap:2px;overflow-x:auto;padding:6px 4px 6px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}
+.tabs{flex:1;min-width:0;display:flex;gap:2px;overflow-x:auto;padding:6px 4px 6px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{position:relative;flex:none;scroll-snap-align:center;min-width:66px;height:58px;padding:0 8px;border:0;border-radius:14px;background:transparent;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:background .18s,color .18s}
 .tab .ic{font-size:1.3rem;line-height:1;filter:grayscale(.55) opacity(.8);transition:filter .18s,transform .18s}
@@ -615,11 +623,7 @@ main{padding:0 16px}
 .tab.on .lb{font-weight:700}
 .tab.on::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:#C2410C}
 .bd:not(:empty){position:absolute;top:3px;right:8px;min-width:17px;height:17px;padding:0 5px;border-radius:999px;background:#C2410C;color:#fff;font-size:.62rem;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 2px var(--card)}
-.fijos{flex:none;display:flex;gap:2px;padding:6px 6px 6px 4px;border-left:1px solid var(--ln)}
-.fijos button{width:58px;height:58px;border:0;border-radius:14px;background:transparent;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.7rem;font-weight:500;cursor:pointer}
-.fijos button svg{width:22px;height:22px}
-.fijos button.on{color:#C2410C;background:color-mix(in srgb,#C2410C 12%,transparent)}
-@media (prefers-color-scheme:dark){.barra{box-shadow:0 -6px 24px rgba(0,0,0,.35)}.tab.on,.fijos button.on{color:#FB923C;background:color-mix(in srgb,#FB923C 14%,transparent)}.tab.on::before{background:#FB923C}.bd:not(:empty){background:#EA580C}}
+@media (prefers-color-scheme:dark){.barra{box-shadow:0 -6px 24px rgba(0,0,0,.35)}.tab.on{color:#FB923C;background:color-mix(in srgb,#FB923C 14%,transparent)}.tab.on::before{background:#FB923C}.bd:not(:empty){background:#EA580C}}
 dialog{border:0;border-radius:20px;padding:0;width:min(92vw,440px);max-height:86vh;background:var(--card);color:var(--tx);box-shadow:0 20px 60px rgba(0,0,0,.3)}
 dialog::backdrop{background:rgba(0,0,0,.45)}
 dialog form{padding:16px;display:flex;flex-direction:column;gap:6px}
@@ -631,20 +635,20 @@ dialog button{min-height:44px;border:1px solid var(--ln);border-radius:12px;back
 .aj{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
 .aj div{display:flex;gap:6px}.aj button{text-align:center;min-width:56px}
 .aj-l{margin:0;padding-left:18px;font-size:.9rem}.aj-l li{margin:4px 0}.aj-l button{min-height:36px;margin-left:6px;padding:0 10px}
-.toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.toast{position:fixed;left:50%;bottom:150px;transform:translateX(-50%);max-width:90vw;background:#0F1720;color:#fff;padding:10px 16px;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
 .toast.on{opacity:1}
 body.en-videos{background:#0B0F14;color:#E8EDF3}
 body.en-videos .cab{display:none}
 body.en-videos .barra{background:rgba(11,15,20,.94);border-color:#1F2731;box-shadow:none}
-body.en-videos .tab,body.en-videos .fijos button{color:#A3ADBA}
+body.en-videos .tab{color:#A3ADBA}
+body.en-videos .sf{background:#1A212B;color:#C5CCD6;border-color:#2A3340}
+body.en-videos .sf.on{background:#E8EDF3;color:#0B0F14}
 body.en-videos .tab.on{color:#FB923C}
-body.en-videos .fijos{border-color:#1F2731}
 body.en-videos .bd:not(:empty){box-shadow:0 0 0 2px #0B0F14}
-.videos-p .subs{padding-top:2px}.videos-p .sf{background:#1A212B;color:#E8EDF3;border-color:#2A3340}.videos-p .sf.on{background:#E8EDF3;color:#0B0F14}
 .vtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
 .vcont{margin:0;font-size:.8rem;color:#A3ADBA}
 .vsonido{min-height:40px;border:1px solid #2A3340;border-radius:999px;background:#1A212B;color:#E8EDF3;padding:0 14px;font-size:.85rem;cursor:pointer}
-.vfeed{height:calc(100dvh - 190px);min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:18px;background:#0B0F14;scrollbar-width:none}
+.vfeed{height:calc(100dvh - 232px);min-height:420px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;border-radius:18px;background:#0B0F14;scrollbar-width:none}
 .vfeed::-webkit-scrollbar{display:none}
 .vs{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;background:#000;border-radius:18px;overflow:hidden;margin-bottom:6px}
 .vplayer,.vplayer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -700,16 +704,17 @@ function contar(){document.querySelectorAll('.tab').forEach(function(tb){var k=t
 function irA(k,arriba){if(k==='ajustes'){abrirAjustes();return}if(k!=='videos')videosSalir();
  document.querySelectorAll('.tab').forEach(function(b){var on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.tab!==k});
- document.querySelectorAll('.fijos button').forEach(function(b){b.classList.toggle('on',b.dataset.ir===k)});
+ document.querySelectorAll('.cab [data-ir]').forEach(function(b){b.classList.toggle('on',b.dataset.ir===k)});
+ var hay=false;document.querySelectorAll('.subs').forEach(function(g){var on=g.dataset.for===k;g.hidden=!on;if(on)hay=true});var sb=document.getElementById('subbar');if(sb)sb.hidden=!hay;
  try{history.replaceState(null,'','#'+k)}catch(e){}if(arriba!==false)window.scrollTo(0,0);if(k==='videos')setTimeout(videosEntrar,50)}
 document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){irA(b.dataset.tab)}});
-document.querySelectorAll('.fijos button').forEach(function(b){b.onclick=function(){irA(b.dataset.ir)}});
+document.querySelectorAll('.cab [data-ir]').forEach(function(b){b.onclick=function(){irA(b.dataset.ir)}});
 var subs={};
 function aplicarSub(){document.querySelectorAll('.panel').forEach(function(p){var s=subs[p.dataset.tab]||'todo';
  p.querySelectorAll('[data-sub]').forEach(function(el){var ok=s==='todo'||(' '+el.dataset.sub+' ').indexOf(' '+s+' ')>=0;el.style.display=ok?'':'none'})})}
-document.querySelectorAll('.sf').forEach(function(b){b.onclick=function(){var p=b.closest('.panel');subs[p.dataset.tab]=b.dataset.sf;
- p.querySelectorAll('.sf').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});aplicarSub();
- if(p.dataset.tab==='videos'){var f=document.getElementById('vfeed');f.scrollTop=0;var l=vSlides();if(l[0])vActivar(l[0])}}});
+document.querySelectorAll('.sf').forEach(function(b){b.onclick=function(){var g=b.closest('.subs'),k=g.dataset.for;subs[k]=b.dataset.sf;
+ g.querySelectorAll('.sf').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});aplicarSub();
+ if(k==='videos'){var f=document.getElementById('vfeed');f.scrollTop=0;var l=vSlides();if(l[0])vActivar(l[0])}}});
 document.addEventListener('click',function(ev){var a=ev.target.closest('a.lk');if(!a)return;var it=a.closest('.it');
  if(it&&S.leidas.indexOf(it.dataset.id)<0){S.leidas.push(it.dataset.id);if(S.leidas.length>3000)S.leidas=S.leidas.slice(-3000);sv('leidas',S.leidas);setTimeout(refrescar,300)}});
 var dm=document.getElementById('d-menu'),sel=null;
