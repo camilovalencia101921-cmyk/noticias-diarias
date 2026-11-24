@@ -1,254 +1,257 @@
 # Registro 2026-11-23
 
-Inicio 2026-11-23 17:16 (America/Bogota)
-Fuentes: 140 · con errores: 6 · titulares: 6212
-Recientes: 4643 (más viejas de 36 h: 1569)
-Noticias tras filtros: 2302 (de medios aprobados: 1461)
+Inicio 2026-11-23 21:56 (America/Bogota)
+Fuentes: 140 · con errores: 5 · titulares: 6177
+Recientes: 4618 (más viejas de 36 h: 1559)
+Noticias tras filtros: 2324 (de medios aprobados: 1528)
 Videos: 40 candidatos de 35 canales (0 canales sin respuesta)
-Gemini gemini-3.5-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
-Modelos Flash disponibles: gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-3.5-flash, gemini-2.5-flash, gemini-omni-1.2-flash, gemini-omni-1.1-flash, gemini-3-flash-preview
-Gemini gemini-3.8-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
-Gemini gemini-3.7-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
-Gemini gemini-3.6-flash: sin respuesta útil (HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.)
-Gemini gemini-2.5-flash: modelo no disponible (HTTP 404)
-Gemini no disponible (ningún modelo Flash respondió (gemini-3.5-flash, gemini-3.8-flash, gemini-3.7-flash, gemini-3.6-flash, gemini-2.5-flash)); se usa el modo de respaldo
-Ver más: hoy 40, mundo 40, local 40, deportes 40, historia 12, ocio 38, ia 24, fe 12
-Para el alma: 3 temas (sufismo, budismo, meditacion)
+Gemini lote 1 OK (modelo gemini-3.5-flash)
+Ver más: hoy 40, mundo 40, deportes 40, local 40, ocio 38, historia 12, ia 24, fe 12
+Para el alma: se reutilizan los temas de hoy (sin llamar a Gemini)
 Cine: 41 películas leídas de Cinemark Colombia
-Página: 278 KB (+ 224 KB de 'Ver más') · 42 destacadas + 246 en 'Ver más' · modo respaldo (sin IA) · llamadas a Gemini: 10
+Página: 238 KB (+ 250 KB de 'Ver más') · 31 destacadas + 246 en 'Ver más' · modo IA · llamadas a Gemini: 2
 
 ## Fuentes con problemas
-- Banco de la República: ReadTimeout: HTTPSConnectionPool(host='banrep.gov.co', port=443): Read timed out. (read timeo
 - ESPN NBA: HTTP 202
 - ESPN WNBA: HTTP 202
+- El Nuevo Siglo: ConnectTimeout: HTTPSConnectionPool(host='elnuevosiglo.com.co', port=443): Max retries exceeded 
 - GDACS Alertas: sin titulares
-- Razón Pública: HTTP 202
 - The Guardian: HTTP 403
 
 ## Descartadas (nacional, internacional y ocio)
-### baja_importancia (2732)
-- ABC España | La UE y Mauritania llegan a un acuerdo para renovar el protocolo de pesca | prefiltro 7/10
+### baja_importancia (1897)
+- La Opinión | Expulsan a 83 extranjeros de Colombia: 80 fueron trasladados a la frontera en Norte de Santander | prefiltro 7/10
+- La Opinión | Reportan restablecimiento del servicio de energía en varios sectores de Cúcuta y el área metropolitana tras ap | prefiltro 7/10
 - Mundo Deportivo | Un catalán de 22 años ha sido detenido por el ICE y la familia no sabe cuando podrá volver | prefiltro 7/10
 - Mundo Deportivo | El Barça presenta este martes ante Competición alegaciones por la roja a Fermín | prefiltro 7/10
 - La Nación Argentina | Habló el hijo de Mario Santucho y defendió el homenaje a su padre en la UBA | prefiltro 7/10
 - La Nación Argentina | El actor de Forrest Gump que construyó más de 100 casas inteligentes para veteranos de guerra sin hogar o heri | prefiltro 7/10
-- Mundo Deportivo | Pedri y Eric ya replicaron a Comesaña: "¡Pero si Moleiro debió ser expulsado!" | prefiltro 7/10
-- Mundo Deportivo | Cambio de última hora por Alcaraz en España para la Copa Davis | prefiltro 7/10
+- Mundo Deportivo | Una leona en fuga causa inquietud antes del Galatasaray-Aston Villa | prefiltro 7/10
 - Mundo Deportivo | Sergiño Dest habla de su pasado en el Barça horas antes de medirse al Real Madrid | prefiltro 7/10
-- Mundo Deportivo | Simeone, 345 victorias y una colección de partidos para la historia | prefiltro 7/10
-- Live Science | Hoxne 'Empress' pepper pot: A 1,600-year-old silver and gold pepper shaker that a UK farmer unearthed while lo | prefiltro 7/10
 - Muy Interesante | Un arqueólogo cree haber localizado el campamento de la legión romana que destruyó Jerusalén hace casi 2.000 a | prefiltro 7/10
 - Religión Digital | Malos perdedores en Añastro: basta de injerencias en las elecciones y en la vida pública del país, limítense a | prefiltro 7/10
-- Espinof | El nuevo fenómeno de Prime Video es un culebrón universitario lleno de clichés, dramas y gente guapísima toman | prefiltro 7/10
-- Punto de Break | Zverev, el número 1 del mundo que no gana a los mejores | prefiltro 7/10
+- Espinof | 'Dragon Ball Daima' sufre una nueva censura. Los cambios en el anime no solo afectan a España, pero sí es dond | prefiltro 7/10
 - La Opinión Cúcuta | De la Espriella anunció bombardeo contra disidencias de las Farc y reportó 22 capturas en operación internacio | prefiltro 7/10
+- Perú 21 | Terror en Colombia: Ataque con drones deja un bebé herido y al menos 60 viviendas dañadas | prefiltro 7/10
+- Facebook | Terremoto de magnitud 6,5 sacudió Vanuatu: no hay reportes de daños ni alerta de tsunami. 🔗 Encuentre el link  | prefiltro 7/10
 - Blu Radio | El 87% de los damnificados por el terremoto quiere permanecer en su municipio, revela encuesta | prefiltro 7/10
+- Infobae | Se registra sismo de 4.1 de magnitud | prefiltro 7/10
+- El Tiempo | Temblor hoy en Colombia: reportan nuevo sismo de magnitud 2,9 en Antioquia durante la noche de este domingo 22 | prefiltro 7/10
 - Caracol Radio | Licorera del Valle entrega $500 millones al HUV para recuperar equipos afectados por el terremoto | prefiltro 7/10
-- Infobae | El volcán Kilauea de Hawái entra en erupción con fuentes de lava de 200 metros de altura | prefiltro 7/10
-- Negocios.com | Terremoto de 6,5 impacta el Pacífico cerca de Vanuatu: alerta y emergencia activas | prefiltro 7/10
-- Diario Las Américas | Florida bajo el agua: cerca de 450 rescates por inundaciones, 21 condados siguen en emergencia | prefiltro 7/10
+- Noticias Ambientales | Inundaciones en el Litoral: el papel crucial de la logística en emergencias climáticas con buques, anfibios y  | prefiltro 7/10
 - Howl.Link | Guerra entre Rusia y Ucrania se extiende a África tras ataques a buques rusos | prefiltro 7/10
+- El Mundo | Guerras interconectadas y costes al alza: la guerra de Ucrania agita el Mediterráneo | prefiltro 7/10
 - Euronews.com | El Mediterráneo, nuevo escenario de la guerra entre Rusia y Ucrania | prefiltro 7/10
-- AlMomento.net | Se intensifica guerra Rusia y Ucrania pese a los esfuerzos | prefiltro 7/10
-- DiarioBitcoin | Justicia de EE. UU. busca decomisar USD $1.000 millones en USDC vinculados al hackeo de Binance | prefiltro 7/10
-- Vilas Radio | CORTE SUPREMA RECHAZA RECURSO DE NULIDAD Y MANTIENE CONDENA DE TRES AÑOS Y UN DÍA POR RECEPTACIÓN ADUANERA CER | prefiltro 7/10
-- Caracol Radio | Cuartos de final de la Liga MX: conozca los colombianos que van por el título del Apertura 2026 | prefiltro 7/10
-- El Tiempo | Final de la Sudamericana dejó 60 millones de dólares en Barranquilla: cada visitante gastó en promedio $5,3 mi | prefiltro 7/10
-- Marketing Registrado | Scaloni hizo podio en una carrera de ciclismo y clasificó al Mundial 2027 | prefiltro 7/10
+- ABC | Wadephul a Putin sobre Ucrania: "Pare esta guerra y traiga la paz a Europa" | prefiltro 7/10
+- El Mundo | La guerra de Ucrania se extiende aún más por el Mediterráneo | prefiltro 7/10
+- Criptotendencias | Hackeo de Binance: EE.UU. busca recuperar 1.100 millones de dólares en cripto robados por hackers norcoreanos | prefiltro 7/10
+- Radio Nacional de Colombia | Final de la Sudamericana 2026 dejó un impacto estimado de US$60 millones en Barranquilla, según Alejandro Char | prefiltro 7/10
+- Meridiano70 | Boca Juniors es campeón Copa Sudamericana 2026 tras vencer al Atlético Mineiro en Barranquilla | prefiltro 7/10
+- Montevideo Portal | Del fútbol al ciclismo: Lionel Scaloni se subió al podio y clasificó a otro Mundial | prefiltro 7/10
 - La Voz de Galicia | El Ayuntamiento de A Coruña inicia nuevos trabajos de excavación arqueológica en la Casa da Sinagoga | prefiltro 7/10
+- BBC Mundo | "El presidente (De la Espriella) está totalmente equivocado si cree que esta paz es falsa": Santos y Londoño h | prefiltro 6/10
 - Espinof | 'Solo en casa' prepara su regreso con Macaulay Culkin y dos grandes nombres de la comedia de Hollywood | prefiltro 6/10
-- France 24 | Myanmar: ¿por qué la Junta bombardea civiles en Rakhine? | prefiltro 6/10
+- DW Español | El Kremlin advierte contra una escalada en el Báltico tras ataque ucraniano a carguero ruso | prefiltro 6/10
+- France 24 | Jensen Huang vuelve a Nvidia y las acciones de la compañía vuelven a crecer | prefiltro 6/10
+- France 24 | Informe desde Guayaquil: alias 'Negro Willy' fue detenido y expulsado de España | prefiltro 6/10
 - El País Internacional | Medios independientes rusos estiman que el Kremlin ha perdido más de 700.000 militares en su ofensiva sobre Uc | prefiltro 6/10
 - El País Internacional | Qué sigue para el futuro político de Cuba: ¿ataque de Trump antes de fin de año o giro demócrata? | prefiltro 6/10
-- El País Internacional | Bruselas quiere prohibir a los atletas que compitan en la UE con bandera rusa para evitar la “propaganda” | prefiltro 6/10
 - El País Internacional | Netanyahu negocia con Eisenkot seguir en el poder mientras calienta frentes bélicos | prefiltro 6/10
-- El País América | Debate electoral 29-N a ocho, en directo | El PSOE defiende sus medidas sociales mientras PP, Vox y Junts carg | prefiltro 6/10
 - El País América | Cúcuta se convierte en la primera capital departamental de Colombia atacada con drones | prefiltro 6/10
+- El País América | Plus Ultra cesa su actividad y obliga a la SEPI a decidir entre sostener a la aerolínea o dejarla quebrar | prefiltro 6/10
 - El País América | Abhijit Banerjee, premio Nobel de Economía: “Cuando las personas reciben una transferencia de efectivo, trabaj | prefiltro 6/10
-- El País América | Bruselas investiga a la principal embotelladora de Coca-Cola por una posible conducta anticompetitiva | prefiltro 6/10
 - El País Economía | El Gobierno ampliará este martes el permiso de duelo por fallecimiento a 10 días | prefiltro 6/10
-- El País Economía | El Gobierno aprobará la limitación de los intereses del crédito al consumo en un paquete de medidas que afecta | prefiltro 6/10
-- El País Economía | CC OO y UGT llaman a votar a la izquierda: “Lo mejor para España es reeditar el Gobierno de coalición progresi | prefiltro 6/10
 - El País Economía | La inflación se come las subidas salariales y harta a los trabajadores | prefiltro 6/10
 - El País Economía | Las grandes grupos textiles rebajan el optimismo y temen un menor gasto en invierno por la inflación | prefiltro 6/10
 - El País Economía | Las sanciones internacionales enfangan la aprobación del euro digital y revelan los límites de la soberanía eu | prefiltro 6/10
-- El País Economía | Cómo empezar a invertir en ETF desde el móvil de forma sencilla | prefiltro 6/10
 - Europa Press | Rutte reitera que no hay consenso para la adhesión de Ucrania mientras Zelenski pide que aclare las garantías | prefiltro 6/10
-- Expansión Mercados | Qué sucede cuando las burbujas estallan | prefiltro 6/10
-- Expansión Mercados | El BCE prepara tipos restrictivos para frenar la inflación indirecta | prefiltro 6/10
+- Europa Press | Herzog denuncia que ataques de colonos en Cisjordania van contra la historia de Israel y "contra Dios mismo" | prefiltro 6/10
+- Europa Press | Las autoridades de Gaza denuncian la muerte de un niño a causa de "envenenamiento por plomo" en la Franja | prefiltro 6/10
+- Expansión Mercados | Las cuatro estrategias clave para apostar por Anthropic | prefiltro 6/10
+- Expansión Mercados | Nvidia vuela un 31,5% tras la restitución del CE0 | prefiltro 6/10
 - Bloomberg Línea | Wall Street se dispara y Nvidia impulsa un rally que no se veía desde abril de 2025 | prefiltro 6/10
 - Bloomberg Línea | ‘Avengers: Doomsday’ habría costado US$700 millones y tendría que recaudar al menos US$1.500 millones para no  | prefiltro 6/10
 - OilPrice | 5 Energy Stocks That Can Shrug Off a December Fed Rate Hike | prefiltro 6/10
-- OilPrice | Washington's Iran Strategy Risks Strengthening Its Biggest Rivals | prefiltro 6/10
 - OilPrice | Pakistan and Iran Move to Boost Energy Cooperation | prefiltro 6/10
-- OilPrice | Ukrainian Naval Drones Sink Russian Warship in Libya | prefiltro 6/10
-- OilPrice | Brent Drops Below $90 as Wall Street Splits on 2027 Oil Outlook | prefiltro 6/10
+- OilPrice | Washington's Iran Strategy Risks Strengthening Its Biggest Rivals | prefiltro 6/10
 - Xataka | "Nunca voté, pero veo que es necesario": las colas en los consulados españoles dejan el primer termómetro del  | prefiltro 6/10
 - Xataka | Jensen Huang tenía un as escondido en la Casa Blanca: su apoyo ha sido clave para su vuelta al frente de Nvidi | prefiltro 6/10
 - Xataka | El regreso de Jensen Huang es una victoria para los accionistas, aunque también abre un precedente peligroso | prefiltro 6/10
 - Xataka | El iPad Air se apunta a las ofertas del Black Friday con uno de sus mejores descuentos hasta la fecha | prefiltro 6/10
 - The Verge IA | White House brags that Trump was ‘totally involved’ in getting Jensen reinstated | prefiltro 6/10
+- The Verge IA | Tech leaders are celebrating Jensen Huang’s return | prefiltro 6/10
 - El Tiempo Justicia | Duro llamado de abogado de familia Graham a la Fiscalía por frenar imputación a Zulma Guzmán en caso de niñas  | prefiltro 6/10
-- El Tiempo Justicia | Corte Constitucional alerta que medicamentos disponibles no están llegando a los pacientes: hizo una solicitud | prefiltro 6/10
-- El Tiempo Economía | ¿Cómo podrían afectar el bolsillo la reforma tributaria y el ajuste fiscal? | Participa en la charla con suscr | prefiltro 6/10
-- El Tiempo Deportes | Mayra Ramírez continúa sin fecha de regreso al Chelsea y su DT explicó cómo avanza su recuperación | prefiltro 6/10
-- El Tiempo Deportes | Programación de la Champions League esta semana, con cinco colombianos: partidos, horarios y canales de TV de  | prefiltro 6/10
-- El Espectador | Atacan con explosivos minigranjas solares en Nariño | prefiltro 6/10
-- Infobae Colombia | Escándalo por actuación de tenista colombiano: Daniel Salazar fue suspendido 18 meses por participar en “apues | prefiltro 6/10
-- El Nuevo Siglo | Gobierno entrega 28 filtros de agua a comunidades Wayúu en La Guajira | prefiltro 6/10
-- Semana | La condena contra la Policía y el Esmad por estudiante agredido en medio de protesta en el Paro Nacional del 2 | prefiltro 6/10
-- Semana | Álvaro Uribe propone eliminar impuesto al patrimonio y reducir el de dividendos: sus apuestas para la Ley de R | prefiltro 6/10
+- El Tiempo Política | Partido Comunes, una apuesta política que no logró consolidarse: historia y ocaso en diez años tras la firma d | prefiltro 6/10
+- Win Sports | Boca Juniors de Cali estuvo cerca del gol ante Quindío | prefiltro 6/10
+- El Tiempo Deportes | Jorge Bava presentó su proyecto en Junior y lanzó un ambicioso objetivo para la Copa Libertadores | prefiltro 6/10
+- El Espectador | El peaje de 100 años: el debate detrás de la reforma a las APP en Colombia | prefiltro 6/10
+- El Espectador | Drones, mensajes de texto y distracciones: cómo México capturó a uno de los más buscados | prefiltro 6/10
+- Valora Analitik | Aerocivil anuncia estudio en Valle del Cauca para producir combustible de aviación sostenible en Colombia | prefiltro 6/10
+- Semana | Esta es la millonaria suma que recolectaban en extorsiones tres integrantes del ELN capturados | prefiltro 6/10
+- Semana | Pagos por terremoto se aceleran, pero aún hay una amplia brecha frente a las reclamaciones | prefiltro 6/10
+- Win Sports | Millonarios confirmó el parte médico de Cuadrado | prefiltro 6/10
+- Semana | Fallo del TAS sobre el campeón de la Copa África: ¿Senegal o Marruecos?, en horas se sabrá | prefiltro 6/10
+- Semana | Fuertes lluvias en Bogotá afectan los servicios de TransMilenio: Este es el panorama | prefiltro 6/10
+- Infobae Colombia | Dallas Mavericks vs. Denver Nuggets: hora y canal de televisión para ver en Colombia el duelo de la NBA | prefiltro 6/10
+- Infobae Colombia | Fumigaciones aéreas en Colombia abren una disputa en el Congreso de Estados Unidos: por qué los demócratas pid | prefiltro 6/10
+- La Silla Vacía | La foto: gobierno se reúne con el Conservador y Cambio por la tributaria | prefiltro 6/10
+- Infobae Colombia | Tomás Uribe lanzó duro ataque contra Carlos Suárez, estratega de Abelardo de la Espriella: “Manda más que el m | prefiltro 6/10
 - Infobae Colombia | Álvaro Uribe presentó su alternativa a la Ley de Rescate Fiscal del Gobierno De la Espriella: menos impuestos, | prefiltro 6/10
 - Infobae Colombia | La selección Colombia Femenina llegó a Australia para cerrar su 2026 con dos partidos amistosos: Linda Caicedo | prefiltro 6/10
-- Infobae Colombia | Precio de la gasolina en Colombia podría superar los $21.000 por galón por propuestas en la reforma tributaria | prefiltro 6/10
 - Infobae Colombia | Juliana Guerrero denunció riesgos para su seguridad por difusión de imágenes en un concierto: “¿Desde cuándo e | prefiltro 6/10
-- Infobae Colombia | América vs. Deportivo Cali: hora y canal de TV para ver EN VIVO el clásico vallecaucano por los cuadrangulares | prefiltro 6/10
-- La Silla Vacía | Abelardo deberá reconocer que el wokismo no es enemigo de la Nación | prefiltro 6/10
+- Infobae Colombia | Escándalo por actuación de tenista colombiano: Daniel Salazar fue suspendido 18 meses por participar en “apues | prefiltro 6/10
+- La Silla Vacía | Adentro de la reunión del movimiento indígena con Carlos Alonso Lucio por el PND | prefiltro 6/10
 - La Silla Vacía | Diario del gobierno de Abelardo: el primer ataque con drones a una capital | prefiltro 6/10
+- Caracol Radio | Joven de 22 años fue capturado tras persecución policial en zona norte de Cartagena | prefiltro 6/10
+- El Colombiano | Falleció Alberto Montoya Puyana, el primer alcalde electo de Bucaramanga y reconocido dirigente | prefiltro 6/10
+- Caracol Radio | Ley de rescate: se abrió el debate por impuestos a las gaseosas, la cerveza y productos de tienda | prefiltro 6/10
+- Win Sports | América tendrá varias bajas para el clásico ante Cali | prefiltro 6/10
 - Caracol Radio | “Los Costeños serían los responsables de los ataques contra Olímpica en Barranquilla”: Policía | prefiltro 6/10
-- El Nuevo Siglo | Procuraduría pone la lupa sobre Coosalud EPS por irregularidades financieras | prefiltro 6/10
-- Caracol Radio | Alianza público-privada destinó más de 10mil millones para reactivar negocios afectados por el sismo | prefiltro 6/10
-- Caracol Radio | Así se prepara el turismo en el Eje Cafetero para la temporada de fin de año tras terremoto | prefiltro 6/10
-- Caracol Radio | Condenan a 23 exparamilitares por 240 crímenes en Cesar y Norte de Santander | prefiltro 6/10
-- Portafolio | Qué cambia con la entrada de EPM al alumbrado público en Bogotá: así se cobrará el nuevo aporte para estos est | prefiltro 6/10
+- La Opinión | Buque hospital de Estados Unidos llegará a Colombia como parte de una misión humanitaria por América Latina | prefiltro 6/10
+- Caracol Radio | Más de 70 parlamentarios británicos piden a Colombia cumplir el acuerdo de paz y proteger la JEP | prefiltro 6/10
+- La Opinión | Presidente De la Espriella lideró primer encuentro con la ANDI tras elección de Luz Stella Murgas | prefiltro 6/10
 - La República | Congreso abrirá audiencias en Bogotá, Cali y Barranquilla para concertar la tributaria | prefiltro 6/10
-- Valora Analitik | MinHacienda adiciona casi $20.000 millones al Presupuesto de 2026 para gastos en salud | prefiltro 6/10
+- La República | Compras de clientes de Global66 en Black Friday llegarían a US$7,2 millones en 2026 | prefiltro 6/10
 - La República | 3 Cordilleras espera ampliar su portafolio con la presentación de una nueva cerveza sin alcohol | prefiltro 6/10
-- La República | Estas son las producciones que regresarán a Disney+ y los estrenos que llegarán en 2027 | prefiltro 6/10
-- La República | España prorrogará el impuesto bancario con el fin de financiar políticas de vivienda | prefiltro 6/10
-- Portafolio | ¿Trabaja por horas en Colombia? Así funcionan los salarios, prestaciones de ley y aportes en esta modalidad | prefiltro 6/10
+- La República | BCU destaca solidez del sistema financiero uruguayo tras crisis en Paraguay | prefiltro 6/10
+- La República | Analistas brasileños ven tasa del Emisor en 13% e inflación en 5,12% en 2027 | prefiltro 6/10
 - Valora Analitik | Pensión de las mujeres en Colombia: ¿Se afecta al cotizar 1.000 y no 1.300 semanas? | prefiltro 6/10
 - Valora Analitik | De la Espriella arranca cruzada para aprobar reforma tributaria: Jefe de Despacho y Vicepresidente encabezan r | prefiltro 6/10
 - Valora Analitik | Pogačar es el ciclista mejor pagado del mundo: gana más que plantillas enteras y ya construye su imperio comer | prefiltro 6/10
-- El Colombiano | Procuraduría mantendrá vigilancia sobre Nueva EPS para garantizar entrega oportuna de medicamentos | prefiltro 6/10
-- El Colombiano | Procuraduría indaga irregularidades en Coosalud tras hallar contratos por $3,49 billones sin liquidar | prefiltro 6/10
 - El Colombiano | De la Espriella sale en defensa de Paloma Valencia por supuesta omisión de amenazas a Miguel Uribe: “Nadie sen | prefiltro 6/10
-- El Colombiano | Cinco muertos y nueve heridos dejó accidente que involucró a tractomula en Cajamarca, Tolima; ¿qué pasó? | prefiltro 6/10
-- El Colombiano | Presiones, retiros y los nuevos liderazgos sacuden a 9 gremios en lo corrido del año | prefiltro 6/10
+- El Colombiano | Procuraduría ordenó suspender provisionalmente a congresista Verónica Estrada por presentar títulos falsos | prefiltro 6/10
+- El Colombiano | Colombia va a tener un festivo cada 19 días para 2027 | prefiltro 6/10
+- El Colombiano | Exclusivo | El nexo entre juez mexicano capturado en Bogotá que movía “suscripción” a los secretos de la mafia | prefiltro 6/10
+- El Colombiano | “Gobierno necesita más rapidez en decisiones importantes en salud”: senadora Claudia Margarita Zuleta | prefiltro 6/10
+- El Colombiano Negocios | Las pruebas de que Alice Huang, amante del restituido CEO de Nvidia, tuvo nexos con espías chinos durante más  | prefiltro 6/10
+- El Colombiano Negocios | Comprar vivienda nueva ahora es más caro: precios se dispararon 10% en un año | prefiltro 6/10
+- El Colombiano Negocios | Cómo adelantar la nómina con su banco y aprovechar la jornada especial de descuentos por Black Friday en Colom | prefiltro 6/10
+- El Colombiano Negocios | Dólar hoy comenzó $39 al alza y vuelve a superar los $3.500, ¿seguirá subiendo? | prefiltro 6/10
 - Diario del Norte | Autoridades wayuu de la Alta Guajira interponen tutela contra el ICBF, el MinInterior y la Corte Constituciona | prefiltro 6/10
-- El Nuevo Dia (Colombia) | Álvaro Motta será el conjuez que definirá las curules de Renzo García y Marco Hincapié | prefiltro 6/10
-- Alerta | Fallo ordena al Distrito garantizar alimentación diaria y brigadas de salud en el CDT Bellavista de Cartagena | prefiltro 6/10
-- Caracol Radio | Consejo de Estado mantiene la elección de Cristian Portilla como alcalde de Bucaramanga | prefiltro 6/10
-- Diario del Cauca | Consejo de Estado suspende decreto del salario mínimo 2026 | prefiltro 6/10
+- Diario Constitucional | Corte Suprema rechaza recurso de funcionario del IPS contra sanciones disciplinarias por extemporáneo | prefiltro 6/10
 - Tendido7.co | Cormanizales espera decisión del Consejo de Estado y si no hay pronunciamiento el 11 de diciembre suspenderá o | prefiltro 6/10
+- Enfoque TeVe | Designan conjueces para resolver demanda contra las curules de Hincapié y García en el Tolima | prefiltro 6/10
+- Noticias Jurídicas | María Emilia Casas se incorpora al Consejo Asesor de Aranzadi LA LEY | prefiltro 6/10
 - Bolsamania | Economía.- SpainDC llevará esta semana al Supremo el decreto de 'data centers' para frenar la fuga de 9.000 mi | prefiltro 6/10
-- Revista Semana | Lunes de lluvias en Colombia: Ideam advierte por tormentas eléctricas en estos departamentos | prefiltro 6/10
-- Diario del Cauca | IDEAM pone a municipios del Pacífico en alerta roja por deslizamientos | prefiltro 6/10
 - Cambio | Agilidad para responder si algo falla, prevención para que cada vez se falle menos: así evoluciona la Procurad | prefiltro 6/10
 - Infobae | Chavismo y oposición revisan ley que inhabilitó a María Corina Machado y otros opositores | prefiltro 6/10
-- www.larepublica.net | Laura Fernández no podrá reformar ley de la Contraloría sin ayuda de oposición | prefiltro 6/10
-- Anime News Network | Black Clover Season 2 ‒ Episode 178 | prefiltro 6/10
-- Crunchyroll Noticias | As a Reincarnated Aristocrat, I'll Use My Appraisal Skill to Rise in the World anuncia el arco del asesino en  | prefiltro 6/10
-- Crunchyroll Noticias | The Daily Life of the Immortal King Temporada 6 estrena un nuevo tráiler e imagen promocional | prefiltro 6/10
-- impactonews.co | Cuadrangulares semifinales de la Liga-II jugarán su fecha 2: ¡James y su Nacional no habían arrancado con vict | prefiltro 6/10
+- Periódico La República (Costa Rica) | Laura Fernández no podrá reformar ley de la Contraloría sin ayuda de oposición | prefiltro 6/10
+- Anime News Network | Blue Box Season 2 ‒ Episode 7 | prefiltro 6/10
 - Federación Colombiana de Fútbol | Selección Colombia Masculina Sub-17: Entre recuperación y táctica | prefiltro 6/10
-- AS Colombia | DT de Vasco sale en defensa de Gómez tras su fallo | prefiltro 6/10
-- https://urbanstreet.com.pe/ | Freestyle World Cup: Bolivia vs Venezuela en Monterrey | prefiltro 6/10
+- Red Bull Batalla (YouTube) | FAT TONY Y SU CAMINO AL TÍTULO | México Red Bull Batalla 2026 | prefiltro 6/10
+- urbanstreet.com.pe | FMS México Jornada 2: primera vez en Aguascalientes el 6 de febrero | prefiltro 6/10
 - Archaeology Magazine | Study Suggests People Traveled Long Distances to Roman Britain’s First Capital | prefiltro 6/10
 - Archaeology Magazine | Cars Unearthed at WWII Airfield in the Netherlands | prefiltro 6/10
 - Archaeology Magazine | Early Bronze Age Jewelry Discovered in Switzerland | prefiltro 6/10
 - La Brújula Verde | Encuentran en el basurero de un templo de Luxor los restos de una maldición egipcia de hace 3400 años de la qu | prefiltro 6/10
-- Ámbito Jurídico | Bogotá presenta su nuevo Estatuto Tributario en el marco de los 100 años de la Secretaría de Hacienda | prefiltro 6/10
-- La Opinión | El Real Madrid buscará quedarse con el liderato de la Champions League | prefiltro 6/10
-- El Nuevo Siglo | Hoy radican ponencia para primer debate de proyecto de ley de ajuste fiscal | prefiltro 6/10
 - Cambio | Colombia, un Palacio de Justicia todos los días | prefiltro 6/10
-- Cambio | “Quiero que me vea como una mamá”: la historia de la mujer que acogió al joven que asesinó a su hijo | prefiltro 6/10
+- Cambio | La verdadera infraestructura de la salud mental no está hecha de ladrillos | prefiltro 6/10
+- Cambio | “La justicia debe buscar la verdad, no el espectáculo”: Verónica Alcocer responde a la filtración de fotos | prefiltro 6/10
+- Cambio | ¿Por qué está fallando la militarización? La ofensiva de la fuerza pública no ha frenado ataques en Cúcuta, el | prefiltro 6/10
+- Cambio | El Acuerdo de paz con las Farc: las experiencias que lo hicieron posible. Por José Noé Ríos | prefiltro 6/10
 - Cambio | La ley de encuestas silenció a las encuestadoras y las redes llenaron el vacío con cifras sin sustento | prefiltro 6/10
-- Cambio | Un ajuste fiscal con huecos | prefiltro 6/10
-- Win Sports | Junior tendría la primera decisión del técnico Jorge Bava para 2027 | prefiltro 6/10
+- Win Sports | Millonarios confirmó sus convocados con bajas sensibles ante Bucaramanga | prefiltro 6/10
 - Win Sports | Figura de Millonarios estaría en radar de campeón de Libertadores | prefiltro 6/10
-- ABC España | Un vecino de Marbella halla siete personas empadronadas en su casa una semana antes del 29N | prefiltro 6/10
-- ABC España | Seguridad Ferroviaria alertó a Adif de los problemas de suprimir la dirección del área | prefiltro 6/10
-- ABC España | Bono te invita a casa | prefiltro 6/10
-- ABC España | Adif pide a Renfe los acelerómetros de los trenes que circularon por Adamuz para investigar «posibles anomalía | prefiltro 6/10
-- ABC España | Bukele, aclamado como un héroe en Haití por la mano dura de los soldados salvadoreños contra las pandillas | prefiltro 6/10
-- La Vanguardia | Todas las encuestas menos el CIS dan la victoria a Feijóo y una amplia mayoría absoluta a PP y Vox | prefiltro 6/10
+- ABC España | PP y Vox denuncian la gestión de ocho años del «Gobierno y sus cómplices» en un plató de todos contra ellos | prefiltro 6/10
+- ABC España | Tarjetas censales para muertos, desconocidos y papeletas inexistentes | prefiltro 6/10
+- ABC España | El voto antiinmigración transforma Cataluña: «Mi padre es separatista. Nunca me había votado. Ahora lo hará po | prefiltro 6/10
+- ABC España | María José Catalá: «Sánchez alimenta el odio por interés electoral, con Feijóo volverá la concordia» | prefiltro 6/10
+- ABC España | Las actas de la SEPI revelan que una carta de un ministro venezolano cerró el plan de pagos de Plus Ultra con  | prefiltro 6/10
+- ABC España | EE.UU. desplaza a China en la explotación del petróleo de Venezuela | prefiltro 6/10
+- ABC España | Juego de tronos en la RAE: el liderazgo de Muñoz Machado, en el aire | prefiltro 6/10
+- ABC España | Indra lanzará un plan estratégico de transformación con movimientos de plantilla internos | prefiltro 6/10
+- ABC España | Lang Lang: «Hace veinte años quería ser el número uno; hoy toco para conectar con la gente» | prefiltro 6/10
 - La Vanguardia | Un británico nada 15 km del estrecho de Ormuz para denunciar el impacto ambiental de la guerra | prefiltro 6/10
+- La Vanguardia | La intrahistoria del lanzamiento de penalti que Lamine Yamal falló | prefiltro 6/10
 - La Vanguardia | El pistolero de Canovelles acepta 31 años de cárcel por el asesinato del conserje de un club de tiro | prefiltro 6/10
-- Clarín | Fallos en aerolíneas y tormentas podrían complicar los viajes en EEUU para Día de Acción de Gracias | prefiltro 6/10
-- Clarín | Arrestos de ICE en Seattle y Los Ángeles reavivan críticas por uso de la fuerza excesiva | prefiltro 6/10
-- La Nación Argentina | La volatilidad financiera y los bolsillos flacos complican el repunte antes de las elecciones de 2027 | prefiltro 6/10
-- La Nación Argentina | Falleció el neonatólogo Juan Gershanik, referente destacado de la comunidad argentina en Nueva Orleans | prefiltro 6/10
-- La Nación Argentina | “La estabilidad no alcanza”: los reclamos de los fondos de capital para atraer inversiones y que los dólares n | prefiltro 6/10
-- Hipertextual | ‘La Bola Negra’ destrona a ‘Spider-Man: Brand New Day’ como la película más taquillera de 2026 en España: sus  | prefiltro 6/10
-- TechCrunch | Amazon snaps up Decart’s AI optimization tech for $7.5B as it prepares to sell Trainium chips | prefiltro 6/10
-- Mundo Deportivo | Javier Tebas podría emprender acciones contra Florentino Pérez | prefiltro 6/10
-- Mundo Deportivo | 1-5: Paso de gigante del Barça en la Champions League | prefiltro 6/10
-- Mundo Deportivo | Alcaraz, sobre si es el auténtico número uno: "Todos nos consideramos el uno, yo, Sascha, Sinner, Shelton, per | prefiltro 6/10
-- Mundo Deportivo | La decisión de Luis Enrique sobre Dembélé | prefiltro 6/10
-- Mundo Deportivo | Bisiwu, novedad en la lista de Flick para Bakú | prefiltro 6/10
-- … y 2582 más
-### contenido_sexual (9)
+- La Vanguardia | La política exterior, la gran ausente | prefiltro 6/10
+- La Vanguardia | García-Page se desmarca en plena campaña del decreto de centros de datos: “Que el fanatismo ideológico no le a | prefiltro 6/10
+- La Nación Argentina | Arrestan en California a “El Kraken”, presunto capo narco guatemalteco y ofrecen US$10 millones por informació | prefiltro 6/10
+- La Nación Argentina | Vivía con su hijo en el hotel donde trabajaba sin francos: la Justicia dijo que la habitación era parte del su | prefiltro 6/10
+- La Nación Argentina | La norma vigente en Texas que se aplica a un grupo de extranjeros con multas y prohibición de comprar propieda | prefiltro 6/10
+- La Nación Argentina | El DHS confirma qué pasará con los venezolanos con TPS si la Corte Suprema no da una orden final en noviembre  | prefiltro 6/10
+- … y 1747 más
+### contenido_sexual (8)
 - The Verge IA | Oregon and Virginia sue SpaceX over Grok’s porn deepfakes | porn*, porn*
-- Infobae Colombia | Lorena Meritano denunció acoso sexual a través de sus redes sociales: “Mensajes preguntándome si pueden enviar | fotos intimas
-- El Nuevo Siglo | Dos obras que dejan al desnudo las tensas relaciones de pareja | desnud*
-- ABC España | Gisèle Pelicot, «en shock» por el uso de fotos suyas desnuda para promocionar un libro | porn*, desnud*, porn*
-- ABC España | Fidel Martínez desnuda la noche de la posguerra española en un cómic 'noir' | desnud*
-- La Nación Argentina | Gisèle Pelicot denunció que una editorial usó fotos suyas desnuda para promocionar un libro | desnud*
+- Semana | Solo para adultos y con un 90 % de respaldo en cines: así es la nueva película de guerra que estrena Netflix e | solo para adultos
+- El Colombiano Negocios | De un local en Guatapé a líder de ropa interior: 70 años de Leonisa | ropa interior
+- ABC España | Ofensiva del PP por el voto femenino en la recta final de la campaña | prostitu*
 - Ars Technica | States sue SpaceX to stop Grok from generating child sex images, revenge porn | porn*, porn*
 - El Tiempo | Redes sociales, pornografía e inteligencia artificial: cómo la tecnología está cambiando la sexualidad masculi | porn*, porn*
 - El Tiempo | Redes sociales, pornografía e inteligencia artificial: cómo la tecnología está cambiando la sexualidad masculi | porn*, porn*
-### fuera_de_interes (64)
+- El País América | “Para que me muera de ganas de daros por el culo”: el poema que cita Puigdemont tras conocer el carpetazo judi | revisión IA
+### fuera_de_interes (75)
+- El Tiempo Economía | Lotería de Cundinamarca: conozca los números ganadores del lunes 23 de noviembre de 2026 | lotería
+- El Tiempo Economía | Lotería del Tolima del lunes 23 de noviembre de 2026: conozca el resultado, número ganador y premios del sorte | lotería
+- El Espectador | América vs. Deportivo Cali: hora y dónde ver en vivo la segunda fecha del cuadrangular B | dónde ver
 - Semana | Conozca los números ganadores de la Lotería Sinuano Día y Noche de este lunes, 23 de noviembre de 2026 | lotería
 - Infobae Colombia | Lotería de Boyacá respondió a denuncias de supuestas irregularidades en los sorteos: tres balotas habrían ‘des | lotería
 - Infobae Colombia | Miss Universo 2026: cuándo y dónde ver en Colombia la final con María Alejandra López | dónde ver
-- Infobae Colombia | Millonarios vs. Bucaramanga: hora y dónde ver el partido EN VIVO de la fecha dos de los cuadrangulares semifin | dónde ver
-- Futbolred | Cuadrangulares de Liga BetPlay: programación de la fecha 2 y dónde ver EN VIVO | dónde ver
+- Caracol Radio | Resultados de las loterías de Cundinamarca, Tolima, ColorLoto y Baloto Revancha HOY 23 de noviembre | lotería
+- Caracol Radio | Gobernador de Boyacá pide investigar a fondo cuestionamientos a la Lotería: “No son 600 sorteos” | lotería
+- Futbolred | América y Deportivo Cali se juegan el liderato del Grupo B: previa y cómo ver EN VIVO | cómo ver en vivo
 - PrimerTiempo.CO | Cuadrangulares de Liga BetPlay: programación de la fecha 2 y dónde ver EN VIVO | dónde ver
+- Futbolred | Cuadrangulares de Liga BetPlay: programación de la fecha 2 y dónde ver EN VIVO | dónde ver
+- El Comercio Perú | América vs. Deportivo Cali: a qué hora juegan, canal que transmite y dónde ver partido por Liga BetPlay | dónde ver
 - Infobae | Millonarios vs. Bucaramanga: hora y dónde ver el partido EN VIVO de la fecha dos de los cuadrangulares semifin | dónde ver
-- El Tiempo | Millonarios y Atlético Bucaramanga miden fuerzas en El Campín: fecha, hora y dónde ver | dónde ver
+- 365Scores | Dónde ver Boca Juniors de Cali vs Deportes Quindío EN VIVO: canal y streaming de la final del Torneo BetPlay 2 | dónde ver
+- El Espectador | América vs. Deportivo Cali: hora y dónde ver en vivo la segunda fecha del cuadrangular B | dónde ver
+- El Espectador | Millonarios vs. Atlético Bucaramanga: hora y dónde ver en vivo el cuadrangular B | dónde ver
 - El Colombiano | La Sub-17 de Colombia va por Honduras y el tiquete a los dieciseisavos del Mundial: hora y por dónde ver el pa | dónde ver
 - Noticias Caracol | Colombia vs. Honduras, EN VIVO: hora y dónde ver por TV el partido por el Mundial Sub-17 | dónde ver
 - Win Sports | Colombia vs. Honduras: horario y dónde ver EN VIVO (Mundial Sub17) | dónde ver
 - Caracol Radio | Honduras vs. Colombia: hora y dónde ver el partido del Mundial Sub-17 | dónde ver
 - PrimerTiempo.CO | Colombia vs. Honduras en el Mundial Sub-17: hora, canal y dónde ver EN VIVO el partido | dónde ver
 - El Espectador | Colombia vs. Honduras: fecha, hora y dónde ver en vivo el partido del Mundial Sub-17 | dónde ver
-- Claro Sports | Honduras vs Colombia en vivo: horario y dónde ver el partido de la jornada 2 del Mundial sub 17 | dónde ver
-- Win Sports | Colombia vs. Honduras: horario y dónde ver EN VIVO (Mundial Sub17) | dónde ver
-- Win Sports | Boca Juniors de Cali vs. Quindío: horario y dónde ver la final ida | dónde ver
-- ABC España | Olla podrida. Receta de guiso castellano | receta de
+- Clarín | Horóscopo de hoy, martes 24 de noviembre: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Piscis de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Capricornio de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Acuario de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Escorpio de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Sagitario de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Libra de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Leo de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
+- Clarín | Horóscopo Virgo de hoy, 24 de noviembre de 2026: las predicciones para la salud, el amor y el dinero | horóscopo, horoscopo
 - La Nación Argentina | Dólar hoy y dólar blue, EN VIVO: a cuánto cotiza el oficial y cuál es el precio del paralelo este lunes 23 de  | minuto a minuto
 - Areajugones | Firefly Wedding: fecha, horario y dónde ver el episodio 8 | dónde ver
 - Areajugones | Dragon Ball Super: Beerus - fecha, horario y dónde ver el episodio 8 | dónde ver
 - FreakEliteX | Psyren episodio 8, horario, fecha y dónde ver online el anime | dónde ver
+- Futbolred | América y Deportivo Cali se juegan el liderato del Grupo B: previa y cómo ver EN VIVO | cómo ver en vivo
 - PrimerTiempo.CO | Cuadrangulares de Liga BetPlay: programación de la fecha 2 y dónde ver EN VIVO | dónde ver
 - Infobae | Millonarios vs. Bucaramanga: hora y dónde ver el partido EN VIVO de la fecha dos de los cuadrangulares semifin | dónde ver
+- El Comercio Perú | América vs. Deportivo Cali: a qué hora juegan, canal que transmite y dónde ver partido por Liga BetPlay | dónde ver
 - Noticias Caracol | Colombia vs. Honduras, EN VIVO: hora y dónde ver por TV el partido por el Mundial Sub-17 | dónde ver
 - Futbolred | Cuadrangulares de Liga BetPlay: programación de la fecha 2 y dónde ver EN VIVO | dónde ver
-- Win Sports | Colombia vs. Honduras: horario y dónde ver EN VIVO (Mundial Sub17) | dónde ver
 - Bolavip | Dónde ver EN VIVO Brentford vs. Everton por la jornada 11 de la Premier League: TV y streaming online | dónde ver
+- DIEZ.HN | Champions League: hora y por dónde ver este martes los 9 partidos de la fecha 5 | dónde ver
+- PrensaFútbol | Arsenal vs. Borussia Dortmund: Horario, posibles formaciones y dónde ver por TV y streaming la Champions Leagu | dónde ver
+- MARCA | A qué hora es el Liverpool - Manchester United: horario y dónde ver en TV el partido de la Premier League | dónde ver
 - DAZN | Levante vs Elche: horario y dónde ver hoy por TV y online el partido de LaLiga 2026/27 a través de DAZN | dónde ver
 - DAZN | Ceuta vs Almería de Segunda División: horario y dónde ver hoy por TV y online el partido de LaLiga Hypermotion | dónde ver
-- Bolavip México | Levante vs. Elche: horario y dónde ver en vivo y online en México, por la jornada 13 de la LaLiga | dónde ver
+- Mundo Deportivo | Horario, canal y dónde ver por TV la jornada 5 de la UEFA Champions League | dónde ver
 - Mundo Deportivo | Partidos de hoy de fútbol: horario y dónde ver por TV | dónde ver
-- 365Scores | Qué canal pasa Barcelona vs Villarreal: dónde ver en vivo por LaLiga de España | dónde ver
-- DAZN | AC Milan vs Frosinone de Serie A 2026/2027: horario y dónde ver hoy por TV y online el partido de la liga ital | dónde ver
-- DAZN | AC Milan vs Frosinone de Serie A 2026/2027: horario y dónde ver hoy por TV y online el partido de la liga ital | dónde ver
-- 365Scores | Juventus vs Venezia EN VIVO: resultado, goles y minuto a minuto por la Serie A | minuto a minuto
-- TyC Sports | Monza vs. Fiorentina, EN VIVO: dónde ver por TV y ONLINE | dónde ver
-- Win Sports | Boca Juniors de Cali vs. Quindío: horario y dónde ver la final ida | dónde ver
-- Ecuavisa | Arsenal vs. Borussia Dortmund: Fecha, hora y dónde ver a Piero Hincapié en la Champions League | dónde ver
 - Goal.com | Augsburgo vs. Mainz 05 hoy en directo: ¿dónde ver el partido por TV y streaming? | dónde ver
 - Win Sports | Colombia vs. Honduras: horario y dónde ver EN VIVO (Mundial Sub17) | dónde ver
 - Win Sports | Boca Juniors de Cali vs. Quindío: horario y dónde ver la final ida | dónde ver
 - DAZN | Niza vs PSG de Ligue 1 2026/2027: horario y dónde ver hoy por TV y online el partido de la liga francesa a tra | dónde ver
-- DAZN | Olympique de Marsella vs Le Mans: horario y dónde ver hoy por TV y online el partido de la Ligue 1 2026/27 a t | dónde ver
+- PrensaFútbol | PSG vs. Roma: Horario, posibles formaciones y dónde ver por TV y streaming la Champions League 2026 | dónde ver
 - Noticias Caracol | ¡Vuelve la Champions League! Estos son los partidos de este martes: hora y dónde ver EN VIVO por TV | dónde ver
 - Futbolred | Como 1907 vs AEK: Duelo clave en la Champions League, ¿cómo llegan y dónde ver? | dónde ver
 - Noticias Caracol | Real Madrid vs. PSV: hora y dónde ver EN VIVO por TV el partido de la Champions League | dónde ver
+- Mundo Deportivo | Horario, canal y dónde ver por TV la jornada 5 de la UEFA Champions League | dónde ver
+- TyC Sports | Manchester City vs. Napoli, EN VIVO: dónde ver por TV y ONLINE | dónde ver
+- TyC Sports | Arsenal vs. Dortmund, EN VIVO: dónde ver por TV y ONLINE | dónde ver
+- El Universo | Champions League: a qué hora juegan los ecuatorianos esta semana y dónde ver los partidos | dónde ver
+- Diario de México | Dónde ver los partidos de la Champions League: horarios, canales y transmisión | dónde ver
+- DIEZ.HN | Champions League: hora y por dónde ver este martes los 9 partidos de la fecha 5 | dónde ver
+- RPP Noticias | Manchester City vs Napoli EN VIVO: ¿a qué hora juegan y dónde ver la fecha 5 de la Champions League? | dónde ver
+- TyC Sports | Como vs. AEK, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - El Universo | Arsenal, de Piero Hincapié, vs. Borussia Dortmund por la Champions League: a qué hora y dónde ver el partido e | dónde ver
 - Claro Sports | Sabah vs Barcelona en vivo, Champions League 2026: horario, alineaciones y dónde ver la jornada 5 de la fase d | dónde ver
-- Diario AS | Slovan Bratislava - Betis: TV, a qué hora es, cómo y dónde ver hoy la Champions League online | dónde ver
-- El Universo | Champions League: a qué hora juegan los ecuatorianos esta semana y dónde ver los partidos | dónde ver
+- TyC Sports | Real Madrid vs. PSV, EN VIVO: dónde ver por TV y ONLINE | dónde ver
 - RPP Noticias | Barcelona vs Sabah EN VIVO: ¿a qué hora juegan y donde ver la fecha 5 de la Champions League? | dónde ver
-- Mediotiempo | ¿Dónde ver Real Madrid vs PSV EN VIVO? Horario y canal partido Champions League 2026 | dónde ver
-- SPORT | Real Madrid - PSV: horario y dónde ver el partido de Champions League por TV y en directo | dónde ver
-- sdpnoticias | Manchester City vs Napoli: ¿Cuándo y dónde ver el partido de la Jornada 5 de la Champions League? | dónde ver
-- sdpnoticias | Leipzig vs Lens: ¿Cuándo y dónde ver el partido de la Jornada 5 de la Champions League? | dónde ver
-- El Debate | Atlético de Madrid - Viking: horario y dónde ver por TV la quinta jornada de la fase liga de la Champions | dónde ver
-- Ecuavisa | Arsenal vs. Borussia Dortmund: Fecha, hora y dónde ver a Piero Hincapié en la Champions League | dónde ver
-- RPP Noticias | Real Madrid vs PSV: ¿a qué hora y dónde ver el partido por la fase liga de la Champions League 2026? | dónde ver
-- Diario AS | ¿A qué hora es el GP de Qatar de F1? TV, horario, cómo y dónde ver la carrera en Losail en vivo | dónde ver
+- 365Scores | Dónde ver Los Angeles Lakers vs Utah Jazz por la NBA: horario y transmisión | dónde ver
+- Bolavip México | Philadelphia 76ers vs. Portland Trail Blazers: quintetos y dónde ver EN VIVO a LeBron James | dónde ver
 - DAZN | Minnesota Timberwolves vs Brooklyn Nets: horario y dónde ver hoy por TV y online la NBA 2026/27 a través de DA | dónde ver
 - Reporte Indigo | ¿Dónde ver Utah Jazz vs. Los Angeles Lakers EN VIVO HOY? Horario y transmisión de la NBA 2026 | dónde ver
 - DAZN | Miami Heat vs Oklahoma City Thunder: horario y dónde ver hoy por TV y online la NBA 2026/27 a través de DAZN | dónde ver
@@ -258,25 +261,19 @@ Página: 278 KB (+ 224 KB de 'Ver más') · 42 destacadas + 246 en 'Ver más' ·
 - Hipertextual | Así puedes conseguir cien euros al abrir una cuenta bancaria online sin comisiones
 - Revista Semana | ¿Qué tanto se ha transformado la gestión de la publicidad? La inteligencia artificial es decisiva
 - TodoMountainBike | Lidl, La Vuelta y la UCI: la creciente concentración de patrocinadores abre un debate incómodo en el ciclismo 
-### sensacionalismo (2)
-- Asuntos Legales | ¿Puede pedir la devolución de su dinero tras el polémico concierto de Anuel AA en Bogotá? | 3 pts: pregunta retórica; superlativos: polémico
-- El Colombiano | ¿Quiénes son las otras dos congresistas del Pacto Histórico que tendrían líos con sus diplomas? | 3 pts: pregunta retórica; superlativos: histórico
-### sin_tema (585)
-- BBC Mundo | El extraordinario hallazgo de un cementerio de osos de las cavernas que se extinguieron hace 24.000 años
-- BBC Mundo | La indignación por la detención de un mexicano y su hija por agentes de ICE cuando abordaban un vuelo en el ae
+### sin_tema (532)
 - BBC Mundo | "La violencia de hoy no es producto del acuerdo de paz. Es la falta de implementación": Juan Manuel Santos y R
+- BBC Mundo | El extraordinario hallazgo de un cementerio de osos de las cavernas que se extinguieron hace 24.000 años
 - BBC Mundo | Dos hombres en mi vida: cómo un accidente de tráfico me enseñó nuevas formas de amar
+- BBC Mundo | La indignación por la detención de un mexicano y su hija por agentes de ICE cuando abordaban un vuelo en el ae
 - BBC Mundo | Friselle, el ingenioso pan italiano que puede durar un año
-- BBC Mundo | BepiColombo, la misión a Mercurio que busca descubrir por qué el planeta se está achicando (y otros misterios)
 - DW Español | El primer ministro británico insiste que volver a la UE "no está sobre la mesa"
 - France 24 | Estados Unidos, México, Costa Rica y Jamaica serán sede del Mundial femenino de fútbol en 2031
 - DW Español | El futuro del ajedrez mundial se juega en Asia
-- DW Español | Tamagotchi cumple 30 años, de mascota virtual a icono de la moda dosmilera
-- DW Español | Miles de evacuados de concierto en Mánchester tras detectarse sustancia sospechosa
 - Motorsport | Los pilotos de MotoGP rinden homenaje a Marc Márquez y lo consideran el mejor de todos los tiempos
+- France 24 | Francia: familias adelantan sus compras navideñas para evitar aumento de precios
+- France 24 | Sánchez propone gravar a los más ricos en la recta final de la campaña electoral
 - France 24 | Directo Latam y el aumento de la pobreza en familias argentinas con niñas, niños y adolescentes
-- France 24 | 📺 'Reporteros': Colombia, 10 años de una paz inconclusa
-- ABC España | La Junta Electoral abre expediente sancionador a Intxaurrondo tras cuestionar si «tiene cabida Vox» en TVE
 - El País América | Seb Berthe: “Creía que escalar el Dawn Wall me regalaría la felicidad, pero definitivamente no ha sido así”
 - El País América | Las vecinas: una política de la vida en común
 - El País América | ¿Por qué Art Basel Miami Beach se hace más pequeña si el mercado del arte vuelve a crecer?
@@ -293,8 +290,7 @@ Página: 278 KB (+ 224 KB de 'Ver más') · 42 destacadas + 246 en 'Ver más' ·
 - El País América | Marc Márquez: “Este año no me reconocía, pero me gustaba no sentir la ansiedad de ganar cada domingo”
 - El País América | Imperdonablemente te quiero: un whatsapp sin enviar en el Bernabéu
 - El País América | Una ciudad, dos equipos, dos libros
-- El País América | El último huésped del Motel Holloway
-- El País América | La remontada como identidad en el Barcelona
+- El País América | Sorteo de la Copa del Rey: cruces y partidos de la segunda ronda
 - El País Economía | La sede fantasma de la CNMC en Barcelona
 - Europa Press | Cientos de colegios en Alemania y Dinamarca reciben amenazas falsas de bomba
 - Xataka | El pack de Black Friday con PS5 y tele OLED para jugar a ‘GTA VI’: consola más televisor de 55 pulgadas, con 1
@@ -303,297 +299,299 @@ Página: 278 KB (+ 224 KB de 'Ver más') · 42 destacadas + 246 en 'Ver más' ·
 - Xataka | Si la pregunta es cómo podemos saber que una solución matemática es correcta sin entenderla, la respuestiene c
 - Xataka | En 2019 tomamos la primera foto de un agujero negro, en 2026 hemos confirmado que Einstein siempre tuvo razón
 - Xataka | Black Friday 2026: los mejores chollos en portátiles y PC en un año en el que los precios del hardware no han 
+- El Tiempo | Perdió la vista y el oído, pero no la memoria: el calvario de doña Consuelo, a quien las Farc le secuestraron 
+- El Tiempo | Serían cuatro extranjeros los dueños de las maletas encontradas con 174 kilos de cocaína en el aeropuerto de R
 - El Tiempo | Las más de 50 matronas que guardan la cocina del barrio Abajo, en Barranquilla, tendrán reconocimiento oficial
-- El Tiempo | El mondongo es el único platillo colombiano que aparece en el top 50 de TasteAtlas: este es el puesto que ocup
+- El Tiempo Política | Entre rehacer sus vidas y resistir a las dificultades: diez años después, el 80 por ciento de los firmantes si
+- El Tiempo Economía | KFC renueva sus 180 restaurantes en Colombia y se alía con Marvel para fin de año
 - El Tiempo Economía | Ofertas de trabajo en Bogotá: asesor comercial sin experiencia y armador soldador de estructuras
 - El Tiempo Mundo | Mexicano atropellado por el ICE asegura que no aguanta más: ‘Denme algo para dormir y ya no despertar’
-- El Espectador | Catalina Oquendo: "‘Falsos positivos’ es el gran eufemismo colombiano"
-- El Espectador | Hoteles Dann celebró el año con sus aliados al ritmo de Alejandro González
-- El Espectador | Sara Vargas cerró un 2026 lleno de títulos en la paranatación
-- El Espectador | Siete perros rescatados de la costa en malas condiciones necesitan ayuda para salir adelante
-- El Espectador | Alaska, la gatita de cinco meses rescatada en Santa Marta que busca una familia
-- El Espectador | ¿Para qué sirve la capuchina? Una flor más allá de su belleza y color
-- El Espectador | Un "adiós" sin retorno
-- Ámbito Jurídico | Esta calculadora laboral le permitirá consultar salarios, horas extra, recargos y prestaciones sociales
+- El Espectador | La Navidad llega al MAMM con jazz, música sinfónica, cine y otras actividades culturales
+- El Espectador | Icfes publicó el calendario de las pruebas Saber 11 para 2027: estas son las fechas
+- El Espectador | De Da Vinci a Van Gogh: algunas de las obras subastadas más costosas de la historia
+- El Espectador | Pescadores artesanales del Magdalena, a punto de ser patrimonio inmaterial de la humanidad
+- El Espectador | Isabel Henao: “Sigo siendo esa misma niña, solo que con muñecas más grandes”
+- El Espectador | ¿Por qué el carro se siente pesado al acelerar?
+- El Espectador | Calidad del aire: el respiro que pide el sur en medio de nueva alerta
+- El Espectador | 5 alimentos que evitan los expertos en seguridad alimentaria
+- Semana | ¿Piensa comprar un carro usado? Estos son los documentos y requisitos necesarios para evitar estafas
+- Semana | El angustiante video del accidente de Alejandra Guzmán en pleno concierto: así fue el fuerte golpe que recibió
+- Semana | Representante Claudia Romero, del Pacto Histórico, dice que diploma de la Javeriana es falso: “Nunca cursé en 
+- Semana | Capturan y envían a la cárcel a hombre que mató a golpes a su expareja sentimental, una menor de 17 años
+- Semana | Los elementos clave para prolongar la vida de un vehículo eléctrico
+- Semana | María Claudia Tarazona habla de chats y arremete contra Benedetti por magnicidio de Miguel Uribe: “Llevando ch
+- Infobae Colombia | Dorado Mañana resultados de hoy lunes 23 de noviembre: ganadores del último sorteo
+- Semana | Ricky Martin reveló que estuvo postrado 50 días en cama debido al covid-19: “Sin poder ni ir al baño”
+- Semana | Revelan la grave enfermedad de Jair Bolsonaro por la que está en UCI: “Potencialmente mortal en adultos mayore
+- Semana | El Pacífico registra una anomalía cerca de Sudamérica: expertos dicen que será “potencialmente catastrófico”
+- Semana | ¿Qué tan sostenible es el sistema pensional colombiano? Las alertas de un ranking mundial
+- Semana | Claro Colombia pide estar alerta ante engaños que pueden comprometer información personal
+- Semana | Black Friday se jugará el 25 % de las ventas navideñas: así se alista el comercio para esta fecha
+- Semana | Caso Canacol: Corte de Alberta-Canadá niega permiso a empresas afectadas para apelar a terminación de contrato
+- Semana | Feid será el único colombiano en el desfile de Macy’s por sus 100 años: fecha, artistas invitados y cómo verlo
+- Semana | Encuentran a tres mujeres muertas en un apartamento al norte de Bogotá: habrían tomado cianuro; eran madre e h
+- Semana | Trágica muerte de tres estudiantes, uno de ellos de quinto de primaria, baleados en Barrancabermeja
+- Infobae Colombia | Monaco, el hijo de Silvestre Dangond, se estrenó en la música con ‘Un arrunchis más’, una mezcla entre funk y 
+- Semana | Cómo recuperar una lengua de suegra con hojas amarillas y raíces débiles: el truco para salvarla si está march
+- Semana | ¿Sabe cuánto deben pagarle de prima? Esta es la herramienta gratuita que relanzó MinTrabajo para calcularla
+- Semana | Juntas directivas en Colombia: entre el poder, los bajos honorarios y el rezago tecnológico
+- Semana | La reputación corporativa gana espacio en la estrategia de las empresas colombianas
+- Semana | “Valió la pena esperar”: Martha Isabel Bolaños presentó a su misterioso nuevo novio
+- Semana | Grupo Altum: seguridad que anticipa
 - Semana | ¿Cómo están organizados los espacios dentro del Capitolio? Su distribución no es casual
 - Semana | Bares y prostíbulos en Bogotá fueron suspendidos al descubrir su fachada
 - Semana | Así pasó Humberto Arango, actor de ‘Pasión de Gavilanes’, sus últimos días de vida
 - Semana | Cartera de laboratorios farmacéuticos muestra señales de alivio, pero las deudas siguen creciendo
 - Semana | ¿Tu empresa necesita una cirugía?
+- Semana | Barranquilla se prepara para recibir a Sofía Vergara con un espectáculo lleno de estrellas: estos son los deta
 - Semana | Las cuentas pendientes de la asociación de madres comunitarias que hoy se enfrenta al ICBF en Risaralda: esta 
 - Semana | Cómo viajar en Navidad sin gastar más de lo necesario: claves para evitar cobros no deseados
 - Semana | Crisis en Paraguay: ordenan detener al hermano de Santiago Peña en medio del escándalo financiero de Ueno Bank
 - Semana | The Mills estrena ‘Quererte es involuntario’, la canción que habla de esos amores que llegan sin avisar
-- Infobae Colombia | Dorado Mañana resultados de hoy lunes 23 de noviembre: ganadores del último sorteo
+- Infobae Colombia | Resultados Super Astro Sol hoy 23 de noviembre: verifique el signo ganador
 - Semana | Las movidas de la izquierda en el Magdalena tras el escándalo de Carlos Caicedo
 - Semana | Paula Andrea Betancur está de luto: la exreina anunció dolorosa pérdida con sentido mensaje de despedida
 - Semana | Marcela Carvajal confesó si está lista para volver a enamorarse, luego de un divorcio y 17 años de relación
-- Semana | ¿Adiós a los llaveros tradicionales? El pequeño invento que permite guardar fotos y rastrear objetos perdidos
-- Semana | Fintech barranquillera consigue US$5 millones para ampliar su operación en América Latina
-- Semana | Él es el nuevo Jota de ‘Sin senos sí hay paraíso’: actores del elenco reconocen el gran reto que asumió
-- Semana | Bajo el hielo de la Antártida se escondía un secreto de millones de años: tendrían el tamaño del Himalaya
-- Semana | Bogotá enfrenta una crítica ocupación de urgencias: servicios para adultos superan el 180 % en medio de alerta
-- Semana | Chontico Día y Noche: resultados del sorteo del lunes 23 de noviembre de 2026
-- Semana | Patinaje sobre hielo en Bogotá: desde esta fecha se podrá disfrutar de la atracción navideña
-- Semana | ¿Pasa por la calle 47? Anuncian cierre nocturno por obras del Metro y estos serán los desvíos
-- Semana | Mujeres que siembran futuro y se empoderan a través de la agricultura
-- Semana | R3ntas, tras exponer a petristas con títulos falsos, avisa que hay más: “Egresados, no graduados, el ringtone 
-- Semana | Decomisan popular producto de belleza y cierran cuatro centros de estética en Bello: autoridades advierten
-- Semana | Una extraña flor salió a la luz tras 100 millones de años: rayos X revelaron el secreto que escondía
-- Semana | R3ntas contó qué hizo por “miedo” la congresista Andrea Vargas después de que Verónica Estrada fuera descubier
-- Semana | Presentadora Susy Mora reveló qué la llevó a internarse en una clínica psiquiátrica: “Me sentía fracasada”
-- Semana | Caos tras concierto de Anuel AA en Bogotá: imágenes de sillas volando y fuertes enfrentamientos se viralizan e
-- Semana | Más escenarios y oportunidades: la apuesta por transformar la infraestructura deportiva en Colombia
-- Semana | Lista de clasificados y eliminados del Mundial Sub-17: seis países ya están en dieciseisavos
-- Semana | Delincuentes están vaciando cuentas bancarias mediante mensajes de texto: estos son los números que nunca debe
-- Semana | España expulsa a Ecuador a líder de banda implicado en toma de canal de TV
-- Semana | Kate Middleton romperá el silencio sobre el cáncer en contundente documental sobre cómo la enfermedad transfor
-- Semana | ¿Cuánto cuesta matricular un carro nuevo en Colombia? Estos son los gastos que debe presupuestar
-- Semana | Estos son los cuatro países de América que se preparan para recibir viajeros en 2031: especial evento fue anun
-- Semana | El fracaso de la COP31 pone en jaque las negociaciones climáticas y reabre el debate sobre su utilidad
-- Semana | Descubrimiento bajo la superficie de China podría cambiar lo que sabemos sobre los continentes: una roca tendr
-- Semana | Advierten en vivo el riesgo aéreo que hay en el aeropuerto El Dorado de Bogotá: “Peor que en 2017″
-- Semana | Banco de Bogotá rompe récord en cartera verde y alcanza los $8,3 billones
-- Semana | Reconocida influencer y exparticipante de ‘La Casa de los Famosos’ fue víctima de millonario hurto en su casa
-- Semana | Julio Correal estalló contra Anuel AA y lanzó polémica petición a sus fans: “Le importó un carajo el público c
-- Semana | Aeropuerto El Dorado: ¿qué está pasando con la seguridad? Entérese aquí
+- Infobae Colombia | Yina Calderón envió rotundo mensaje a la esposa de Giovanny Ayala después de su boda: “La dueña de su corazón 
+- Infobae Colombia | Que el Black Friday no sea un mal negocio: así se pueden evitar estafas y que las deudas que se vuelvan un dol
+- Infobae Colombia | Cuidado con las dietas extremas antes de Navidad: siete señales de trastornos alimenticios que pueden pasar de
+- Infobae Colombia | El alumbrado de Navidad en Monserrate este 2026 rendirá tributo a la cordillera de los Andes: fecha de inicio,
+- Infobae Colombia | Barranquilla pasó la prueba de la Copa Sudamericana: turistas calificaron su experiencia con 5 sobre 5 y dejar
+- Infobae Colombia | Dominic Miller, el guitarrista de Sting, llega a Colombia con su primera gira como solista en casi 15 años
 - Infobae Colombia | Nequi suspenderá su aplicación el martes 24 de noviembre por mantenimiento: estos son los horarios
 - Infobae Colombia | Alejandro Sanz se reencontrará con sus fanáticos colombianos en 2027: todo lo que debe saber sobre el conciert
 - Infobae Colombia | Ministerio del Trabajo informó cómo pueden hacer los empleados para ver cuánto les deben pagar por horas extra
 - Infobae Colombia | Jhon Jáder Durán, delantero colombiano, habló sobre su presente en Benfica tras marcar ante Torreense: “Siempr
-- Infobae Colombia | Monaco, el hijo de Silvestre Dangond, se estrenó en la música con ‘Un arrunchis más’, una mezcla entre funk y 
 - Infobae Colombia | Adriana Botina reveló que su padre tenía rasgos bipolares y que el maltrato marcó su infancia: “Se ponía depre
 - Infobae Colombia | Veterinario salió a darse a golpes con cliente que tenía un bebé en brazos: el pleito inició por una presunta 
 - Infobae Colombia | Vehículos eléctricos en Colombia: así puede encontrar electrolineras y reservar puntos de carga rápida durante
 - Infobae Colombia | Entutelaron a la directora de la Biblioteca Nacional de Colombia: el manuscrito original de ‘La Vorágine’ y ot
+- Infobae Colombia | Laura Sarabia arremetió contra Verónica Alcocer tras revelarse fotos de sus encuentros íntimos con Eva Ferrer:
 - Infobae Colombia | Así son los nuevos carros eléctricos e híbridos de FAWCAR en Colombia: precios desde $99 millones
-- Infobae Colombia | Alci Acosta tiene cáncer de próstata: así explicó el artista su lucha contra la enfermedad, que lo obligó a al
-- Infobae Colombia | Marcela Carvajal sorprendió a sus seguidores con noticias sobre su vida sentimental: “Me acabo de separar”
-- Infobae Colombia | Qué pasó con la orden de devolver pagos de fotomultas: Fedemunicipios le dio malas noticias a los conductores
-- Infobae Colombia | Herido conductor al frustrar un hurto en un bus del SITP en Bogotá: “Se va sobre él con un puñal”
-- Infobae Colombia | Dos hermanos se entregaron después de que su padrastro de 39 años muriera de un disparo en medio de una discus
-- Infobae Colombia | El cantante Feid será una de las figuras del desfile centenario de Acción de Gracias de Macy’s: cuándo será la
-- Infobae Colombia | Yina Calderón protagonizó un escándalo en evento de boxeo en su natal Huila: la señalaron de estar borracha y 
-- Infobae Colombia | Conoce el clima de este 23 de noviembre en Cartagena de Indias
-- Infobae Colombia | Bogotá: el estado del tiempo para este 23 de noviembre
-- Infobae Colombia | Miss Universo 2026: María Alejandra López impactó con su vestido de gala y desfile en traje de baño
-- Caracol Radio | Se publicó el primer tráiler del nuevo documental sobre la vida y carrera de Justin Timberlake
+- Caracol Radio | Quindío supera a Boca en la final ida y pone un pie en primera división ¿Qué necesita para ascender?
+- La Nación Argentina | Los expertos en psicología coinciden: hablarle a las mascotas como a personas revela una lectura fina del mund
+- Caracol Radio | Dos soldados quedaron heridos al chocar con un carro en el sur del Valle de Aburrá
+- Caracol Radio | Santander registra temperaturas de hasta 40 grados y alerta por incendios forestales
+- Caracol Radio | Conozca el festival gastronómico que se vivirá en Teusaquillo, Bogotá: fechas y programación
+- Caracol Radio | Cortes de luz en Bogotá y municipios aledaños martes 24 de noviembre: horarios y barrios afectados
+- Caracol Radio | Davinson y su aporte al Galatasaray: “Traje la experiencia de haber jugado en otros países”
+- Caracol Radio | Tini y Rodrigo De Paul anuncian la fecha de su boda: ¿cuándo será el matrimonio?
+- Caracol Radio | Se abrieron algunas cajas de Pandora: ‘Rentas’ tras indagar veracidad de títulos de congresistas
 - El Colombiano | Estudiante de Los Andes desapareció tras pedir un vehículo por aplicación para ir a la universidad
+- Caracol Radio | Padre de exjugador de Real Cartagena pidió acelerar captura del responsable: “yo lo conozco”
+- Caracol Radio | Cartagena mejoró Índice de Desempeño Fiscal 2025 según el DNP
+- Caracol Radio | Unidad Nacional de Protección le quitará esquema de seguridad a Hollman Morris, exgerente de RTVC
+- Caracol Radio | Se publicó el primer tráiler del nuevo documental sobre la vida y carrera de Justin Timberlake
+- Caracol Radio | UniCartagena recibe Mención Especial en el 14º Premio Nuevas Miradas en Argentina
+- Caracol Radio | Detenido feminicida de su pareja sentimental de 17 años en Buenaventura, Valle
+- Caracol Radio | Recuperan cerca de dos toneladas de productos reciclables en el Bando y Bololó del Arsenal
+- Espinof | 'Vengadores Doomsday' presenta su épico tráiler final, donde Marvel promete una batalla aún más impresionante 
+- Caracol Radio | Ordóñez arremete contra Santos: “quien debilitó el Estado con un mal acuerdo, carece de moral”
+- Caracol Radio | ¿Cuáles son los festivos en Colombia para diciembre de 2026 y enero de 2027? Planee las vacaciones
 - Caracol Radio | Megatoma en el sur de Bogotá: suspenden tres establecimientos que operaban bajo fachada de sindicato
 - Caracol Radio | Boyacá encenderá más de 1,2 millones de luces para recibir la Navidad
-- Caracol Radio | Hallan sin vida a tres mujeres dentro de una vivienda en Usaquén, norte de Bogotá
 - Caracol Radio | Britney Spears se disculpó con su familia en Instagram: “Siento mucho haber sacado cosas del pasado”
 - Caracol Radio | Obras de Bogotá que tienen fecha de entrega para 2027: Regiotram y TransMiCables en la lista
-- Caracol Radio | Unidad Nacional de Protección le quitará esquema de seguridad a Hollman Morris, exgerente de RTVC
-- Caracol Radio | Sofía Vergara está en Barranquilla: será homenajeada en el Gran Malecón
-- Caracol Radio | Parte médico de las lesiones de Juan Cuadrado y Mackalister Silva: este sería el tiempo de baja
 - Caracol Radio | Llegan las vacaciones científicas a Boyacá con 24 estaciones gratuitas en Tunja, Guateque y Pauna
 - Caracol Radio | La doctora Carolina Hoyos Rave explica cómo verificar cirujanos plásticos en Colombia
-- Caracol Radio | Cortes de agua en Bogotá y Soacha del 23 al 26 de noviembre de 2026: consulte los barrios afectados
 - Caracol Radio | Cayó presunto atracador en el barrio Alto Bosque: al parecer, utilizaba un arma de fuego artesanal
 - Caracol Radio | “Condiciones parecidas a la esclavitud”: el duro relato de colombiano retenido en el Canal de Suez
 - Caracol Radio | “Maquillaje con propósito”: Cartagena vivirá una experiencia de belleza, aprendizaje y amor propio
-- Caracol Radio | Universidad Nacional recibirá $70.000 millones para reactivar la investigación farmacéutica
 - Caracol Radio | Abierta convocatoria para Mercadito Navideño 2026 en el Centro Histórico de Cartagena
 - Caracol Radio | A la cárcel presuntos implicados en hurto bajo modalidad de ‘cambiazo’ en Turbaco
 - Caracol Radio | IX Torneo Regional por la Reconciliación y la Paz en la Alta Montaña bolivarense
 - Caracol Radio | Asesinan a un menor de 12 años en el barrio María Eugenia de Barrancabermeja, Santander
 - Caracol Radio | “La administración todavía no se ha presentado”: padre de Sofía Castro, un mes después de su muerte
-- Caracol Radio | Luisa González apela la prisión preventiva en Ecuador
-- Caracol Radio | Murió Paolo Bulgari, que llevó la empresa de joyería de la familia a un símbolo del lujo
-- Caracol Radio | El Pulso del Fútbol, 23 de noviembre de 2026
-- Caracol Radio | ¿Qué valor tiene el SOAT para una moto de 125 cc en 2026? Precios actualizados antes del fin de año
-- Caracol Radio | Hallan sin vida a hombre que había sido reportado como desaparecido en Puerto Velero
-- Caracol Radio | Gremios, políticos y entidades en Colombia despiden a Alberto Montoya Puyana
-- Caracol Radio | Alcaldía de Bogotá lanzó becas-crédito para estudiantes estrato 1 al 4: inscripción cierra pronto
-- Caracol Radio | “Los contrataderos como Foncolombia no son un tema nuevo”: experto en contratación pública
-- Caracol Radio | María José Marín, bicampeona del Women’s Amateur Latin América
-- Caracol Radio | Autoridades alertan por mala calidad del aire en Bogotá: “partículas afectan vías respiratorias”
-- Caracol Radio | ‘MásDe40’ en vivo con Tato Cepeda, Rafa Cifuentes y Montoya en Bogotá: fecha y cómo comprar entradas
-- Caracol Radio | Terminal deberá responder por aumento del 380% en tarifa para ingreso a circuito de taxis en Salitre
-- Caracol Radio | Más de 6 mil conexiones ilegales de agua fueron detectadas en Cali
-- … y 435 más
-### tema_apagado (11)
+- La Vanguardia | Abrigos con personalidad: los diseños que marcarán tendencia este invierno
+- IDEAM | BAM_47_NOVIEMBRE_23_DE_2026
+- Win Sports | Michael Rangel expresa su anhelo de regresar a América
+- Win Sports | Silva se vuelve el héroe de Quindío con una doble atajada
+- Phys.org Arqueología | Do a violin's physical characteristics really improve with regular playing?
+- Phys.org Arqueología | Consumers, oblivious of being targeted, find online ads helpful
+- Phys.org Arqueología | Some people claim to speak many languages. But what does it really mean to be a polyglot?
+- Phys.org Arqueología | Why are some people single—and what makes them happy? New research offers answers
+- Phys.org Arqueología | Significance and stats: Massive sample sizes do not guarantee reliable findings, study suggests
+- Phys.org Arqueología | How self-perception influences the way women view sexualized images
+- … y 382 más
+### tema_apagado (12)
+- EL PAÍS | La Procuraduría suspende a la congresista Luz Verónica Estrada por la falsificación de títulos educativos
 - Revista Semana | Procuraduría suspende a la congresista Verónica Estrada por caso de diploma falso
-- Diario del Norte | Procuraduría suspende por tres meses a congresista investigada por presunto título falso
+- https://www.ecospoliticos.com/ | Contraloría detecta posibles irregularidades en obras por más de $47.500 millones en el Caquetá
 - Portafolio.co | Coosalud, bajo la lupa de la Procuraduría: investigan anticipos por $2 billones pendientes de legalización
 - El Frente | Contraloría determinó hallazgo fiscal por $9 mil millones en consultoría contratada por el Ministerio de Agric
+- La Razón Digital Bolivia | Procuraduría posesiona a dos nuevas autoridades y presenta balance de gestión
 - Emisora Atlántico 1070 AM | Procuraduría fortalece la prevención de la corrupción para proteger los recursos públicos - Emisora Atlántico
-- El Informador Venezuela | Dirigente social denuncia instalación tardía de valla en paso peatonal de Patarata y exige contraloría
+- Prensa Latina | Procuraduría de Brasil evalúa informes sobre jueces del Supremo
+- Noticias Uno | Procuraduría acompaña atención a habitantes de calle en Bogotá | Noticias UNO -
+- BioBioChile | Seremi de Transportes RM sale al paso de Contraloría: "Los cobros se han realizado casi totalmente"
 - Destino Panamá | Contraloría aclara significado de «asesor» dentro de su estructura institucional
-- eju.tv | Posesionan a nuevas autoridades de la Procuraduría con el rol de analizar presuntos casos de corrupción en YLB
-- El Periodista | Contraloría detecta falencias en cobro de multas de tránsito en RM: 16 infracciones suman $31,7 millones pendi
-- Revista Semana | Aumentan las reacciones de rechazo por ataque terrorista en Cesar: Defensoría del Pueblo y Procuraduría se pro
-- El País | Una Procuraduría que evoluciona para proteger los derechos y estar más cerca de la gente
-### ya_publicada (10)
-- Red Bull Batalla (YouTube) | FAT TONY Y SU CAMINO AL TÍTULO | México Red Bull Batalla 2026 | sin novedad
+- El Informador Venezuela | Dirigente social denuncia instalación tardía de valla en paso peatonal de Patarata y exige contraloría
+### ya_publicada (6)
 - El Tiempo | Temblor hoy en Colombia: reportan nuevo sismo de magnitud 2,9 en Antioquia durante la noche de este domingo 22 | ver más: historia ya publicada
 - Red Bull Batalla (YouTube) | FAT TONY Y SU CAMINO AL TÍTULO | México Red Bull Batalla 2026 | ver más: historia ya publicada
-- Infobae | Delta soluciona el fallo técnico detrás del retraso de miles de vuelos en Atlanta (EE.UU.) | ver más: historia ya publicada
+- DW.com | Un sismo de magnitud 5 sacude el centro de Perú sin dejar daños | ver más: historia ya publicada
 - Infobae | La Corte Suprema admitió a Enterritorio como parte perjudicada en el proceso contra Armando Benedetti | ver más: historia ya publicada
-- BBC Mundo | Cómo atraparon al "Chapo Isidro", uno de los 10 narcotraficantes de México más buscados por el FBI | ver más: historia ya publicada
-- El Colombiano | Cuenta regresiva en el Congreso: el nuevo plan de $23,7 billones de la reforma tributaria sin IVA a alimentos  | ver más: historia ya publicada
+- Razón Pública | Metaanálisis de las bases del Plan Nacional de Desarrollo 2026-2030 “Colombia la Patria Milagro” | ver más: historia ya publicada
 - El Tiempo | Colombia ocupa el puesto 62 entre 70 economías en preparación para la inteligencia artificial: ¿dónde están la | ver más: historia ya publicada
-- Infobae | Papa León XIV en Chiclayo: ¿Cómo se movió la economía tras su regreso y al encontrarse con miles de feligreses | ver más: historia ya publicada
-- DW.com | Trump confirma ciberataque al FBI y teme se destapen "engaños" contra él | ver más: historia ya publicada
 
 ## Descartadas LOCALES
-### baja_importancia (370)
-- Q'hubo Medellín | “No daban nada por mí”: Alci Acosta confesó que tiene cáncer | prefiltro 6/10
-- Q'hubo Medellín | Audios del VAR revelan que jugador de Nacional fue mal expulsado | prefiltro 6/10
-- El Colombiano | Apuñalado frente a una discoteca en Aranjuez y con un revólver en la pretina: así murió un joven comerciante e | prefiltro 6/10
-- La Razón (Córdoba) | Mafe Carrascal defiende proyecto de ley contra títulos académicos falsos: “es un flagelo” | prefiltro 6/10
-- Infobae | En video quedó la que sería la suegra del alcalde de Sincelejo golpeando con un palo a un trabajador en Monter | prefiltro 6/10
-- Caracol Radio | Alejandro Sanz regresará a Medellín en el 2027 tras más de una década de ausencia | prefiltro 6/10
-- El Colombiano Antioquia | ¿Cómo llegó la congresista Verónica Estrada a lo más alto del Pacto Histórico? | prefiltro 6/10
-- La Razón (Córdoba) | “Es lo mejor que puede pasar”: Mafe Carrascal pide renuncia de Verónica Estrada y defiende el debido proceso | prefiltro 6/10
-- El Colombiano Medellín | Guarda animalista de la Secretaría de Movilidad de Medellín murió tras estrellarse en su moto en el barrio Car | prefiltro 6/10
-- El Colombiano Medellín | Fuertes lluvias en Medellín provocaron susto en La Iguaná y dejaron tres casas afectadas en un corregimiento | prefiltro 6/10
-- El Colombiano Antioquia | Alerta hospitalaria en Rionegro, Antioquia: hospitales están sobreocupados por alta demanda de pacientes | prefiltro 6/10
-- El Colombiano Antioquia | La antioqueña Catalina Sánchez recibió la Orden al Mérito Débora Arango en Medellín | prefiltro 6/10
-- Minuto30 | ¡Increíble! Un animal parecido a un león anda suelto en Estambul y piden no salir de casa | prefiltro 6/10
-- Minuto30 | Capturan a un hombre e incautan estupefacientes y un celular en Santa Rosa de Osos | prefiltro 6/10
-- Minuto30 | Recuperan un furgón en Sopetrán y capturan a una persona por presunta receptación | prefiltro 6/10
-- Minuto30 | Menor murió en Barrancabermeja durante ataque que habría estado dirigido contra su padrastro | prefiltro 6/10
-- Minuto30 | Le cayeron en zona rural de Nariño: lo señalan de mover extorsiones del Clan del Golfo | prefiltro 6/10
-- Minuto30 | Marinilla: una pistola y ocho cartuchos, las piezas de un caso por amenazas | prefiltro 6/10
+### baja_importancia (270)
+- El Colombiano Medellín | Fuertes lluvias en Medellín provocaron susto en La Iguaná y dejaron tres casas afectadas en un corregimiento | prefiltro 7/10
+- El Colombiano Antioquia | Agarrón en el uribismo en Antioquia: Andrés Guerra propuso conversar con Aníbal Gaviria y se calentaron los án | prefiltro 7/10
+- Chica Noticias | Masacres en Colombia aumentaron durante 2026: ya van 111 casos y 461 víctimas | prefiltro 7/10
+- Minuto30 | Miguel Uribe agradece nombramiento en Reino Unido y anuncia tres prioridades para su gestión | prefiltro 6/10
+- Q'hubo Medellín | MinTIC pidió a X suspender la cuenta de Gustavo Petro: ¿por qué? | prefiltro 6/10
+- La Razón (Córdoba) | China le reclama a Colombia por visita de congresistas a Taiwán | prefiltro 6/10
+- Minuto30 | Gran apagón por falla en subestación Belén dejó sin energía a Cúcuta y municipios de occidente | prefiltro 6/10
+- Río Noticias (Rionoticiasco) | Universidad Nacional recibirá $70.000 millones del Gobierno para construir centro de investigación farmacéutic | prefiltro 6/10
+- El Meridiano Sucre | Mujer fue asesinada con arma blanca en el municipio de Tolú, el presunto asesino fue capturado | prefiltro 6/10
+- Q'hubo Medellín | EN FOTOS: Así ha sido la participación de María Alejandra López en Miss Universe 2026 | prefiltro 6/10
+- La Razón (Córdoba) | Alcaldía de Montería anuncia nuevas medidas para controlar la navegación en el Sinú | prefiltro 6/10
+- El Colombiano Medellín | Cuídese del dengue: Medellín ya registra 534 casos, 50 de ellos en El Poblado | prefiltro 6/10
+- El Colombiano Antioquia | En tres días cayeron 1.658 rayos en el Valle de Aburrá: Siata | prefiltro 6/10
+- El Colombiano Antioquia | Apareció con vida Alejandro en Medellín, pero ahora buscan desesperadamente a Violeta desaparecida en Bello | prefiltro 6/10
+- El Colombiano Antioquia | Pilas con los incendios en diciembre: llamas consumieron 750 metros cuadrados de una empresa en La Ceja | prefiltro 6/10
+- El Colombiano Antioquia | Alerta hospitalaria en Rionegro, Antioquia: urgencias están sobreocupadas hasta en 148% | prefiltro 6/10
+- Minuto30 | Capturan en Ituango a un hombre requerido por orden judicial por concierto para delinquir agravado | prefiltro 6/10
 - ELHERALDO.CO | Capturan en Montería a dos señalados atracadores a través de la modalidad del cambiazo de tarjetas bancarias | prefiltro 6/10
-- Chica Noticias | ¡Villa Cielo la sacó del estadio! Más de 400 personas disfrutaron de la Verbena Popular del Río | prefiltro 6/10
-- Chica Noticias | Invasión, impuestos y embargos: la batalla de los dueños de Altos de Canaán | prefiltro 6/10
+- Chica Noticias | “Autoridades estarán pendientes de lo que pase en el río Sinú después de las 6:00 p. m.”: Kerguelén | prefiltro 6/10
+- Río Noticias (Rionoticiasco) | Alcaldía y Gobernación trabajan en proyectos de acueductos para la zona rural de Montería | prefiltro 6/10
+- El Tiempo | Lluvia, granizo y quebradas en alerta roja: la furia del clima que dejó 22 emergencias en Medellín en solo 24  | prefiltro 6/10
+- Chica Noticias | Arranca la carrera por las alcaldías en Córdoba: dos movimientos ya buscan firmas para 2027 | prefiltro 6/10
+- Chica Noticias | Auditoría del ICBF destapó presunto entramado contractual por $8.158 millones en La Guajira | prefiltro 6/10
 - Chica Noticias | ¡EL ‘CALVO’ QUIERE VOLVER A LA DUMA! Negrete le daría la mano a Jairo López Saleme para regresar a la Asamblea | prefiltro 6/10
-- Chica Noticias | Comfacor abre capacitación gratuita en inteligencia artificial y transformación digital | prefiltro 6/10
-- Río Noticias (Rionoticiasco) | Accidente en la vía Cereté-Montería dejó a una mujer herida | prefiltro 6/10
-- Infobae | Predicción del estado del tiempo en Medellín para este lunes 23 de noviembre | prefiltro 5/10
-- El Meridiano Córdoba | Condenan a 23 exintegrantes de las Egc por 240 hechos cr!min4les | prefiltro 5/10
+- El Tiempo | Juzgados de Medellín respaldan al juez que compulsó copias contra De La Espriella por exhibir a 'Primo Gay' | prefiltro 5/10
+- La Razón (Córdoba) | Anla licencia proyectos petroleros en Casanare y Meta | prefiltro 5/10
+- Caracol Radio | Alejandro Sanz regresará a Medellín en el 2027 tras más de una década de ausencia | prefiltro 5/10
+- Revista Semana | Medellín sin pólvora: estas son las actividades que se realizarán para proteger a los animales | prefiltro 5/10
+- Q'hubo Medellín | Audios del VAR revelan que jugador de Nacional fue mal expulsado | prefiltro 5/10
+- Q'hubo Medellín | “No daban nada por mí”: Alci Acosta confesó que tiene cáncer | prefiltro 5/10
+- El Colombiano Antioquia | ¿Cómo llegó la congresista Verónica Estrada a lo más alto del Pacto Histórico? | prefiltro 5/10
+- Q'hubo Medellín | ¿Celebró el DIM que Wilmar Roldán no va a pitar el clásico paisa? | prefiltro 5/10
 - El Meridiano Córdoba | Golpe a ‘Los Costeños’: Gaula captura a presunto integrante con dinero en efectivo | prefiltro 5/10
 - El Meridiano Córdoba | La lancha chocó y un joven está desaparecido | prefiltro 5/10
+- El Meridiano Sucre | Ataque sicarial en billar de Corozal dejó un muerto y un herido | prefiltro 5/10
 - El Meridiano Sucre | Capturan a hombre por presunta violencia intrafamiliar | prefiltro 5/10
-- Q'hubo Medellín | Yaya Muñoz mostró cómo quedó su casa tras ser víctima de robo | prefiltro 5/10
-- La Razón (Córdoba) | Condenan a integrantes de una red que pagaba por recién nacidos y usaba documentos falsos para sacarlos del pa | prefiltro 5/10
-- La Razón (Córdoba) | Mafe Carrascal pide renuncia del director de la Dian y lo acusa de favorecer a De la Espriella | prefiltro 5/10
-- La Razón (Córdoba) | Obra de acueducto de $39.138 millones en Lorica queda lista: ahora Aqualia debe ponerla a funcionar | prefiltro 5/10
+- La Razón (Córdoba) | Colombia destinó $178,59 billones al Acuerdo de Paz en diez años, según De La Espriella | prefiltro 5/10
+- La Razón (Córdoba) | Satena unirá Medellín y Montería en 48 minutos | prefiltro 5/10
+- La Razón (Córdoba) | Montería estrenará su SETP en enero de 2027: la flota renovada llegaría en septiembre | prefiltro 5/10
+- El Colombiano Medellín | Guarda animalista de la Secretaría de Movilidad de Medellín murió tras estrellarse en su moto en el barrio Car | prefiltro 5/10
 - El Colombiano Antioquia | Pilas, que por desmonte de puente peatonal habrá cierres nocturnos en la avenida Las Vegas: estos serán los ho | prefiltro 5/10
-- Minuto30 | Recompensa de $70 millones busca pistas sobre los responsables de la masacre en Barbosa | prefiltro 5/10
-- Minuto30 | Le pidieron la cédula en La Gabriela y apareció una cuenta pendiente con la justicia | prefiltro 5/10
+- Minuto30 | «Volveré mucho más fuerte»: Désiré Doué rompe el silencio tras confirmarse su grave lesión | prefiltro 5/10
+- Minuto30 | Exconcejal de Remedios enfrenta cargos por presunta interferencia en un procedimiento de la Unipol | prefiltro 5/10
+- Minuto30 | Envían a prisión a presunto integrante de Los Playoneros por venta de drogas en Cali | prefiltro 5/10
+- LA RAZÓN.CO | “Todos a la U” ya tiene a 1.826 jóvenes de Montería estudiando la carrera que soñaban | prefiltro 5/10
+- Chica Noticias | Vaqueros de Montería presenta sus refuerzos internacionales para la temporada 2026-2027 | prefiltro 5/10
 - Chica Noticias | Más de 32.000 habitantes de Lorica se beneficiarán con nuevas redes de agua potable | prefiltro 5/10
-- Chica Noticias | ¡EL RITMO SE APODERÓ DE MONTERÍA! Así se vivió el segundo día de Tropical Fest | prefiltro 5/10
+- Chica Noticias | Tres personas resultaron afectadas en accidente vial entre San Carlos y Montería | prefiltro 5/10
 - Chica Noticias | ¡MONTERÍA SE LLENA DE SABOR! Llega el Festival de la Salchipapa con platos a solo $13.000 | prefiltro 5/10
-- Chica Noticias | VidaSinú se viste de Oro: recibe reconocimiento internacional por su atención oportuna a pacientes | prefiltro 5/10
-- Win Sports | Nacional toma decisión al confirmar entrada de hinchas de Medellín | prefiltro 5/10
-- Portafolio.co | ¿Habrá racionamiento de agua en Medellín? Así van las cuentas de EPM con su meta de ahorro | prefiltro 5/10
+- Chica Noticias | Maestría en Educación de Unisinú realiza I Congreso Nacional de Educación en Montería | prefiltro 5/10
+- Chica Noticias | Piden ayuda para encontrar a Duván Cañaveral, oriundo de Antioquia | prefiltro 5/10
+- Telemedellín | Lluvias de más de 29 horas dejaron decenas de emergencias en Medellín: las zonas más afectadas | prefiltro 5/10
 - Análisis Urbano | [Video] Allanamientos en Manrique, Medellín, dejan cuatro capturados por hurtos violentos | prefiltro 5/10
-- Análisis Urbano | [Video] Atraco en Alejandro Echavarría en Medellín terminó con dos capturados y una moto incautada | prefiltro 5/10
-- Chica Noticias | Unisinú alcanza nuevo logro académico: Ingeniería Civil recibe Acreditación en Alta Calidad | prefiltro 5/10
-- Chica Noticias | ¡EL ALTO SINÚ LE APUESTA AL TURISMO! Tierralta reunirá a empresarios y emprendedores en importante foro | prefiltro 5/10
-- Chica Noticias | ¡DICIEMBRE SE TIÑE DE AMARILLO! El aguardiente que pone a brindar a Colombia | prefiltro 5/10
-- Chica Noticias | Dos cámaras de fotodetección en menos de cinco kilómetros generan inquietud en San Antero | prefiltro 5/10
-- Chica Noticias | “Mi papá es lo mejor que ha tenido Colombia”: hija de Gustavo Petro genera debate con video bailando vallenato | prefiltro 5/10
+- Chica Noticias | ¡FUERZA, CHICO BAILARÍN! Su familia mantiene viva la esperanza en medio de su difícil recuperación | prefiltro 5/10
+- Chica Noticias | Agua potable y alcantarillado: Chinú avanza en proyectos para beneficiar a cientos de familias | prefiltro 5/10
+- Chica Noticias | ¡Orgullo cordobés! Asamblea Departamental reconoce a Miss Teen Córdoba | prefiltro 5/10
+- Chica Noticias | Cierre en la calle 41 por obras de recuperación vial, conozca el tramo afectado | prefiltro 5/10
+- Río Noticias (Rionoticiasco) | Montería implementará nuevo sistema de transporte público en enero de 2027 y proyecta compra de buses nuevos | prefiltro 5/10
+- Río Noticias (Rionoticiasco) | Habitantes bloquean vía en Sahagún por falta de agua | prefiltro 5/10
 - Río Noticias (Rionoticiasco) | ¡Alisten los paraguas! Pronostican lluvias en el Caribe colombiano desde el 27 de noviembre | prefiltro 5/10
-- Río Noticias (Rionoticiasco) | Alcaldía y Gobernación trabajan en proyectos de acueductos para la zona rural de Montería | prefiltro 5/10
 - Río Noticias (Rionoticiasco) | Gobernación realizó campaña de sensibilización vial en San Antero | prefiltro 5/10
-- Revista Semana | Tragedia en Antioquia: adolescente de 16 años murió tras ingresar a un balneario | prefiltro 4/10
-- Revista Semana | El FIPMed lucha por existir: “Pedimos que se respete nuestro derecho a seguir organizando el Festival” | prefiltro 4/10
-- Infobae Colombia | Carlos Lehder, ex capo del cartel de Medellín, quería registrar su propia marca y la SIC le dijo que no: es un | prefiltro 4/10
-- Q'hubo Medellín | Planee la semana: este es el pico y placa del 23 al 27 de noviembre | prefiltro 4/10
+- Revista Semana | Agreden a médico en Medellín: protegía a una auxiliar de hombre que perdió su cita por llegar tarde | prefiltro 4/10
+- Q'hubo Medellín | Otra polémica: congresista del PH habría falsificado su diplona | prefiltro 4/10
+- Caracol Radio | Finalizando el año, aumentan las denuncias de adolescentes desaparecidos en Medellín | prefiltro 4/10
+- Minuto30 | Rosalía elogió una canción de Rauw Alejandro y los fans hablaron de reconciliación | prefiltro 4/10
 - Caracol Radio | Concejales de Medellín pidieron al Gobierno $800.000 millones para aliviar la crisis de Afinia | prefiltro 4/10
 - Caracol Radio | Medellín inicia proceso para recuperar 15 terrenos públicos: Alcaldía aclara que no habrá desalojo | prefiltro 4/10
 - Caracol Radio | Más de 14.500 vendedores informales de Medellín acceden a programas de educación, vivienda y crédito | prefiltro 4/10
+- Q'hubo Medellín | Lo que dijo Jesurún del posible llamado a Villa ¿Se lavó las manos? | prefiltro 4/10
+- El Meridiano Córdoba | Lo encontraron muerto en El Basurero | prefiltro 4/10
+- El Meridiano Córdoba | Montería pone en marcha su nuevo Setp | prefiltro 4/10
+- El Meridiano Córdoba | Paseo terminó en tragedia, rescataron el cuerpo | prefiltro 4/10
 - El Meridiano Córdoba | Alcalde de Chinú gestiona proyectos de acueducto y alcantarillado ante el Gobierno Nacional | prefiltro 4/10
-- El Meridiano Córdoba | Etnika Danza llevó el folclor de Córdoba a un escenario internacional en Medellín | prefiltro 4/10
-- El Meridiano Córdoba | Desde Montería, ASD abre camino en el uso de la inteligencia artificial jurídica | prefiltro 4/10
-- El Meridiano Córdoba | Gobierno desembolsó 300 mil millones para pagar deuda | prefiltro 4/10
-- El Meridiano Córdoba | La Dian busca ampliar su atención a los colombianos residentes en Estados Unidos | prefiltro 4/10
-- El Meridiano Córdoba | Colombia por su segundo desafío | prefiltro 4/10
-- El Meridiano Córdoba | Pugilistas cordobeses a Bogotá | prefiltro 4/10
-- El Meridiano Córdoba | Afinia advierte que deuda oficial por $430 mil millones afecta inversiones en el servicio de energía | prefiltro 4/10
-- El Meridiano Córdoba | "Se acaba la vagabundería en las cámaras de Comercio" | prefiltro 4/10
 - El Meridiano Córdoba | En una riña terminó muerto con heridas de cuchillo | prefiltro 4/10
 - El Meridiano Córdoba | Mocarí 1 es la Reina Fit de las Fiestas del Río | prefiltro 4/10
-- El Meridiano Córdoba | La Policía en Córdoba no descansa: continuan trabajando la seguridad | prefiltro 4/10
 - El Meridiano Sucre | Las fotos del ‘amigo secreto’ de Verónica Alcocer: aparecen Agmeth Escaf y Mario Fernández Alcocer, señalados  | prefiltro 4/10
 - El Meridiano Sucre | Cuatro comunidades indígenas de Sampués participaron en el programa Creciendo con el Deporte 2026 | prefiltro 4/10
+- El Meridiano Sucre | Alejandro De la Ossa plantea impulsar el riego agrícola | prefiltro 4/10
 - El Meridiano Sucre | Toros inició con marca negativa y tendrá su prueba de fuego ante Caimanes | prefiltro 4/10
 - El Meridiano Sucre | Boxeador sanonofrino Andrés Pérez ganó dos títulos internacionales y fue recibido como héroe | prefiltro 4/10
 - El Meridiano Sucre | Francisco Hernández Sierra asume la gerencia de Almidones de Sucre | prefiltro 4/10
-- El Meridiano Sucre | Concejo de Sincelejo aprobó vigencias futuras para el PAE de 2028 | prefiltro 4/10
-- El Meridiano Sucre | Sucre lleva un triunfo y una derrota en el Campeonato Nacional de Béisbol Sub-10 | prefiltro 4/10
-- El Meridiano Sucre | Toros de Sincelejo cayó 4 carreras ante 2 frente a Leones de Barranquilla en el 20 de Enero | prefiltro 4/10
-- El Meridiano Sucre | Prensa Escuela llevó sus talleres a la I.E. Escuela Normal Superior de Corozal | prefiltro 4/10
-- El Meridiano Sucre | Ordenan al alcalde de Majagual a no cobrar y que entregue información | prefiltro 4/10
 - El Meridiano Sucre | Uno de los más buscados de Sucre por homicidio y concierto para delinquir | prefiltro 4/10
-- El Meridiano Sucre | Dos policías salieron expulsados de la motocicleta tras chocar con un automóvil | prefiltro 4/10
-- Q'hubo Medellín | ¡Peligroso! Le quitó el arma a la Policía e hirió a tres uniformados | prefiltro 4/10
-- La Razón (Córdoba) | Con tres camiones diarios de GLP, Cerro Matoso evita desde el 1 de noviembre que sus hornos se apaguen | prefiltro 4/10
-- El Colombiano Antioquia | Hasta 4 días sin agua: tormento de 35.000 habitantes de La Tablaza | prefiltro 4/10
-- El Colombiano Antioquia | Especial: Niños rodeados de veneno: el drama de escuelas en Urrao y Urabá | prefiltro 4/10
-- El Colombiano Antioquia | Así aplicarán primeras 10 eutanasias a hipopótamos | prefiltro 4/10
-- Minuto30 | Lluvias en el Valle de Aburrá dejaron tres episodios y 96 milímetros en San Cristóbal | prefiltro 4/10
-- Minuto30 | Una amenaza con reloj: hallan explosivo en Caparrapí junto a tubería que transporta gas | prefiltro 4/10
-- Minuto30 | «Vale la pena si es consecuente con lo que tú sientes»: Marcela Carvajal habló de su separación | prefiltro 4/10
-- Minuto30 | Lluvias causaron retrasos en TransMilenio; se normaliza paso en calle 80 con Caracas | prefiltro 4/10
-- Minuto30 | Alumbrados de Itagüí: encendido el 28 de noviembre con rumba y artistas en el parque | prefiltro 4/10
-- Minuto30 | EPM suspenderá la energía el miércoles 25 de noviembre en todo Puerto Berrío por trabajos en la subestación | prefiltro 4/10
-- Minuto30 | Buscan a Violeta Muñoz Pineda, desaparecida en Niquía, Bello | prefiltro 4/10
-- Minuto30 | Bogotá, a guardar luz: Galán ordena ahorro de energía obligatorio en entidades públicas | prefiltro 4/10
+- Q'hubo Medellín | EN VIDEO: Atacaron con drones estación de Policía en Cúcuta | prefiltro 4/10
+- Q'hubo Medellín | Yaya Muñoz mostró cómo quedó su casa tras ser víctima de robo | prefiltro 4/10
+- Q'hubo Medellín | Gobierno investigará a empresas de internet que operan en cárceles | prefiltro 4/10
+- La Razón (Córdoba) | Businú zarpa en fase piloto el 10 de diciembre con viajes gratis de sur a norte por el río Sinú | prefiltro 4/10
+- El Colombiano Antioquia | La antioqueña Catalina Sánchez recibió la Orden al Mérito Débora Arango en Medellín | prefiltro 4/10
+- Minuto30 | Iba deslizándose por el barandal del colegio: niño de 11 años murió al caer de un tercer piso | prefiltro 4/10
+- Minuto30 | ¡Urgente! Alaska, una husky de 11 años, quedó huérfana de su «mamá humana» y necesita quien la adopte | prefiltro 4/10
+- Minuto30 | Miss Universo 2026: canales y horarios para seguir la coronación este martes desde Colombia | prefiltro 4/10
+- Minuto30 | Alerta médica en Fráncfort: unos 30 pasajeros de dos vuelos de Condor llegaron enfermos desde el Caribe | prefiltro 4/10
+- Minuto30 | Britney Spears viaja a Londres y aviva rumores de nueva música sin confirmar un disco | prefiltro 4/10
+- Minuto30 | El árbol de Navidad de la Casa Blanca 2026 ya llegó: un abeto de 18 pies de Wisconsin | prefiltro 4/10
+- Minuto30 | ¡Mire al cielo! La superluna de Castor llega este 24 de noviembre: hora en Colombia | prefiltro 4/10
+- Noticias | Royal Enfield fortalece su presencia en el Caribe con concesionario en Montería | prefiltro 4/10
+- Zona Cero | Nueva ruta aérea conectará a Montería con Medellín en 56 minutos | prefiltro 4/10
 - Revista Semana | “Estamos Firmes por la Patria”: Policía de Tránsito conmueve con gesto viral a familia varada | prefiltro 4/10
 - Minuto30 | Pensó que lo iban a multar, pero los policías le cambiaron la llanta: el gesto viral en vía a Montería | prefiltro 4/10
-- Telemedellín | Lluvias de más de 29 horas dejaron decenas de emergencias en Medellín: las zonas más afectadas | prefiltro 4/10
+- río noticias | VidaSinú alcanza nueva distinción internacional Oro por atención de pacientes con ACV en Montería | prefiltro 4/10
+- Chica Noticias | Invasión, impuestos y embargos: la batalla de los dueños de Altos de Canaán | prefiltro 4/10
+- Win Sports | Nacional toma decisión al confirmar entrada de hinchas de Medellín | prefiltro 4/10
 - Noticias Caracol | ¿Busca dónde estudiar en Medellín? Hay cerca de 13.000 cupos para el primer semestre de 2027 | prefiltro 4/10
+- Portafolio.co | ¿Habrá racionamiento de agua en Medellín? Así van las cuentas de EPM con su meta de ahorro | prefiltro 4/10
 - El Tiempo | Denuncian que bandas criminales en Medellín ahora cobran extorsiones de $2,5 millones bajo la excusa de un sup | prefiltro 4/10
+- MiOriente | Emergencia por lluvias en Medellín: nivel rojo en La Iguaná y crecientes súbitas amenazan varios sectores | prefiltro 4/10
 - El Tiempo | '¡Todos Somos Criollos!': más de 40 perros y gatos encontraron hogar en la última adoptatón del año en Medellí | prefiltro 4/10
-- Caracol Radio | Daniel Quintero “exigió” la renuncia del presidente Abelardo De La Espriella | prefiltro 4/10
-- La FM | Hasta un millón de pesos por abrir un negocio: senadora del Centro Democrático denuncia extorsión en la Comuna | prefiltro 4/10
 - MiOriente | “Unos estúpidos, están identificados”: alcalde de Medellín sobre encapuchados que lanzaron bomba molotov contr | prefiltro 4/10
-- MiOriente | Hallan un cuerpo sin vida a un costado de la autopista Medellín–Bogotá. | prefiltro 4/10
-- Análisis Urbano | Policía conmemora el Día Nacional de la Vigilancia y Seguridad Privada en Medellín | prefiltro 4/10
-- Win Sports | Medellín sorprende al opinar del árbitro para el juego vs. Nacional | prefiltro 4/10
-- Caracol Radio | Medellín gradúa a 400 jóvenes en liderazgo y formación ciudadana | prefiltro 3/10
+- Caracol Radio | Abogado de Luz Verónica Estrada anunció su defensa y denunció “cacería” contra la congresista | prefiltro 3/10
+- Claro Sports | Posibles alineaciones de Atlético Nacional vs Independiente Medellín por cuadrangulares de Liga BetPlay 2026-I | prefiltro 3/10
+- Win Sports | Medellín sorprende al opinar del árbitro para el juego vs. Nacional | prefiltro 3/10
+- El Meridiano Córdoba | Le imputaron cargos | prefiltro 3/10
+- El Meridiano Córdoba | Listas para pelear el título | prefiltro 3/10
+- El Meridiano Córdoba | Cúpula de Findeter es monteriana | prefiltro 3/10
+- El Meridiano Córdoba | Nuevas oportunidades para exportar carne | prefiltro 3/10
+- El Meridiano Córdoba | El sector comercio se unió a las Fiestas del Río | prefiltro 3/10
+- El Meridiano Córdoba | El agua es imbebible | prefiltro 3/10
+- El Meridiano Córdoba | "Saben que su final se acerca", dijo sobre atentados | prefiltro 3/10
+- El Meridiano Córdoba | Vaqueros presenta su artillería extranjera | prefiltro 3/10
+- El Meridiano Córdoba | Hoy continúa el juicio oral | prefiltro 3/10
+- El Meridiano Córdoba | Cerro Matoso advierte que en abril se reactivaría el segundo horno | prefiltro 3/10
+- El Meridiano Córdoba | Suspendida para que no interfiera en proceso | prefiltro 3/10
+- El Meridiano Córdoba | Declaración contra Petro será una prueba clave en juicio | prefiltro 3/10
+- El Meridiano Córdoba | Jornada de clásicos encienden la Liga | prefiltro 3/10
+- El Meridiano Córdoba | Planean proyectos | prefiltro 3/10
+- El Meridiano Córdoba | El Presidente defendió a su estratega | prefiltro 3/10
+- El Meridiano Córdoba | Etnika Danza llevó el folclor de Córdoba a un escenario internacional en Medellín | prefiltro 3/10
+- El Meridiano Córdoba | Desde Montería, ASD abre camino en el uso de la inteligencia artificial jurídica | prefiltro 3/10
+- El Meridiano Córdoba | La Dian busca ampliar su atención a los colombianos residentes en Estados Unidos | prefiltro 3/10
+- El Meridiano Córdoba | Colombia por su segundo desafío | prefiltro 3/10
+- El Meridiano Córdoba | Pugilistas cordobeses a Bogotá | prefiltro 3/10
+- El Meridiano Córdoba | "Se acaba la vagabundería en las cámaras de Comercio" | prefiltro 3/10
 - El Meridiano Córdoba | Milagro Week: las oportunidades para Córdoba y Sucre | prefiltro 3/10
 - El Meridiano Córdoba | Mario José es la víctima 302 de los accidentes en Córdoba | prefiltro 3/10
-- El Meridiano Córdoba | Córdoba se sigue levantando del frente frío | prefiltro 3/10
 - El Meridiano Córdoba | La erosión avanza en Nariño y las respuestas no llegan | prefiltro 3/10
 - El Meridiano Sucre | ¡Los berrugueros ya tienen su puesto de salud, Alcaldesa Marta Cantillo les cumplió! | prefiltro 3/10
+- El Meridiano Sucre | Estudiantes de la I.E. de Galeras participaron en jornadas formativas de Prensa Escuela | prefiltro 3/10
 - El Meridiano Sucre | Academia Budoka ganó 16 medallas en la Copa Ciudad de Santa Marta de Karate Do | prefiltro 3/10
-- El Meridiano Sucre | Alejandro De la Ossa plantea impulsar el riego agrícola | prefiltro 3/10
-- El Meridiano Sucre | Sincelejo se vistió de fiesta: 18 candidatas recibieron sus bandas rumbo al 20 de Enero 2027 | prefiltro 3/10
+- El Meridiano Sucre | San Antonio de Palmito le apuesta a mejorar la movilidad con nuevas pavimentaciones | prefiltro 3/10
+- El Meridiano Sucre | Concejo de Sincelejo aprobó vigencias futuras para el PAE de 2028 | prefiltro 3/10
+- El Meridiano Sucre | Sucre lleva un triunfo y una derrota en el Campeonato Nacional de Béisbol Sub-10 | prefiltro 3/10
+- El Meridiano Sucre | Toros de Sincelejo cayó 4 carreras ante 2 frente a Leones de Barranquilla en el 20 de Enero | prefiltro 3/10
+- El Meridiano Sucre | Prensa Escuela llevó sus talleres a la I.E. Escuela Normal Superior de Corozal | prefiltro 3/10
+- El Meridiano Sucre | Ordenan al alcalde de Majagual a no cobrar y que entregue información | prefiltro 3/10
 - El Meridiano Sucre | Hospital del Golfo, va en un 89 % de avance | prefiltro 3/10
-- El Meridiano Sucre | Tras asalto en La Selva, alcalde Yahir Acuña anuncia acciones para identificar a responsables | prefiltro 3/10
-- Q'hubo Medellín | EN VIDEO: Aguaceros causaron estragos en el occidente de Medellín | prefiltro 3/10
+- Q'hubo Medellín | Planee la semana: este es el pico y placa del 23 al 27 de noviembre | prefiltro 3/10
 - Q'hubo Medellín | “Casi me voy de este mundo”: el susto de Johanna Fadul al confundir un medicamento | prefiltro 3/10
 - Q'hubo Medellín | Nacional mostró con cifras, que Jhon Ospina se le tiene montada | prefiltro 3/10
 - Q'hubo Medellín | ¿Qué le conviene a Envigado? Este lunes será la final de la B entre el Boca de Cali y Quindío | prefiltro 3/10
 - Q'hubo Medellín | ¿Un globo? En La Ceja se prendió una empresa inmunizadora de madera | prefiltro 3/10
-- Q'hubo Medellín | A Jan Carlos lo mataron de una puñalada en el pecho en Aranjuez | prefiltro 3/10
-- El Colombiano Antioquia | ¡Ojo! Incidente con vehículo de carga pesada en Bello dejó una vía cerrada y tumbó postes y cables de luz | prefiltro 3/10
-- El Colombiano Antioquia | Denuncian agresiones a periodista y habitantes durante conversatorio del Área Metropolitana en Guarne | prefiltro 3/10
-- El Colombiano Antioquia | Plaguicidas amenazan la salud de más de 17.500 niños y 900 profesores en escuelas rurales de Antioquia | prefiltro 3/10
-- La Revista De Motos | Royal Enfield Montería fortalece su presencia en el Caribe | prefiltro 3/10
-- LA RAZÓN.CO | Volqueta arrolló a una joven motociclista en Montería | prefiltro 3/10
-- Policía Nacional de Colombia | Acompañamiento, protección y tranquilidad a todos los asistentes | prefiltro 3/10
-- REVISTA AUTOSMAS | Royal Enfield abre las puertas de un nuevo espacio para la comunidad motera en Montería | prefiltro 3/10
-- CW+ Noticias | De La Espriella: “La palabra se cumple”; el papá de un niño de Montería tiene empleo | prefiltro 3/10
-- LA RAZÓN.CO | Kerguelén pide estirar el Tren del Caribe hasta Montería y Dumek le da la bienvenida al “sueño regional” | prefiltro 3/10
-- LA RAZÓN.CO | Cambiazo de tarjetas en Montería: caen dos hombres con 37 plásticos y presunta escopolamina | prefiltro 3/10
-- LA RAZÓN.CO | Colegio Santa María de Montería tendrá nueva cubierta y mejoras en aulas | prefiltro 3/10
-- Análisis Urbano | Una vieja discusión habría terminado en tragedia: asesinan a Jean Carlos en Montería | prefiltro 3/10
-- Chica Noticias | ¡SIGUE LA FIESTA! Businú y elección de la Reina del Comercio protagonizan la agenda de las Fiestas del Río est | prefiltro 3/10
-- Chica Noticias | Jorge Negrete vuelve al ruedo político en Lorica y mueve sus fichas para 2027 | prefiltro 3/10
-- Chica Noticias | Choque de motos habría dejado una mujer lesionada frente a Plaza de la Castellana | prefiltro 3/10
-- Chica Noticias | ¡NUEVA SOBERANA! Tatiana Erazo Yepes es la nueva Reina del Ejército en las Fiestas del Río 2026 | prefiltro 3/10
-- Chica Noticias | Camioneta perdió el control y cayó a un canal entre Buenavista y Homecenter | prefiltro 3/10
-- Chica Noticias | Un recuerdo que hoy conmueve: las últimas imágenes de Leonardo Echeverry antes de la tragedia | prefiltro 3/10
-- Chica Noticias | No cesa la búsqueda de Leonardo Echeverry tras accidente fluvial en el río Sinú | prefiltro 3/10
-- Alcaldía de Medellín | ¡El talento joven sintonizado con Medellín! Así fue el primer Hackathon de Datos ITM, una apuesta conjunta por | prefiltro 3/10
-- El Colombiano | Alejandro Sanz vuelve a Medellín después de casi 11 años | El Colombiano | prefiltro 3/10
-- PrimerTiempo.CO | Medellín encendió las alarmas: Juanfer Quintero podría perderse el clásico ante Nacional | prefiltro 3/10
-- MiOriente | Lluvias en Medellín y el Valle de Aburrá: qué dice el SIATA sobre los aguaceros y hasta cuándo irán | prefiltro 3/10
-- Alcaldía de Medellín | Medellín Live Tour, turismo con esencia local que se fortalece gracias al Plan Padrino 2026 | prefiltro 3/10
-- Telemedellín | Comic Con Medellín: menores de 7 y mayores de 70 no pagan | prefiltro 3/10
-- … y 220 más
-### fuera_de_interes (4)
+- Q'hubo Medellín | Noche de terror en Barbosa: mataron a tres hombres y una mujer dentro de un billar | prefiltro 3/10
+- … y 120 más
+### contenido_sexual (1)
+- Chica Noticias | Fiscalía sumará nuevos hechos a la imputación contra Jorge Alfredo Vargas por presunto acoso sexual | revisión IA
+### fuera_de_interes (3)
 - Q'hubo Medellín | ¿Domingo ricachón? Resultados de las loterías del 21 de noviembre | lotería
 - Q'hubo Medellín | ¿Jugó chance? Vea los resultados de las loterías del 22 de noviembre | lotería
 - Revista Semana | Nacional vs. Medellín: hora y dónde ver el duelo de James Rodríguez contra Juanfer Quintero | dónde ver
-- www.diarioadn.co | Resultados Lotería de Medellín, viernes 20 de noviembre de 2026: número ganador y premios millonarios del últi | lotería
 ### ya_publicada (1)
 - Q'hubo Medellín | MinTIC pidió a X suspender la cuenta de Gustavo Petro: ¿por qué? | ver más: historia ya publicada
